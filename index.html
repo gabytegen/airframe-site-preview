@@ -56,7 +56,7 @@ body {
 #nav.dark { background: rgba(6,7,26,.85); backdrop-filter: blur(20px); padding: 14px 48px; border-color: var(--border-d); }
 #nav.light { background: rgba(247,245,242,.88); backdrop-filter: blur(20px); padding: 14px 48px; border-color: var(--border-l); }
 
-.nav-logo { font-size: 16px; font-weight: 300; letter-spacing: -.02em; color: var(--text-light); text-decoration: none; transition: color .3s; }
+.nav-logo { font-size: 16px; font-weight: 300; letter-spacing: -.02em; color: var(--text-light); text-decoration: none; transition: color .3s; display: flex; align-items: center; gap: 7px; }
 .nav-logo .dot { color: var(--orange); }
 #nav.light .nav-logo { color: var(--text-dark); }
 
@@ -1593,7 +1593,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
 <!-- NAV -->
 <nav id="nav">
-  <a href="#hero" class="nav-logo">Airframe<span class="dot">.</span></a>
+  <a href="#hero" class="nav-logo"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0"><polygon fill="currentColor" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/><polygon fill="currentColor" points="8 4.54 8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54 8 4.54"/><polygon fill="currentColor" points="12 11.46 16 11.46 12 4.54 8 4.54 8 4.54 12 11.46"/></svg>Airframe<span class="dot">.</span></a>
   <ul class="nav-links">
     <li><a href="#platform" data-section="platform">Platform</a></li>
     <li><a href="#discover" data-section="discover">Discover</a></li>
@@ -1898,17 +1898,17 @@ h2.editorial.lt { color: var(--text-dark); }
                 <span style="margin-left:auto;font-size:7px;font-weight:500;padding:1px 5px;border-radius:100px;background:rgba(0,0,0,.06);color:rgba(26,25,8,.42);letter-spacing:.04em;text-transform:uppercase">Incumbent</span>
               </div>
               <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:9px">
-                <span style="font-size:26px;font-weight:200;color:#F15025;letter-spacing:-.04em;line-height:1">72</span>
+                <span id="disc-score-a" style="font-size:26px;font-weight:200;color:#F15025;letter-spacing:-.04em;line-height:1">0</span>
                 <span style="font-size:9px;color:rgba(26,25,8,.28)">/100</span>
               </div>
               <div style="font-size:7.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,25,8,.28);margin-bottom:6px">Dimensions</div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Integrations</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#F15025;width:88%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">88</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Ease of use</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#F15025;width:62%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">62</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Model quality</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#F15025;width:70%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">70</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Enterprise fit</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#F15025;width:91%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">91</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Integrations</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="88" style="height:3px;border-radius:2px;background:#F15025;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">88</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Ease of use</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="62" style="height:3px;border-radius:2px;background:#F15025;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">62</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Model quality</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="70" style="height:3px;border-radius:2px;background:#F15025;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">70</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Enterprise fit</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="91" style="height:3px;border-radius:2px;background:#F15025;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">91</span></div>
               <div style="background:rgba(0,0,0,.03);border-radius:3px;padding:6px 8px;margin-top:8px">
                 <div style="font-size:7.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(26,25,8,.32);margin-bottom:3px">Peer adoption</div>
-                <div style="font-size:17px;font-weight:200;color:#1A1908;letter-spacing:-.03em">39%</div>
+                <div id="disc-peer-a" style="font-size:17px;font-weight:200;color:#1A1908;letter-spacing:-.03em">0%</div>
                 <div style="font-size:8px;color:rgba(26,25,8,.4);margin-top:1px;line-height:1.35">of 847 matched &middot; regulated industries</div>
               </div>
             </div>
@@ -1921,17 +1921,17 @@ h2.editorial.lt { color: var(--text-dark); }
                 <span style="margin-left:auto;font-size:7px;font-weight:500;padding:1px 5px;border-radius:100px;background:rgba(6,229,160,.15);color:#069D70;letter-spacing:.04em;text-transform:uppercase">Rising</span>
               </div>
               <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:9px">
-                <span style="font-size:26px;font-weight:200;color:#069D70;letter-spacing:-.04em;line-height:1">89</span>
+                <span id="disc-score-b" style="font-size:26px;font-weight:200;color:#069D70;letter-spacing:-.04em;line-height:1">0</span>
                 <span style="font-size:9px;color:rgba(26,25,8,.28)">/100</span>
               </div>
               <div style="font-size:7.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,25,8,.28);margin-bottom:6px">Dimensions</div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Integrations</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#06E5A0;width:74%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">74</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Ease of use</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#06E5A0;width:94%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">94</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Model quality</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#06E5A0;width:96%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">96</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Enterprise fit</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#06E5A0;width:67%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">67</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Integrations</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="74" style="height:3px;border-radius:2px;background:#06E5A0;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">74</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Ease of use</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="94" style="height:3px;border-radius:2px;background:#06E5A0;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">94</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Model quality</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="96" style="height:3px;border-radius:2px;background:#06E5A0;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">96</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Enterprise fit</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="67" style="height:3px;border-radius:2px;background:#06E5A0;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">67</span></div>
               <div style="background:rgba(0,0,0,.03);border-radius:3px;padding:6px 8px;margin-top:8px">
                 <div style="font-size:7.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(26,25,8,.32);margin-bottom:3px">Peer adoption</div>
-                <div style="font-size:17px;font-weight:200;color:#1A1908;letter-spacing:-.03em">61%</div>
+                <div id="disc-peer-b" style="font-size:17px;font-weight:200;color:#1A1908;letter-spacing:-.03em">0%</div>
                 <div style="font-size:8px;color:rgba(26,25,8,.4);margin-top:1px;line-height:1.35">of 847 matched &middot; greenfield teams</div>
               </div>
             </div>
@@ -1996,9 +1996,9 @@ h2.editorial.lt { color: var(--text-dark); }
       <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Where your AI decisions get made</h2>
       <p class="section-body lt" data-reveal data-delay="2">A new capability to evaluate. A case to build for the board. A renewal on the horizon. Studio gives every initiative a structure. Airframe's intelligence backs it up from day one.</p>
       <ul class="feature-list">
-        <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>Templates for every scenario: compare, replace, audit, build vs. buy</li>
-        <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>Airframe researches while you make the call</li>
-        <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Every initiative ends in a brief, recommendation, or decision memo</li>
+        <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>Describe the scenario. Airframe detects the decision structure and builds the initiative.</li>
+        <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>It populates what it already knows and asks only for what it doesn't.</li>
+        <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Every initiative ends in a recommendation. Not a framework. An actual call.</li>
       </ul>
     </div>
     <div class="studio-mockup-wrap mockup-wrap-studio" data-reveal data-delay="2">
