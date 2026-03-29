@@ -1154,7 +1154,14 @@ h2.editorial.lt { color: var(--text-dark); }
   .nav-burger { display: flex; }
 
   .hero-inner { grid-template-columns: 1fr; padding: 0 32px; padding-top: 100px; padding-bottom: 72px; }
-  .hero-right { display: none; }
+  .hero-right { display: flex; justify-content: center; overflow: hidden; }
+  .hero-vis-outer { padding-left: 0; justify-content: center; width: 100%; }
+  .hero-vis-scene { width: 100%; height: auto; overflow: hidden; }
+  .hero-vis-scene::before, .hero-vis-scene::after { display: none; }
+  .hero-vis-stack { position: relative; inset: auto; padding-top: 0; animation: heroVisMobile 7s ease-in-out infinite; justify-content: center; width: 100%; }
+  .hero-vis-card-stack { width: 100%; min-width: 0; }
+  .hvc-main { width: 100%; min-width: 0; box-sizing: border-box; }
+  .hero-vis-reflection { display: none; }
 
   .prob-inner { grid-template-columns: 1fr; padding: 80px 32px; gap: 40px; }
   .prob-visual { display: none; }
@@ -1192,6 +1199,11 @@ h2.editorial.lt { color: var(--text-dark); }
   .hero-sub { font-size: 16px; margin-bottom: 36px; }
   .hero-actions { flex-direction: column; align-items: flex-start; gap: 16px; }
   .hero-btn { width: 100%; text-align: center; padding: 15px 28px; font-size: 14px; }
+  .hero-vis-outer { padding: 0; }
+  .hero-vis-scene { overflow: hidden; }
+  .hvc-main { font-size: 11px; }
+  .hvc-t-score { font-size: 22px; }
+  .hvc-peer-pct { font-size: 18px; }
 
   /* Sections */
   .prob-inner,
@@ -1282,6 +1294,10 @@ h2.editorial.lt { color: var(--text-dark); }
   0%,100% { transform: perspective(1300px) rotateX(5deg) rotateY(-13deg) rotateZ(1deg) translateY(0px); }
   50%      { transform: perspective(1300px) rotateX(3deg) rotateY(-10deg) rotateZ(.6deg) translateY(-14px); }
 }
+@keyframes heroVisMobile {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
 
 /* Stack wrapper — same width as main card, ghosts overflow to bottom-right */
 .hero-vis-card-stack {
@@ -1293,6 +1309,7 @@ h2.editorial.lt { color: var(--text-dark); }
 /* ── MAIN CARD ── */
 .hvc-main {
   position: relative; z-index: 10;
+  overflow: hidden;
   width: 374px;
   background: linear-gradient(150deg, #161722 0%, #0f1019 50%, #0c0d17 100%);
   border-radius: 10px;
@@ -1350,6 +1367,30 @@ h2.editorial.lt { color: var(--text-dark); }
   border: 1px solid rgba(6,229,160,.25);
   border-radius: 3px;
   padding: 3px 8px;
+  transition: color .4s ease, background .4s ease, border-color .4s ease;
+}
+.hvc-badge-analyzing {
+  color: rgba(255,255,255,.38);
+  background: rgba(255,255,255,.05);
+  border-color: rgba(255,255,255,.12);
+}
+.hvc-badge-analyzing .hvc-badge-dot {
+  background: rgba(255,255,255,.35);
+  box-shadow: none;
+}
+@keyframes scan {
+  0%   { transform: translateX(-110%); }
+  100% { transform: translateX(110%); }
+}
+.hvc-brief-scan {
+  position: absolute; inset: 0; z-index: 20; pointer-events: none; overflow: hidden;
+}
+.hvc-brief-scan::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,.03) 50%, transparent 100%);
+  transform: translateX(-110%);
+  animation: scan 1.6s cubic-bezier(.4,0,.2,1) .3s forwards;
 }
 .hvc-badge-dot {
   width: 5px; height: 5px; border-radius: 50%;
@@ -1535,6 +1576,17 @@ h2.editorial.lt { color: var(--text-dark); }
 .ha-context a { color: var(--orange); text-decoration: none; }
 .ha-context a:hover { text-decoration: underline; }
 
+/* ── HERO CARD MOBILE OVERRIDES (must come after .hvc-main base rule) ── */
+@media (max-width: 960px) {
+  .hero-vis-card-stack { width: 100%; min-width: 0; }
+  .hvc-main { width: 100% !important; min-width: 0; box-sizing: border-box; }
+}
+@media (max-width: 640px) {
+  .hvc-main { font-size: 11px !important; }
+  .hvc-t-score { font-size: 22px !important; }
+  .hvc-peer-pct { font-size: 18px !important; }
+}
+
 </style>
 </head>
 <body>
@@ -1598,6 +1650,9 @@ h2.editorial.lt { color: var(--text-dark); }
             <!-- Main card -->
             <div class="hvc-main" style="position:relative;z-index:10;">
 
+              <!-- Brief scan overlay -->
+              <div class="hvc-brief-scan" aria-hidden="true"></div>
+
               <!-- Window chrome -->
               <div class="hvc-chrome">
                 <div class="hvc-dots">
@@ -1606,9 +1661,9 @@ h2.editorial.lt { color: var(--text-dark); }
                   <span class="hvc-dot hvc-dot-g"></span>
                 </div>
                 <span class="hvc-chrome-title">Airframe Studio</span>
-                <div class="hvc-badge-ready">
+                <div class="hvc-badge-ready hvc-badge-analyzing">
                   <span class="hvc-badge-dot"></span>
-                  Decision ready
+                  Analyzing...
                 </div>
               </div>
 
@@ -1625,14 +1680,14 @@ h2.editorial.lt { color: var(--text-dark); }
               <div class="hvc-compare">
                 <div class="hvc-tool-card">
                   <div class="hvc-t-name">GitHub Copilot</div>
-                  <div class="hvc-t-score" data-target="72">0</div>
+                  <div class="hvc-t-score" data-target="72">—</div>
                   <div class="hvc-t-bar"><div class="hvc-t-bar-fill dim" data-w="72%"></div></div>
                   <div class="hvc-t-stacks">48.2K stacks &nbsp;·&nbsp; Enterprise</div>
                 </div>
                 <div class="hvc-vs-label">vs</div>
                 <div class="hvc-tool-card w">
                   <div class="hvc-t-name">Cursor <span class="hvc-t-arrow">↑</span></div>
-                  <div class="hvc-t-score" data-target="89">0</div>
+                  <div class="hvc-t-score" data-target="89">—</div>
                   <div class="hvc-t-bar"><div class="hvc-t-bar-fill bright" data-w="89%"></div></div>
                   <div class="hvc-t-stacks">31.7K stacks &nbsp;·&nbsp; Rising fast</div>
                 </div>
@@ -1647,7 +1702,7 @@ h2.editorial.lt { color: var(--text-dark); }
                 <div class="hvc-peer-match">Filtered to your company size and stack</div>
                 <div class="hvc-peer-bar-row">
                   <div class="hvc-peer-track"><div class="hvc-peer-fill"></div></div>
-                  <div class="hvc-peer-pct" data-target="61">0%</div>
+                  <div class="hvc-peer-pct" data-target="61">—</div>
                 </div>
                 <div class="hvc-peer-note">chose <strong>Cursor</strong> for greenfield engineering teams &nbsp;·&nbsp; Copilot dominant in regulated industries</div>
               </div>
@@ -1812,7 +1867,7 @@ h2.editorial.lt { color: var(--text-dark); }
         <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Compare any tool against what you already run</li>
       </ul>
     </div>
-    <div class="mockup-wrap mockup-wrap-disc" data-reveal data-delay="2" style="padding: 16px 24px 40px">
+    <div class="mockup-wrap mockup-wrap-disc" data-reveal data-delay="2" style="padding: 16px 24px 80px">
       <div class="mockup mockup-lt" id="discover-mockup">
         <div class="browser-chrome chrome-lt">
           <div class="browser-dots"><div class="bdot bdot-r"></div><div class="bdot bdot-y"></div><div class="bdot bdot-g"></div></div>
@@ -1822,7 +1877,79 @@ h2.editorial.lt { color: var(--text-dark); }
           <span class="app-brand lt">Airframe<span class="dot">.</span></span>
           <div class="spacer"></div><div class="app-avatar">MS</div>
         </div>
-        <div class="disc-mockup-body" id="disc-scene-body"></div>
+        <div id="disc-compare-view" style="display:flex;flex-direction:column;background:#F5F5F5;min-height:280px">
+          <!-- tabs -->
+          <div style="padding:8px 12px 0;background:#FAFAFA;border-bottom:1px solid rgba(0,0,0,.07)">
+            <div style="font-size:8px;color:rgba(26,25,8,.35);letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px">Discover &rsaquo; AI / ML &rsaquo; <span style="color:rgba(26,25,8,.72)">Compare</span></div>
+            <div style="display:flex">
+              <div style="font-size:9.5px;padding:5px 11px;color:rgba(26,25,8,.38);border-bottom:2px solid transparent">Browse</div>
+              <div style="font-size:9.5px;padding:5px 11px;color:#1A1908;border-bottom:2px solid #F15025;font-weight:500">Compare</div>
+              <div style="font-size:9.5px;padding:5px 11px;color:rgba(26,25,8,.38);border-bottom:2px solid transparent">Trending</div>
+              <div style="font-size:9.5px;padding:5px 11px;color:rgba(26,25,8,.38);border-bottom:2px solid transparent">Peer picks</div>
+            </div>
+          </div>
+          <!-- two-col -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;flex:1">
+            <!-- Copilot -->
+            <div style="padding:11px 12px;border-right:1px solid rgba(0,0,0,.07);background:#fff">
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+                <div style="width:20px;height:20px;border-radius:4px;background:#1A1908;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;flex-shrink:0">GH</div>
+                <span style="font-size:11px;font-weight:500;color:#1A1908">Copilot</span>
+                <span style="margin-left:auto;font-size:7px;font-weight:500;padding:1px 5px;border-radius:100px;background:rgba(0,0,0,.06);color:rgba(26,25,8,.42);letter-spacing:.04em;text-transform:uppercase">Incumbent</span>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:9px">
+                <span style="font-size:26px;font-weight:200;color:#F15025;letter-spacing:-.04em;line-height:1">72</span>
+                <span style="font-size:9px;color:rgba(26,25,8,.28)">/100</span>
+              </div>
+              <div style="font-size:7.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,25,8,.28);margin-bottom:6px">Dimensions</div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Integrations</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#F15025;width:88%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">88</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Ease of use</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#F15025;width:62%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">62</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Model quality</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#F15025;width:70%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">70</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Enterprise fit</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#F15025;width:91%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">91</span></div>
+              <div style="background:rgba(0,0,0,.03);border-radius:3px;padding:6px 8px;margin-top:8px">
+                <div style="font-size:7.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(26,25,8,.32);margin-bottom:3px">Peer adoption</div>
+                <div style="font-size:17px;font-weight:200;color:#1A1908;letter-spacing:-.03em">39%</div>
+                <div style="font-size:8px;color:rgba(26,25,8,.4);margin-top:1px;line-height:1.35">of 847 matched &middot; regulated industries</div>
+              </div>
+            </div>
+            <!-- Cursor -->
+            <div style="padding:11px 12px;background:#fff">
+              <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
+                <div style="width:20px;height:20px;border-radius:4px;background:#0A0A0A;display:flex;align-items:center;justify-content:center;font-size:7px;font-weight:700;color:#fff;flex-shrink:0">Cu</div>
+                <span style="font-size:11px;font-weight:500;color:#1A1908">Cursor</span>
+                <span style="font-size:9px;color:#06E5A0">&#8593;</span>
+                <span style="margin-left:auto;font-size:7px;font-weight:500;padding:1px 5px;border-radius:100px;background:rgba(6,229,160,.15);color:#069D70;letter-spacing:.04em;text-transform:uppercase">Rising</span>
+              </div>
+              <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:9px">
+                <span style="font-size:26px;font-weight:200;color:#069D70;letter-spacing:-.04em;line-height:1">89</span>
+                <span style="font-size:9px;color:rgba(26,25,8,.28)">/100</span>
+              </div>
+              <div style="font-size:7.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,25,8,.28);margin-bottom:6px">Dimensions</div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Integrations</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#06E5A0;width:74%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">74</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Ease of use</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#06E5A0;width:94%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">94</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Model quality</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#06E5A0;width:96%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">96</span></div>
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Enterprise fit</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div style="height:3px;border-radius:2px;background:#06E5A0;width:67%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">67</span></div>
+              <div style="background:rgba(0,0,0,.03);border-radius:3px;padding:6px 8px;margin-top:8px">
+                <div style="font-size:7.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(26,25,8,.32);margin-bottom:3px">Peer adoption</div>
+                <div style="font-size:17px;font-weight:200;color:#1A1908;letter-spacing:-.03em">61%</div>
+                <div style="font-size:8px;color:rgba(26,25,8,.4);margin-top:1px;line-height:1.35">of 847 matched &middot; greenfield teams</div>
+              </div>
+            </div>
+          </div>
+          <!-- Rec bar -->
+          <div style="padding:6px 12px;background:rgba(6,229,160,.06);border-top:1px solid rgba(6,229,160,.15);display:flex;align-items:center;gap:7px">
+            <span style="font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:#069D70;font-weight:500;white-space:nowrap;flex-shrink:0">Airframe rec.</span>
+            <span style="font-size:9px;color:rgba(26,25,8,.7)"><strong style="color:#1A1908;font-weight:500">Cursor</strong> for greenfield AI engineering at your scale. Copilot holds advantage in regulated environments.</span>
+          </div>
+          <!-- Stack count -->
+          <div style="padding:5px 12px 18px;display:flex;align-items:center;gap:7px;border-top:1px solid rgba(0,0,0,.06);background:#FAFAFA">
+            <span style="font-size:8px;color:rgba(26,25,8,.38);white-space:nowrap">48.2K stacks</span>
+            <div style="flex:1;height:4px;background:rgba(0,0,0,.07);border-radius:2px;position:relative"><div style="position:absolute;left:0;top:0;height:4px;border-radius:2px;background:#F15025;width:55%"></div></div>
+            <span style="font-size:8px;color:rgba(26,25,8,.38);white-space:nowrap">31.7K stacks</span>
+            <div style="flex:1;height:4px;background:rgba(0,0,0,.07);border-radius:2px;position:relative"><div style="position:absolute;left:0;top:0;height:4px;border-radius:2px;background:#06E5A0;width:36%"></div></div>
+            <span style="font-size:8px;color:rgba(26,25,8,.38);white-space:nowrap">140K+ &middot; No vendor bias</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -3295,26 +3422,35 @@ function countUp(el, to, duration, suffix) {
 }
 
 function animateHeroCard() {
-  // Tool score bars
-  document.querySelectorAll('.hvc-t-bar-fill[data-w]').forEach(el => {
-    el.style.width = el.dataset.w;
-  });
-  // Tool scores count up
-  document.querySelectorAll('.hvc-t-score[data-target]').forEach(el => {
-    countUp(el, parseInt(el.dataset.target), 900);
-  });
-  // Peer bar + pct (slight delay for sequential feel)
+  const badge = document.querySelector('.hvc-badge-ready');
+
+  // Phase 1 — 900ms: comparison data populates (scan is mid-sweep)
+  setTimeout(() => {
+    document.querySelectorAll('.hvc-t-bar-fill[data-w]').forEach(el => {
+      el.style.width = el.dataset.w;
+    });
+    document.querySelectorAll('.hvc-t-score[data-target]').forEach(el => {
+      countUp(el, parseInt(el.dataset.target), 650);
+    });
+  }, 900);
+
+  // Phase 2 — 1200ms: peer signal populates
   setTimeout(() => {
     const peerFill = document.querySelector('.hvc-peer-fill');
     if (peerFill) peerFill.style.width = '61%';
     const peerPct = document.querySelector('.hvc-peer-pct[data-target]');
-    if (peerPct) countUp(peerPct, parseInt(peerPct.dataset.target), 950, '%');
-  }, 300);
-  // Verdict fades in last
+    if (peerPct) countUp(peerPct, parseInt(peerPct.dataset.target), 750, '%');
+  }, 1200);
+
+  // Phase 3 — 1800ms: badge flips to ready, verdict slides in
   setTimeout(() => {
+    if (badge) {
+      badge.classList.remove('hvc-badge-analyzing');
+      badge.innerHTML = '<span class="hvc-badge-dot"></span> Decision ready';
+    }
     const verdict = document.querySelector('.hvc-verdict');
     if (verdict) { verdict.style.opacity = '1'; verdict.style.transform = 'translateY(0)'; }
-  }, 1100);
+  }, 1800);
 }
 
 window.addEventListener('load', () => { setTimeout(animateHeroCard, 650); });
