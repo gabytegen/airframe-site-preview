@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Airframe Folio — Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #ECEEF2;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { position: relative; width: 680px; height: 480px; }
+.app {
+  width: 680px; height: 480px;
+  background: #fff; border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.04), 0 12px 40px rgba(0,0,0,.12), 0 40px 80px rgba(0,0,0,.08);
+  overflow: hidden; position: relative;
+  display: flex; flex-direction: column;
+}
+
+/* Nav */
+.nav {
+  height: 52px; padding: 0 24px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.nav-logo { font-size: 15px; font-weight: 300; letter-spacing: -.02em; color: #1A1908; display: flex; align-items: center; gap: 6px; }
+.nav-dot { color: #F15025; }
+.nav-avatar { width: 28px; height: 28px; border-radius: 50%; background: #1A1908; color: #fff; font-size: 10px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+
+/* Tabs */
+.tabs { display: flex; border-bottom: 1px solid rgba(0,0,0,.07); padding: 0 24px; flex-shrink: 0; }
+.tab { font-size: 13px; font-weight: 300; color: rgba(26,25,8,.38); padding: 11px 16px; border-bottom: 2px solid transparent; }
+.tab.active { color: #1A1908; font-weight: 400; border-bottom-color: #F15025; }
+.tab.hover { color: rgba(26,25,8,.7); background: rgba(0,0,0,.03); }
+
+/* View container */
+.view-container { flex: 1; position: relative; overflow: hidden; }
+.view { position: absolute; inset: 0; transition: opacity .4s ease, transform .4s ease; display: flex; flex-direction: column; }
+.view.off  { opacity: 0; transform: translateX(-24px); pointer-events: none; }
+.view.offr { opacity: 0; transform: translateX(24px);  pointer-events: none; }
+
+/* STACK OVERVIEW */
+.stack-body { padding: 14px 22px 10px; flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+
+.stack-title-row {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;
+}
+.stack-title { font-size: 14px; font-weight: 400; color: #1A1908; }
+.stack-meta { font-size: 11px; color: rgba(26,25,8,.38); }
+.sync-pill {
+  font-size: 9px; color: rgba(26,25,8,.38);
+  border: 1px solid rgba(0,0,0,.09); border-radius: 100px; padding: 3px 10px;
+}
+
+.cat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; flex: 1; }
+
+.cat-card {
+  border: 1px solid rgba(0,0,0,.08); border-radius: 6px; padding: 14px;
+  display: flex; flex-direction: column; gap: 8px;
+  opacity: 0; transform: translateY(10px);
+  transition: opacity .35s ease, transform .35s ease, box-shadow .15s, border-color .15s;
+}
+.cat-card.in { opacity: 1; transform: none; }
+.cat-card.hov { box-shadow: 0 2px 8px rgba(0,0,0,.08); border-color: rgba(0,0,0,.14); }
+
+.cat-card-top { display: flex; align-items: center; justify-content: space-between; }
+.cat-name { font-size: 12px; font-weight: 500; color: #1A1908; }
+.cat-count { font-size: 9px; color: rgba(26,25,8,.35); background: rgba(0,0,0,.04); border-radius: 100px; padding: 2px 7px; }
+
+.health-track { height: 3px; background: rgba(0,0,0,.07); border-radius: 2px; overflow: hidden; }
+.health-fill { height: 3px; border-radius: 2px; width: 0; transition: width 1s cubic-bezier(.16,1,.3,1); }
+
+.cat-score-row { display: flex; align-items: baseline; gap: 2px; }
+.cat-score { font-size: 22px; font-weight: 200; letter-spacing: -.04em; line-height: 1; }
+.cat-score-d { font-size: 9px; color: rgba(26,25,8,.3); }
+.cat-peer { font-size: 9px; margin-top: 1px; }
+.cat-peer.up { color: #069D70; }
+.cat-peer.down { color: #C4401D; }
+
+.icon-row { display: flex; align-items: center; gap: 4px; margin-top: auto; }
+.ticon-sm {
+  width: 20px; height: 20px; border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.more-label { font-size: 9px; color: rgba(26,25,8,.32); margin-left: 6px; }
+
+.stack-footer {
+  margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,.06);
+  display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+}
+.footer-label { font-size: 10px; color: rgba(26,25,8,.48); white-space: nowrap; }
+.footer-track { flex: 1; height: 4px; background: rgba(0,0,0,.07); border-radius: 2px; overflow: hidden; }
+.footer-fill { height: 4px; width: 82%; background: #06E5A0; border-radius: 2px; }
+.footer-peer { font-size: 10px; color: rgba(26,25,8,.35); white-space: nowrap; }
+
+/* TOOL INTELLIGENCE */
+.breadcrumb {
+  height: 38px; padding: 0 24px; flex-shrink: 0;
+  display: flex; align-items: center; gap: 6px;
+  border-bottom: 1px solid rgba(0,0,0,.07); background: #FAFAFA;
+  font-size: 10px;
+}
+.bc-link { color: rgba(26,25,8,.35); }
+.bc-sep { color: rgba(26,25,8,.22); }
+.bc-current { font-weight: 500; color: #1A1908; }
+
+.tool-body { flex: 1; display: grid; grid-template-columns: 196px 1fr; overflow: hidden; }
+
+.tool-left {
+  padding: 16px 18px; border-right: 1px solid rgba(0,0,0,.07);
+  display: flex; flex-direction: column; gap: 0; overflow: hidden;
+}
+
+.tool-icon-row { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.tool-icon-lg { width: 40px; height: 40px; border-radius: 8px; background: #24292E; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.tool-name { font-size: 17px; font-weight: 400; color: #1A1908; line-height: 1.2; }
+.tool-domain { font-size: 11px; color: rgba(26,25,8,.35); }
+
+.score-label { font-size: 8px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(26,25,8,.3); margin-bottom: 3px; }
+.score-display { display: flex; align-items: baseline; gap: 2px; margin-bottom: 6px; }
+.score-num { font-size: 34px; font-weight: 200; letter-spacing: -.04em; line-height: 1; color: #069D70; }
+.score-denom { font-size: 11px; color: rgba(26,25,8,.28); }
+.score-bar { height: 3px; background: rgba(0,0,0,.07); border-radius: 2px; overflow: hidden; margin-bottom: 12px; }
+.score-bar-fill { height: 3px; width: 0; background: #06E5A0; border-radius: 2px; transition: width 1s cubic-bezier(.16,1,.3,1); }
+
+.stat-rows { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.stat-row {
+  display: flex; align-items: center; justify-content: space-between;
+  opacity: 0; transform: translateX(-6px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.stat-row.in { opacity: 1; transform: none; }
+.stat-lbl { font-size: 11px; color: rgba(26,25,8,.45); }
+.stat-val { font-size: 12px; font-weight: 400; color: #1A1908; }
+
+.alert-box {
+  background: rgba(241,80,37,.05); border: 1px solid rgba(241,80,37,.14);
+  border-radius: 5px; padding: 8px 10px; margin-top: auto;
+}
+.alert-title { font-size: 10px; font-weight: 400; color: #C4401D; margin-bottom: 2px; }
+.alert-sub { font-size: 9px; color: rgba(26,25,8,.42); }
+
+/* Right panel */
+.tool-right { padding: 16px 18px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+
+.panel-label { font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(26,25,8,.28); margin-bottom: 8px; }
+
+.peer-rows { display: flex; flex-direction: column; gap: 8px; }
+.peer-row { display: flex; align-items: center; gap: 8px; }
+.peer-lbl { font-size: 10px; color: rgba(26,25,8,.45); width: 108px; flex-shrink: 0; }
+.peer-track { flex: 1; height: 4px; background: rgba(0,0,0,.07); border-radius: 2px; position: relative; overflow: visible; }
+.peer-fill { height: 4px; background: #06E5A0; border-radius: 2px; width: 0; transition: width 1s cubic-bezier(.16,1,.3,1); }
+.peer-avg-mark {
+  position: absolute; top: -3px; width: 1.5px; height: 10px;
+  background: rgba(26,25,8,.25); border-radius: 1px;
+}
+.peer-vals { font-size: 10px; color: rgba(26,25,8,.48); white-space: nowrap; min-width: 60px; text-align: right; }
+
+/* Trend chart */
+.trend-bars {
+  display: flex; align-items: flex-end; gap: 4px; height: 48px;
+}
+.trend-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.trend-bar {
+  width: 100%; background: #06E5A0; border-radius: 2px 2px 0 0;
+  height: 0; transition: height .6s cubic-bezier(.16,1,.3,1);
+  opacity: .85;
+}
+.trend-month { font-size: 7px; color: rgba(26,25,8,.3); }
+
+.related-chips {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity .35s, transform .35s;
+}
+.related-chips.in { opacity: 1; transform: none; }
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  border: 1px solid rgba(0,0,0,.09); border-radius: 4px;
+  padding: 5px 9px; font-size: 11px; color: rgba(26,25,8,.65);
+}
+.chip-icon { width: 16px; height: 16px; border-radius: 3px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* Cursor */
+.cursor {
+  position: absolute; width: 20px; height: 20px;
+  pointer-events: none; z-index: 999; opacity: 0;
+  transition: left .55s cubic-bezier(.23,1,.32,1), top .55s cubic-bezier(.23,1,.32,1), opacity .28s;
+}
+.cursor svg { width: 20px; height: 20px; filter: drop-shadow(0 1px 3px rgba(0,0,0,.28)); }
+
+/* Ripple */
+.ripple {
+  position: absolute; width: 20px; height: 20px;
+  border-radius: 50%; background: rgba(241,80,37,.22);
+  transform: scale(0); animation: rpl .45s ease-out forwards;
+  pointer-events: none; z-index: 998;
+  margin-left: -10px; margin-top: -10px;
+}
+@keyframes rpl { to { transform: scale(3.5); opacity: 0; } }
+
+/* Fade */
+.fade { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; transition: opacity .55s ease; z-index: 900; border-radius: 10px; }
+.fade.on { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="app" id="app">
+
+  <div class="nav">
+    <div class="nav-logo">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon fill="#1A1908" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/><polygon fill="#1A1908" points="8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54"/><polygon fill="#1A1908" points="12 11.46 16 11.46 12 4.54 8 4.54 12 11.46"/></svg>
+      Airframe<span class="nav-dot">.</span>
+    </div>
+    <div class="nav-avatar">AK</div>
+  </div>
+
+  <div class="tabs" id="tab-bar">
+    <div class="tab active">Stack</div>
+    <div class="tab">Health</div>
+    <div class="tab">Spend</div>
+    <div class="tab">Recommendations</div>
+  </div>
+
+  <div class="view-container">
+
+    <!-- STACK OVERVIEW -->
+    <div class="view" id="v-stack">
+      <div class="stack-body">
+        <div class="stack-title-row">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="stack-title">Your technology stack</span>
+            <span class="stack-meta">147 tools &middot; 8 categories</span>
+          </div>
+          <span class="sync-pill">Synced 2h ago</span>
+        </div>
+
+        <div class="cat-grid">
+
+          <!-- AI / ML — 78 -->
+          <div class="cat-card" id="c-aiml">
+            <div class="cat-card-top">
+              <span class="cat-name">AI / ML</span>
+              <span class="cat-count">12 tools</span>
+            </div>
+            <div class="health-track"><div class="health-fill" data-w="78" style="background:#F15025"></div></div>
+            <div class="cat-score-row">
+              <span class="cat-score" style="color:#F15025">78</span>
+              <span class="cat-score-d">/100</span>
+            </div>
+            <div class="cat-peer down">↓ 4 vs peers</div>
+            <div class="icon-row">
+              <div class="ticon-sm" style="background:#24292E"><img src="https://cdn.simpleicons.org/github/ffffff" width="10" height="10" alt="GH"></div>
+              <div class="ticon-sm" style="background:#0A0A0A"><svg viewBox="0 0 24 24" fill="white" width="9" height="9"><path d="M4.5 1.5L4.5 17.5L8.5 13.5L11.5 20L13.5 19L10.5 12.5L16.5 12.5Z"/></svg></div>
+              <div class="ticon-sm" style="background:#000"><img src="https://cdn.simpleicons.org/openai/ffffff" width="10" height="10" alt="OAI"></div>
+              <div class="ticon-sm" style="background:#10459E;color:#fff;font-size:8px;font-weight:700">T</div>
+              <span class="more-label">+8</span>
+            </div>
+          </div>
+
+          <!-- Development — 94 -->
+          <div class="cat-card" id="c-dev">
+            <div class="cat-card-top">
+              <span class="cat-name">Development</span>
+              <span class="cat-count">24 tools</span>
+            </div>
+            <div class="health-track"><div class="health-fill" data-w="94" style="background:#06E5A0"></div></div>
+            <div class="cat-score-row">
+              <span class="cat-score" style="color:#069D70">94</span>
+              <span class="cat-score-d">/100</span>
+            </div>
+            <div class="cat-peer up">↑ 8 vs peers</div>
+            <div class="icon-row">
+              <div class="ticon-sm" style="background:#24292E"><img src="https://cdn.simpleicons.org/github/ffffff" width="10" height="10" alt="GH"></div>
+              <div class="ticon-sm" style="background:#000"><img src="https://cdn.simpleicons.org/vercel/ffffff" width="10" height="10" alt="Vcl"></div>
+              <div class="ticon-sm" style="background:#2496ED"><img src="https://cdn.simpleicons.org/docker/ffffff" width="10" height="10" alt="Dk"></div>
+              <div class="ticon-sm" style="background:#5E6AD2"><img src="https://cdn.simpleicons.org/linear/ffffff" width="10" height="10" alt="Ln"></div>
+              <span class="more-label">+20</span>
+            </div>
+          </div>
+
+          <!-- Communication — 84 -->
+          <div class="cat-card" id="c-comms">
+            <div class="cat-card-top">
+              <span class="cat-name">Communication</span>
+              <span class="cat-count">8 tools</span>
+            </div>
+            <div class="health-track"><div class="health-fill" data-w="84" style="background:#06E5A0"></div></div>
+            <div class="cat-score-row">
+              <span class="cat-score" style="color:#069D70">84</span>
+              <span class="cat-score-d">/100</span>
+            </div>
+            <div class="cat-peer up">↑ 5 vs peers</div>
+            <div class="icon-row">
+              <div class="ticon-sm" style="background:#4A154B"><img src="https://cdn.simpleicons.org/slack/ffffff" width="10" height="10" alt="Sl"></div>
+              <div class="ticon-sm" style="background:#2D8CFF"><img src="https://cdn.simpleicons.org/zoom/ffffff" width="10" height="10" alt="Zm"></div>
+              <div class="ticon-sm" style="background:#625DF5"><img src="https://cdn.simpleicons.org/loom/ffffff" width="10" height="10" alt="Lm"></div>
+              <span class="more-label">+5</span>
+            </div>
+          </div>
+
+          <!-- Data & Analytics — 61 -->
+          <div class="cat-card" id="c-data">
+            <div class="cat-card-top">
+              <span class="cat-name">Data &amp; Analytics</span>
+              <span class="cat-count">15 tools</span>
+            </div>
+            <div class="health-track"><div class="health-fill" data-w="61" style="background:#F15025"></div></div>
+            <div class="cat-score-row">
+              <span class="cat-score" style="color:#F15025">61</span>
+              <span class="cat-score-d">/100</span>
+            </div>
+            <div class="cat-peer down">↓ 13 vs peers</div>
+            <div class="icon-row">
+              <div class="ticon-sm" style="background:#632CA6"><img src="https://cdn.simpleicons.org/datadog/ffffff" width="10" height="10" alt="DD"></div>
+              <div class="ticon-sm" style="background:#29B5E8"><img src="https://cdn.simpleicons.org/snowflake/ffffff" width="10" height="10" alt="Sf"></div>
+              <span class="more-label">+13</span>
+            </div>
+          </div>
+
+          <!-- Project Mgmt — 88 -->
+          <div class="cat-card" id="c-pm">
+            <div class="cat-card-top">
+              <span class="cat-name">Project Mgmt</span>
+              <span class="cat-count">11 tools</span>
+            </div>
+            <div class="health-track"><div class="health-fill" data-w="88" style="background:#06E5A0"></div></div>
+            <div class="cat-score-row">
+              <span class="cat-score" style="color:#069D70">88</span>
+              <span class="cat-score-d">/100</span>
+            </div>
+            <div class="cat-peer up">↑ 6 vs peers</div>
+            <div class="icon-row">
+              <div class="ticon-sm" style="background:#5E6AD2"><img src="https://cdn.simpleicons.org/linear/ffffff" width="10" height="10" alt="Ln"></div>
+              <div class="ticon-sm" style="background:#000"><img src="https://cdn.simpleicons.org/notion/ffffff" width="10" height="10" alt="No"></div>
+              <div class="ticon-sm" style="background:#0052CC"><img src="https://cdn.simpleicons.org/jira/ffffff" width="10" height="10" alt="Ji"></div>
+              <span class="more-label">+8</span>
+            </div>
+          </div>
+
+          <!-- Design — 91 -->
+          <div class="cat-card" id="c-design">
+            <div class="cat-card-top">
+              <span class="cat-name">Design</span>
+              <span class="cat-count">6 tools</span>
+            </div>
+            <div class="health-track"><div class="health-fill" data-w="91" style="background:#06E5A0"></div></div>
+            <div class="cat-score-row">
+              <span class="cat-score" style="color:#069D70">91</span>
+              <span class="cat-score-d">/100</span>
+            </div>
+            <div class="cat-peer up">↑ 8 vs peers</div>
+            <div class="icon-row">
+              <div class="ticon-sm" style="background:#0D1117"><img src="https://cdn.simpleicons.org/figma/ffffff" width="10" height="10" alt="Fi"></div>
+              <div class="ticon-sm" style="background:#625DF5"><img src="https://cdn.simpleicons.org/loom/ffffff" width="10" height="10" alt="Lm"></div>
+              <span class="more-label">+4</span>
+            </div>
+          </div>
+
+        </div><!-- /cat-grid -->
+
+        <div class="stack-footer">
+          <span class="footer-label">Stack health: 82/100</span>
+          <div class="footer-track"><div class="footer-fill"></div></div>
+          <span class="footer-peer">vs. 79 peer avg.</span>
+        </div>
+      </div>
+    </div><!-- /v-stack -->
+
+    <!-- TOOL INTELLIGENCE -->
+    <div class="view offr" id="v-tool">
+      <div class="breadcrumb">
+        <span class="bc-link">Stack</span>
+        <span class="bc-sep">›</span>
+        <span class="bc-link">Development</span>
+        <span class="bc-sep">›</span>
+        <span class="bc-current">GitHub</span>
+      </div>
+      <div class="tool-body">
+
+        <!-- Left: Tool profile -->
+        <div class="tool-left">
+          <div class="tool-icon-row">
+            <div class="tool-icon-lg"><img src="https://cdn.simpleicons.org/github/ffffff" width="20" height="20" alt="GitHub"></div>
+            <div>
+              <div class="tool-name">GitHub</div>
+              <div class="tool-domain">github.com</div>
+            </div>
+          </div>
+          <div class="score-label">Stack score</div>
+          <div class="score-display">
+            <span class="score-num" id="tool-score">0</span>
+            <span class="score-denom">/100</span>
+          </div>
+          <div class="score-bar"><div class="score-bar-fill" id="score-bar"></div></div>
+          <div class="stat-rows">
+            <div class="stat-row" id="s0"><span class="stat-lbl">Team usage</span><span class="stat-val">98%</span></div>
+            <div class="stat-row" id="s1"><span class="stat-lbl">Active since</span><span class="stat-val">4.2 years</span></div>
+            <div class="stat-row" id="s2"><span class="stat-lbl">Monthly cost</span><span class="stat-val">$1,240</span></div>
+          </div>
+          <div class="alert-box">
+            <div class="alert-title">Renewal in 47 days</div>
+            <div class="alert-sub">Contract ends Mar 15, 2026</div>
+          </div>
+        </div>
+
+        <!-- Right: Analytics -->
+        <div class="tool-right" id="tool-right">
+
+          <div>
+            <div class="panel-label">Peer comparison</div>
+            <div class="peer-rows">
+              <div class="peer-row">
+                <span class="peer-lbl">Adoption at peers</span>
+                <div class="peer-track">
+                  <div class="peer-fill" data-w="98"></div>
+                  <div class="peer-avg-mark" style="left:89%"></div>
+                </div>
+                <span class="peer-vals">98% &middot; avg 89%</span>
+              </div>
+              <div class="peer-row">
+                <span class="peer-lbl">Satisfaction score</span>
+                <div class="peer-track">
+                  <div class="peer-fill" data-w="91"></div>
+                  <div class="peer-avg-mark" style="left:84%"></div>
+                </div>
+                <span class="peer-vals">91 &middot; avg 84</span>
+              </div>
+              <div class="peer-row">
+                <span class="peer-lbl">Cost efficiency</span>
+                <div class="peer-track">
+                  <div class="peer-fill" data-w="92"></div>
+                  <div class="peer-avg-mark" style="left:78%"></div>
+                </div>
+                <span class="peer-vals">92 &middot; avg 78</span>
+              </div>
+            </div>
+            <div style="font-size:9px;color:#069D70;margin-top:6px">&#8593; Above peer avg on all dimensions</div>
+          </div>
+
+          <div>
+            <div class="panel-label">Usage trend (12 mo.)</div>
+            <div class="trend-bars" id="trend">
+              <!-- bars rendered by JS -->
+            </div>
+          </div>
+
+          <div>
+            <div class="panel-label">Related tools</div>
+            <div class="related-chips" id="related">
+              <div class="chip">
+                <div class="chip-icon" style="background:#24292E"><img src="https://cdn.simpleicons.org/github/ffffff" width="9" height="9"></div>
+                GitHub Copilot
+              </div>
+              <div class="chip">
+                <div class="chip-icon" style="background:#24292E"><img src="https://cdn.simpleicons.org/githubactions/ffffff" width="9" height="9"></div>
+                GitHub Actions
+              </div>
+              <div class="chip">
+                <div class="chip-icon" style="background:#000"><img src="https://cdn.simpleicons.org/vercel/ffffff" width="9" height="9"></div>
+                Vercel
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div><!-- /v-tool -->
+
+  </div><!-- /view-container -->
+
+  <div class="fade" id="fade"></div>
+</div><!-- /app -->
+
+<div class="cursor" id="cur">
+  <svg viewBox="0 0 20 20" fill="none"><path d="M4 2L16 10L10 11.5L7.5 17L4 2Z" fill="white" stroke="#222" stroke-width="1.1" stroke-linejoin="round"/></svg>
+</div>
+</div><!-- /wrap -->
+
+<script>
+const $ = id => document.getElementById(id);
+const q = (s, all) => all ? document.querySelectorAll(s) : document.querySelector(s);
+let tids = [], rafActive = null;
+
+function after(ms, fn) { const id = setTimeout(fn, ms); tids.push(id); return id; }
+function stopAll() { tids.forEach(clearTimeout); tids = []; if (rafActive) { cancelAnimationFrame(rafActive); rafActive = null; } }
+
+function pos(el) {
+  const wr = q('.wrap').getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  return { x: Math.round(er.left + er.width / 2 - wr.left), y: Math.round(er.top + er.height / 2 - wr.top) };
+}
+
+const cur = $('cur');
+function addRipple(x, y) {
+  const r = document.createElement('div'); r.className = 'ripple';
+  r.style.left = x + 'px'; r.style.top = y + 'px';
+  $('app').appendChild(r); setTimeout(() => r.remove(), 500);
+}
+
+function countTo(el, target, ms, delay) {
+  after(delay, () => {
+    const s = performance.now();
+    function frame(now) {
+      const p = Math.min((now - s) / ms, 1);
+      const e = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(e * target);
+      if (p < 1) { rafActive = requestAnimationFrame(frame); } else { el.textContent = target; }
+    }
+    rafActive = requestAnimationFrame(frame);
+  });
+}
+
+// Build trend chart bars with seasonal developer activity data (Apr 2025 - Mar 2026)
+// Apr-May normal, Jun-Jul summer dip (65, 61), Aug recovery (72), Sep-Dec growth peaking at 94, Jan-Mar steady high
+const trendData = [75, 78, 65, 61, 72, 82, 88, 91, 94, 88, 84, 87];
+const months = ['A','M','J','J','A','S','O','N','D','J','F','M'];
+const minV = Math.min(...trendData); // 61
+const maxV = Math.max(...trendData); // 94
+const maxBarH = 48;
+const minBarH = 6;
+const trendEl = $('trend');
+trendData.forEach((v, i) => {
+  const w = document.createElement('div');
+  w.className = 'trend-bar-wrap';
+  const b = document.createElement('div');
+  b.className = 'trend-bar';
+  b.dataset.h = Math.round(((v - minV) / (maxV - minV)) * (maxBarH - minBarH) + minBarH);
+  b.style.transitionDelay = (i * 40) + 'ms';
+  const lbl = document.createElement('div');
+  lbl.className = 'trend-month';
+  lbl.textContent = months[i];
+  w.appendChild(b); w.appendChild(lbl);
+  trendEl.appendChild(w);
+});
+
+function reset() {
+  stopAll();
+  // Overview
+  q('.cat-card', true).forEach(c => { c.classList.remove('in','hov'); });
+  q('.health-fill', true).forEach(b => b.style.width = '0');
+  // Views
+  $('v-stack').className = 'view';
+  $('v-tool').className = 'view offr';
+  // Tool intel
+  $('tool-score').textContent = '0';
+  $('score-bar').style.width = '0';
+  ['s0','s1','s2'].forEach(id => $(id).classList.remove('in'));
+  q('.peer-fill', true).forEach(b => b.style.width = '0');
+  q('.trend-bar', true).forEach(b => b.style.height = '0');
+  $('related').classList.remove('in');
+  // Cursor
+  cur.style.transition = 'none'; cur.style.opacity = '0'; cur.style.left = '510px'; cur.style.top = '320px';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    cur.style.transition = 'left .55s cubic-bezier(.23,1,.32,1), top .55s cubic-bezier(.23,1,.32,1), opacity .28s';
+  }));
+  $('fade').classList.remove('on');
+  after(80, run);
+}
+
+function run() {
+
+  // PHASE 1: Stack Overview
+
+  // 0.3s-1.4s: 6 category cards stagger in with health bars filling
+  ['c-aiml','c-dev','c-comms','c-data','c-pm','c-design'].forEach((id, i) => {
+    after(300 + i * 180, () => $(id).classList.add('in'));
+    after(700 + i * 180, () => {
+      const b = document.querySelector('#' + id + ' .health-fill');
+      b.style.width = b.dataset.w + '%';
+    });
+  });
+
+  // 2.2s: cursor TELEPORTS near Development card, then shows
+  after(2200, () => {
+    const p = pos($('c-dev'));
+    cur.style.transition = 'none';
+    cur.style.left = (p.x + 50) + 'px';
+    cur.style.top  = (p.y + 28) + 'px';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      cur.style.transition = 'left .55s cubic-bezier(.23,1,.32,1), top .55s cubic-bezier(.23,1,.32,1), opacity .28s';
+      cur.style.opacity = '1';
+    }));
+  });
+
+  // 2.7s: cursor slides to Dev card center, hover
+  after(2700, () => {
+    const p = pos($('c-dev'));
+    cur.style.left = p.x + 'px';
+    cur.style.top  = (p.y - 5) + 'px';
+    $('c-dev').classList.add('hov');
+  });
+
+  // 3.05s: micro-pause — cursor drifts to score area
+  after(3050, () => {
+    const p = pos($('c-dev'));
+    cur.style.left = (p.x - 6) + 'px';
+    cur.style.top  = (p.y + 12) + 'px';
+  });
+
+  // 3.35s: click + ripple + hide cursor
+  after(3350, () => {
+    $('c-dev').classList.remove('hov');
+    const p = pos($('c-dev'));
+    addRipple(p.x, p.y - 5);
+    cur.style.opacity = '0';
+  });
+
+  // 3.65s: switch to tool view
+  after(3650, () => {
+    $('v-stack').className = 'view off';
+    $('v-tool').className = 'view';
+  });
+
+  // PHASE 2: Tool Intelligence
+
+  // 4.25s: score count up + bar
+  countTo($('tool-score'), 94, 900, 4250);
+  after(4250, () => { $('score-bar').style.width = '94%'; });
+
+  // 4.05s: cursor reappears in left panel (score area) after view switch settles at 3.65s
+  after(4050, () => {
+    const left = document.querySelector('.tool-left');
+    const p = pos(left);
+    cur.style.transition = 'none'; cur.style.opacity = '0';
+    cur.style.left = (p.x + 20) + 'px'; cur.style.top = (p.y - 40) + 'px';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      cur.style.transition = 'left .55s cubic-bezier(.23,1,.32,1), top .55s cubic-bezier(.23,1,.32,1), opacity .28s';
+      cur.style.opacity = '1';
+      cur.style.left = (p.x + 5) + 'px'; cur.style.top = (p.y - 15) + 'px';
+    }));
+  });
+
+  // 4.65s: stats stagger in
+  ['s0','s1','s2'].forEach((id, i) => after(4650 + i * 100, () => $(id).classList.add('in')));
+
+  // 4.67s: cursor drifts down to stat rows
+  after(4670, () => {
+    const p = pos(document.querySelector('.stat-rows'));
+    cur.style.left = (p.x + 22) + 'px';
+    cur.style.top = p.y + 'px';
+  });
+
+  // 4.95s: peer bars fill (staggered)
+  after(4950, () => {
+    q('.peer-fill', true).forEach((b, i) => {
+      after(i * 140, () => b.style.width = b.dataset.w + '%');
+    });
+  });
+
+  // 5.15s: cursor TELEPORTS to right panel area, then slides into view
+  after(5150, () => {
+    const p = pos($('tool-right'));
+    cur.style.transition = 'none'; cur.style.opacity = '0';
+    cur.style.left = (p.x + 40) + 'px'; cur.style.top = (p.y - 50) + 'px';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      cur.style.transition = 'left .55s cubic-bezier(.23,1,.32,1), top .55s cubic-bezier(.23,1,.32,1), opacity .28s';
+      cur.style.opacity = '1';
+      cur.style.left = (p.x + 10) + 'px'; cur.style.top = (p.y - 20) + 'px';
+    }));
+  });
+
+  // 5.55s: trend bars rise
+  after(5550, () => {
+    q('.trend-bar', true).forEach(b => b.style.height = b.dataset.h + 'px');
+  });
+
+  // 6.15s: related chips appear
+  after(6150, () => $('related').classList.add('in'));
+
+  // 6.95s: cursor drifts to trend chart area
+  after(6950, () => {
+    const p = pos($('trend'));
+    cur.style.left = p.x + 'px';
+    cur.style.top = (p.y + 10) + 'px';
+  });
+
+  // 8.55s: fade out
+  after(8550, () => $('fade').classList.add('on'));
+
+  // 9.35s: loop
+  after(9350, reset);
+}
+
+window.addEventListener('load', () => after(400, run));
+</script>
+</body>
+</html>

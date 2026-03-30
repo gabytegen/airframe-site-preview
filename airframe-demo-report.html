@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Airframe — AI Stack Audit</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #ECEEF2;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { position: relative; width: 680px; height: 480px; }
+.app {
+  width: 680px; height: 480px; background: #fff; border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.04), 0 12px 40px rgba(0,0,0,.12), 0 40px 80px rgba(0,0,0,.08);
+  overflow: hidden; position: relative; display: flex; flex-direction: column;
+}
+
+/* NAV */
+.nav {
+  height: 46px; padding: 0 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,.07); flex-shrink: 0;
+}
+.nav-logo { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 300; letter-spacing: -.02em; color: #1A1908; }
+.nav-dot { color: #F15025; }
+.nav-right { display: flex; align-items: center; gap: 8px; }
+.nav-tag { font-size: 9px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: rgba(26,25,8,.32); border: 1px solid rgba(0,0,0,.1); border-radius: 3px; padding: 3px 8px; }
+.nav-badge { font-size: 9px; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; background: rgba(6,229,160,.12); color: #069D70; border-radius: 3px; padding: 3px 9px; }
+.avatar { width: 26px; height: 26px; border-radius: 50%; background: #1A1908; color: #fff; font-size: 9px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+
+/* SECTION NAV */
+.section-nav {
+  display: flex; align-items: center; gap: 0;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+  padding: 0 20px; flex-shrink: 0; overflow: hidden;
+}
+.snav-item {
+  font-size: 11px; font-weight: 300; color: rgba(26,25,8,.35);
+  padding: 9px 14px; border-bottom: 2px solid transparent;
+  white-space: nowrap; cursor: default;
+}
+.snav-item.active { color: #1A1908; font-weight: 400; border-bottom-color: #F15025; }
+.snav-sep { font-size: 10px; color: rgba(26,25,8,.15); padding: 0 2px; }
+
+/* BODY */
+.body { flex: 1; display: grid; grid-template-columns: 220px 1fr; overflow: hidden; }
+
+/* LEFT PANEL */
+.left-panel { border-right: 1px solid rgba(0,0,0,.07); padding: 18px 18px; display: flex; flex-direction: column; gap: 0; background: #FAFAFA; }
+
+.company-row { display: flex; align-items: center; gap: 7px; margin-bottom: 14px; }
+.company-logo { width: 22px; height: 22px; border-radius: 4px; background: #070810; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.company-name { font-size: 12px; font-weight: 400; color: #1A1908; }
+.company-sub  { font-size: 10px; color: rgba(26,25,8,.38); margin-top: 1px; }
+
+/* Score */
+.score-block { margin-bottom: 14px; }
+.score-eyebrow { font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(26,25,8,.28); margin-bottom: 8px; }
+.score-num {
+  display: flex; align-items: baseline; gap: 2px;
+  line-height: 1; margin-bottom: 6px;
+}
+.score-big { font-size: 54px; font-weight: 500; letter-spacing: -.04em; color: #1A1908; }
+.score-denom { font-size: 17px; font-weight: 300; letter-spacing: 0; color: rgba(26,25,8,.28); margin-left: 1px; }
+.score-pct-row { display: flex; align-items: center; gap: 7px; margin-bottom: 10px; }
+.pct-chip {
+  font-size: 10px; font-weight: 500; background: rgba(6,229,160,.1); color: #069D70;
+  border-radius: 3px; padding: 2px 7px;
+}
+.pct-vs { font-size: 10px; color: rgba(26,25,8,.38); }
+.score-bar-track { height: 4px; background: rgba(0,0,0,.07); border-radius: 2px; overflow: hidden; }
+.score-bar-fill  { height: 4px; border-radius: 2px; background: #06E5A0; width: 0; transition: width 1.4s cubic-bezier(.16,1,.3,1); }
+
+.panel-div { height: 1px; background: rgba(0,0,0,.07); margin: 12px 0; }
+
+/* Stack composition */
+.comp-eyebrow { font-size: 9px; font-weight: 500; letter-spacing: .09em; text-transform: uppercase; color: rgba(26,25,8,.28); margin-bottom: 8px; }
+.comp-bar-wrap { display: flex; height: 5px; border-radius: 2px; overflow: hidden; margin-bottom: 9px; gap: 1px; }
+.comp-seg { height: 100%; border-radius: 1px; width: 0; transition: width .9s cubic-bezier(.16,1,.3,1); }
+.comp-legend { display: flex; flex-direction: column; gap: 4px; }
+.comp-leg-row { display: flex; align-items: center; gap: 6px; }
+.comp-dot { width: 7px; height: 7px; border-radius: 2px; flex-shrink: 0; }
+.comp-leg-lbl { font-size: 10px; color: rgba(26,25,8,.5); flex: 1; }
+.comp-leg-val { font-size: 10px; font-weight: 400; color: rgba(26,25,8,.65); }
+
+/* Stat pills */
+.stat-pills { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
+.stat-pill { display: flex; align-items: center; justify-content: space-between; padding: 6px 9px; background: rgba(0,0,0,.025); border-radius: 3px; border: 1px solid rgba(0,0,0,.05); }
+.stat-pill-lbl { font-size: 10px; color: rgba(26,25,8,.45); }
+.stat-pill-val { font-size: 11px; font-weight: 400; color: #1A1908; }
+
+/* RIGHT PANEL */
+.right-panel { padding: 16px 18px; display: flex; flex-direction: column; overflow: hidden; }
+.right-title { font-size: 12px; font-weight: 500; color: #1A1908; margin-bottom: 12px; flex-shrink: 0; }
+
+/* Category grid */
+.cat-head {
+  display: grid; grid-template-columns: 1fr 52px 52px 58px;
+  padding: 0 8px 6px; margin-bottom: 0;
+  font-size: 9px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+  color: rgba(26,25,8,.28); border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.cat-head span:not(:first-child) { text-align: center; }
+
+.cat-row {
+  display: grid; grid-template-columns: 1fr 52px 52px 58px;
+  align-items: center; padding: 9px 8px; border-radius: 3px;
+  opacity: 0; transform: translateX(8px);
+  transition: opacity .35s ease, transform .35s ease, background .15s;
+}
+.cat-row.in  { opacity: 1; transform: none; }
+.cat-row.lit { background: rgba(0,0,0,.03); }
+
+.cat-name { font-size: 11px; font-weight: 400; color: #1A1908; }
+.cat-sub  { font-size: 9px; color: rgba(26,25,8,.35); margin-top: 2px; }
+.cat-val  { font-size: 13px; font-weight: 400; text-align: center; color: rgba(26,25,8,.5); }
+.cat-val.you { color: #1A1908; font-weight: 500; }
+.delta {
+  font-size: 10px; font-weight: 500; text-align: center;
+  padding: 2px 7px; border-radius: 3px; margin: 0 auto; display: inline-block;
+}
+.delta.pos { background: rgba(6,229,160,.12); color: #069D70; }
+.delta.neg { background: rgba(241,80,37,.08); color: #C4401D; }
+
+/* Finding strip */
+.finding-strip {
+  margin-top: auto; padding: 10px 12px;
+  background: rgba(241,80,37,.04); border: 1px solid rgba(241,80,37,.14);
+  border-radius: 4px; display: flex; align-items: flex-start; gap: 8px;
+  flex-shrink: 0;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity .45s, transform .45s;
+}
+.finding-strip.in { opacity: 1; transform: none; }
+.fs-dot { width: 5px; height: 5px; border-radius: 50%; background: #F15025; margin-top: 4px; flex-shrink: 0; }
+.fs-text { font-size: 10.5px; color: rgba(26,25,8,.6); line-height: 1.5; }
+.fs-text strong { color: #1A1908; font-weight: 500; }
+
+/* CURSOR */
+.cursor { position: absolute; width: 20px; height: 20px; pointer-events: none; z-index: 999; opacity: 0; transition: left .55s cubic-bezier(.23,1,.32,1), top .55s cubic-bezier(.23,1,.32,1), opacity .28s; }
+.cursor svg { width: 20px; height: 20px; filter: drop-shadow(0 1px 3px rgba(0,0,0,.28)); }
+.ripple { position: absolute; width: 20px; height: 20px; border-radius: 50%; background: rgba(241,80,37,.18); transform: scale(0); animation: rpl .45s ease-out forwards; pointer-events: none; z-index: 998; margin-left: -10px; margin-top: -10px; }
+@keyframes rpl { to { transform: scale(3.5); opacity: 0; } }
+.fade { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; transition: opacity .55s ease; z-index: 900; border-radius: 6px; }
+.fade.on { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="app" id="app">
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="nav-logo">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><polygon fill="#1A1908" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/><polygon fill="#1A1908" points="8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54"/><polygon fill="#1A1908" points="12 11.46 16 11.46 12 4.54 8 4.54 12 11.46"/></svg>
+      Airframe<span class="nav-dot">.</span>
+    </div>
+    <div class="nav-right">
+      <div class="nav-tag">AI Stack Audit</div>
+      <div class="nav-badge">Live data</div>
+      <div class="avatar">JR</div>
+    </div>
+  </div>
+
+  <!-- SECTION NAV -->
+  <div class="section-nav">
+    <div class="snav-item">Cover</div>
+    <div class="snav-sep">·</div>
+    <div class="snav-item">Summary</div>
+    <div class="snav-sep">·</div>
+    <div class="snav-item">Stack Landscape</div>
+    <div class="snav-sep">·</div>
+    <div class="snav-item active">Peer Benchmarking</div>
+    <div class="snav-sep">·</div>
+    <div class="snav-item">Spend Analysis</div>
+    <div class="snav-sep">·</div>
+    <div class="snav-item">Recommendations</div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- LEFT -->
+    <div class="left-panel">
+      <div class="company-row">
+        <div class="company-logo">
+          <svg width="10" height="10" viewBox="0 0 16 16" fill="none"><polygon fill="#fff" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/><polygon fill="#fff" points="8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54"/><polygon fill="#fff" points="12 11.46 16 11.46 12 4.54 8 4.54 12 11.46"/></svg>
+        </div>
+        <div>
+          <div class="company-name">Airframe AI</div>
+          <div class="company-sub">Mid-market SaaS · 50–200 employees</div>
+        </div>
+      </div>
+
+      <div class="score-block">
+        <div class="score-eyebrow">AI Readiness Score</div>
+        <div class="score-num"><span class="score-big" id="score-num">0</span><span class="score-denom">/100</span></div>
+        <div class="score-pct-row">
+          <span class="pct-chip" id="pct-chip" style="opacity:0">61st percentile</span>
+          <span class="pct-vs" id="pct-vs" style="opacity:0">+4 vs peer median</span>
+        </div>
+        <div class="score-bar-track"><div class="score-bar-fill" id="score-bar"></div></div>
+      </div>
+
+      <div class="panel-div"></div>
+
+      <div class="comp-eyebrow">Stack composition · 107 tools</div>
+      <div class="comp-bar-wrap">
+        <div class="comp-seg" id="seg-trad" style="background:rgba(0,0,0,.1)"></div>
+        <div class="comp-seg" id="seg-aug"  style="background:#F15025;opacity:.5"></div>
+        <div class="comp-seg" id="seg-nat"  style="background:#F15025"></div>
+      </div>
+      <div class="comp-legend">
+        <div class="comp-leg-row"><div class="comp-dot" style="background:rgba(0,0,0,.12)"></div><span class="comp-leg-lbl">Traditional</span><span class="comp-leg-val">64</span></div>
+        <div class="comp-leg-row"><div class="comp-dot" style="background:#F15025;opacity:.5"></div><span class="comp-leg-lbl">AI Augmented</span><span class="comp-leg-val">28</span></div>
+        <div class="comp-leg-row"><div class="comp-dot" style="background:#F15025"></div><span class="comp-leg-lbl">AI Native</span><span class="comp-leg-val">15</span></div>
+      </div>
+
+      <div class="stat-pills">
+        <div class="stat-pill">
+          <span class="stat-pill-lbl">Peer cohort</span>
+          <span class="stat-pill-val">847 companies</span>
+        </div>
+        <div class="stat-pill">
+          <span class="stat-pill-lbl">AI spend / yr</span>
+          <span class="stat-pill-val">$194K</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-panel">
+      <div class="right-title">Category scores vs peer average</div>
+
+      <div class="cat-head">
+        <span>Category</span>
+        <span style="color:#F15025;opacity:.7">You</span>
+        <span>Peers</span>
+        <span>Delta</span>
+      </div>
+
+      <div class="cat-row" id="cr0">
+        <div><div class="cat-name">Security</div><div class="cat-sub">CrowdStrike</div></div>
+        <div class="cat-val you">85</div>
+        <div class="cat-val">59</div>
+        <div><span class="delta pos">+26</span></div>
+      </div>
+      <div class="cat-row" id="cr1">
+        <div><div class="cat-name">Engineering</div><div class="cat-sub">GitHub, Cursor</div></div>
+        <div class="cat-val you">81</div>
+        <div class="cat-val">75</div>
+        <div><span class="delta pos">+6</span></div>
+      </div>
+      <div class="cat-row" id="cr2">
+        <div><div class="cat-name">Data &amp; Analytics</div><div class="cat-sub">Looker</div></div>
+        <div class="cat-val you">65</div>
+        <div class="cat-val">62</div>
+        <div><span class="delta pos">+3</span></div>
+      </div>
+      <div class="cat-row" id="cr3">
+        <div><div class="cat-name">Customer Support</div><div class="cat-sub">Zendesk</div></div>
+        <div class="cat-val you">38</div>
+        <div class="cat-val">61</div>
+        <div><span class="delta neg">−23</span></div>
+      </div>
+      <div class="cat-row" id="cr4">
+        <div><div class="cat-name">Marketing</div><div class="cat-sub">Mailchimp</div></div>
+        <div class="cat-val you">31</div>
+        <div class="cat-val">55</div>
+        <div><span class="delta neg">−24</span></div>
+      </div>
+
+      <div class="finding-strip" id="finding-strip">
+        <div class="fs-dot"></div>
+        <div class="fs-text"><strong>2 critical gaps identified.</strong> Customer support and marketing lag 23–24 pts below peers. 61% of peers have deployed conversational AI in support.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="fade" id="fade"></div>
+</div>
+
+<div class="cursor" id="cur">
+  <svg viewBox="0 0 20 20" fill="none"><path d="M4 2L16 10L10 11.5L7.5 17L4 2Z" fill="white" stroke="#222" stroke-width="1.1" stroke-linejoin="round"/></svg>
+</div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const q = (s,a) => a ? document.querySelectorAll(s) : document.querySelector(s);
+let tids = [];
+function after(ms, fn) { const id = setTimeout(fn, ms); tids.push(id); return id; }
+function stopAll() { tids.forEach(clearTimeout); tids = []; }
+
+function pos(el) {
+  const wr = q('.wrap').getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  return { x: Math.round(er.left + er.width/2 - wr.left), y: Math.round(er.top + er.height/2 - wr.top) };
+}
+
+const cur = $('cur');
+
+function addRipple(x, y) {
+  const r = document.createElement('div');
+  r.className = 'ripple'; r.style.left = x+'px'; r.style.top = y+'px';
+  $('app').appendChild(r); setTimeout(() => r.remove(), 500);
+}
+
+function teleport(x, y) {
+  cur.style.transition = 'none';
+  cur.style.left = x+'px'; cur.style.top = y+'px'; cur.style.opacity = '0';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    cur.style.transition = 'left .55s cubic-bezier(.23,1,.32,1), top .55s cubic-bezier(.23,1,.32,1), opacity .28s';
+  }));
+}
+
+function countTo(el, target, ms, delay) {
+  after(delay, () => {
+    const s = performance.now();
+    function frame(now) {
+      const p = Math.min((now-s)/ms, 1);
+      const e = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.round(e * target);
+      if (p < 1) requestAnimationFrame(frame);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(frame);
+  });
+}
+
+function reset() {
+  stopAll();
+  $('score-num').textContent = '0';
+  $('score-bar').style.width = '0';
+  $('pct-chip').style.opacity = '0';
+  $('pct-vs').style.opacity   = '0';
+  $('seg-trad').style.width = '0'; $('seg-aug').style.width = '0'; $('seg-nat').style.width = '0';
+  for (let i = 0; i < 5; i++) $('cr'+i).classList.remove('in','lit');
+  $('finding-strip').classList.remove('in');
+  $('fade').classList.remove('on');
+  teleport(520, 380);
+  after(80, run);
+}
+
+function run() {
+
+  // 0.3s: score counts up
+  countTo($('score-num'), 62, 1200, 300);
+  after(500, () => { $('score-bar').style.width = '62%'; });
+
+  // 1.2s: percentile chip and vs label appear
+  after(1200, () => {
+    $('pct-chip').style.transition = 'opacity .4s';
+    $('pct-chip').style.opacity    = '1';
+    $('pct-vs').style.transition   = 'opacity .4s';
+    $('pct-vs').style.opacity      = '1';
+  });
+
+  // 1.0s: stack composition bars fill
+  after(1000, () => {
+    $('seg-trad').style.transition = 'width .9s cubic-bezier(.16,1,.3,1)';
+    $('seg-aug').style.transition  = 'width .9s cubic-bezier(.16,1,.3,1) .1s';
+    $('seg-nat').style.transition  = 'width .9s cubic-bezier(.16,1,.3,1) .2s';
+    $('seg-trad').style.width = '60%';
+    $('seg-aug').style.width  = '26%';
+    $('seg-nat').style.width  = '14%';
+  });
+
+  // 1.6s: category rows stagger in
+  for (let i = 0; i < 5; i++) {
+    after(1600 + i * 160, () => $('cr'+i).classList.add('in'));
+  }
+
+  // 2.9s: finding strip
+  after(2900, () => $('finding-strip').classList.add('in'));
+
+  // 3.4s: cursor appears near score
+  after(3400, () => {
+    const p = pos($('score-num'));
+    cur.style.left = (p.x + 30) + 'px';
+    cur.style.top  = (p.y -  8) + 'px';
+    cur.style.opacity = '1';
+  });
+
+  // 3.9s: cursor moves to top row (Security, strong positive)
+  after(3900, () => {
+    const p = pos($('cr0'));
+    cur.style.left = (p.x + 60) + 'px';
+    cur.style.top  =  p.y       + 'px';
+    $('cr0').classList.add('lit');
+  });
+
+  // 4.5s: cursor drifts down to first negative gap (Customer Support)
+  after(4500, () => {
+    const p = pos($('cr3'));
+    cur.style.left = (p.x + 60) + 'px';
+    cur.style.top  =  p.y       + 'px';
+    $('cr0').classList.remove('lit');
+    $('cr3').classList.add('lit');
+  });
+
+  // 5.1s: cursor to Marketing gap
+  after(5100, () => {
+    const p = pos($('cr4'));
+    cur.style.left = (p.x + 60) + 'px';
+    cur.style.top  =  p.y       + 'px';
+    $('cr3').classList.remove('lit');
+    $('cr4').classList.add('lit');
+  });
+
+  // 5.8s: cursor drifts to finding strip
+  after(5800, () => {
+    const p = pos($('finding-strip'));
+    cur.style.left = (p.x - 20) + 'px';
+    cur.style.top  =  p.y       + 'px';
+    $('cr4').classList.remove('lit');
+  });
+
+  // 6.6s: cursor hides
+  after(6600, () => { cur.style.opacity = '0'; });
+
+  const noloop = new URLSearchParams(location.search).has('noloop');
+  if (!noloop) {
+    // 7.1s: fade out, then loop
+    after(7100, () => $('fade').classList.add('on'));
+    after(8000, reset);
+  }
+}
+
+window.addEventListener('load', () => after(400, run));
+</script>
+</body>
+</html>

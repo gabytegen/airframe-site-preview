@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Airframe Studio — Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: #ECEEF2;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap { position: relative; width: 680px; height: 540px; }
+.app {
+  width: 680px; height: 540px;
+  background: #fff; border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.04), 0 12px 40px rgba(0,0,0,.12), 0 40px 80px rgba(0,0,0,.08);
+  overflow: hidden; position: relative;
+  display: flex; flex-direction: column;
+}
+
+/* Nav */
+.nav {
+  height: 52px; padding: 0 28px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.nav-logo { font-size: 15px; font-weight: 300; letter-spacing: -.02em; color: #1A1908; display: flex; align-items: center; gap: 6px; }
+.nav-dot { color: #F15025; }
+.nav-right { display: flex; align-items: center; gap: 10px; }
+.nav-btn {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px; font-weight: 400; color: #1A1908;
+  background: transparent; border: 1px solid rgba(0,0,0,.12);
+  border-radius: 6px; padding: 6px 14px;
+}
+.nav-avatar { width: 28px; height: 28px; border-radius: 50%; background: #1A1908; color: #fff; font-size: 10px; font-weight: 500; display: flex; align-items: center; justify-content: center; }
+
+/* Header bar */
+.header-bar {
+  height: 40px; padding: 0 28px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: space-between;
+  background: #FAFAFA; border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.header-title { font-size: 13px; font-weight: 500; color: #1A1908; }
+.header-sub { font-size: 12px; color: rgba(26,25,8,.38); }
+.header-badge {
+  font-size: 9px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase;
+  border-radius: 100px; padding: 3px 8px;
+}
+.badge-draft { background: rgba(241,80,37,.08); color: #C4401D; }
+.badge-final { background: rgba(6,229,160,.12); color: #069D70; }
+
+/* View container */
+.view-container { flex: 1; position: relative; overflow: hidden; }
+.view { position: absolute; inset: 0; transition: opacity .4s ease, transform .4s ease; display: flex; }
+.view.off  { opacity: 0; transform: translateX(-24px); pointer-events: none; }
+.view.offr { opacity: 0; transform: translateX(24px);  pointer-events: none; }
+
+/* BRIEF BUILDER */
+.brief-left {
+  width: 310px; flex-shrink: 0;
+  padding: 18px 20px; border-right: 1px solid rgba(0,0,0,.07);
+  display: flex; flex-direction: column; gap: 14px; overflow: hidden;
+}
+.section-eyebrow {
+  font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(26,25,8,.28); margin-bottom: 8px;
+}
+
+.field-group { display: flex; flex-direction: column; gap: 10px; }
+
+.field {
+  display: flex; flex-direction: column; gap: 4px;
+  opacity: 0; transform: translateY(8px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.field.in { opacity: 1; transform: none; }
+.field-label { font-size: 10px; font-weight: 500; color: rgba(26,25,8,.42); text-transform: uppercase; letter-spacing: .06em; }
+.field-value {
+  font-size: 12px; color: #1A1908;
+  background: #F8F9FB; border: 1px solid rgba(0,0,0,.09); border-radius: 5px;
+  padding: 8px 10px; line-height: 1.4; min-height: 34px;
+}
+.field-value.active {
+  border-color: rgba(241,80,37,.35);
+  box-shadow: 0 0 0 2px rgba(241,80,37,.08);
+}
+.field-value.typing::after {
+  content: '';
+  display: inline-block;
+  width: 1.5px; height: 13px;
+  background: #F15025;
+  vertical-align: middle;
+  margin-left: 1px;
+  animation: fldCaret .85s step-end infinite;
+}
+@keyframes fldCaret { 0%,100%{opacity:1} 50%{opacity:0} }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+.chips-wrap { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+.fchip {
+  font-size: 10px; color: rgba(26,25,8,.6);
+  border: 1px solid rgba(0,0,0,.09); border-radius: 4px; padding: 3px 8px;
+}
+.fchip.sel { background: rgba(241,80,37,.06); border-color: rgba(241,80,37,.2); color: #C4401D; }
+
+.generate-btn {
+  height: 38px; width: 100%;
+  background: #1A1908; color: #fff;
+  border-radius: 6px; font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 400;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  cursor: default; transition: background .2s, box-shadow .2s;
+  flex-shrink: 0; margin-top: auto;
+}
+.generate-btn.hov { background: #2d2c16; box-shadow: 0 2px 10px rgba(0,0,0,.18); }
+.generate-btn.loading { background: rgba(26,25,8,.6); }
+.spinner {
+  width: 14px; height: 14px; border: 1.5px solid rgba(255,255,255,.3);
+  border-top-color: #fff; border-radius: 50%;
+  animation: spin .7s linear infinite; display: none;
+}
+.generate-btn.loading .spinner { display: block; }
+.generate-btn.loading .btn-txt { display: none; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Preview panel */
+.brief-right {
+  flex: 1; padding: 20px 22px; display: flex; flex-direction: column; gap: 12px;
+  background: #FAFAFA; overflow: hidden;
+}
+.preview-label { font-size: 9px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(26,25,8,.28); }
+.preview-scope {
+  display: flex; align-items: center; gap: 8px;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .35s, transform .35s;
+}
+.preview-scope.in { opacity: 1; transform: none; }
+.preview-company { font-size: 14px; font-weight: 400; color: #1A1908; }
+.preview-detail { font-size: 11px; color: rgba(26,25,8,.38); }
+
+.preview-tools {
+  display: flex; flex-direction: column; gap: 7px;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .35s, transform .35s; transition-delay: .08s;
+}
+.preview-tools.in { opacity: 1; transform: none; }
+
+.ptool-row { display: flex; align-items: center; gap: 8px; }
+.ptool-icon { width: 22px; height: 22px; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.ptool-name { font-size: 11px; color: rgba(26,25,8,.65); flex: 1; }
+.ptool-bar { flex: 1; height: 3px; background: rgba(0,0,0,.08); border-radius: 2px; overflow: hidden; }
+.ptool-fill { height: 3px; border-radius: 2px; width: 0; transition: width .9s cubic-bezier(.16,1,.3,1); }
+
+.preview-notes {
+  display: flex; flex-direction: column; gap: 5px;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .35s, transform .35s; transition-delay: .15s;
+}
+.preview-notes.in { opacity: 1; transform: none; }
+.out-rows { display: flex; flex-direction: column; gap: 1px; }
+.out-row { display: flex; align-items: center; gap: 8px; padding: 4px 8px; border-radius: 4px; }
+.out-num { font-size: 9px; font-weight: 500; color: rgba(26,25,8,.22); width: 14px; flex-shrink: 0; }
+.out-name { font-size: 11px; color: rgba(26,25,8,.55); flex: 1; }
+.out-sts { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: rgba(0,0,0,.1); }
+.out-sts.g { background: #06E5A0; }
+
+/* REPORT OUTPUT */
+.report-sidebar {
+  width: 190px; flex-shrink: 0;
+  padding: 16px 18px; border-right: 1px solid rgba(0,0,0,.07);
+  background: #FAFAFA; display: flex; flex-direction: column; gap: 0;
+}
+.sidebar-section-label {
+  font-size: 9px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(26,25,8,.28); margin-bottom: 10px;
+}
+.nav-item {
+  display: flex; align-items: center; gap: 7px;
+  padding: 6px 8px; border-radius: 4px; font-size: 11px; margin-bottom: 1px;
+}
+.nav-item.active { background: rgba(241,80,37,.06); color: #F15025; font-weight: 400; }
+.nav-item.inactive { color: rgba(26,25,8,.45); font-weight: 300; }
+.nav-num { font-size: 9px; opacity: .7; flex-shrink: 0; width: 14px; }
+
+.analyzed-block { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,.07); }
+.analyzed-lbl { font-size: 9px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: rgba(26,25,8,.28); margin-bottom: 8px; }
+.tool-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.tool-icon-sm { width: 18px; height: 18px; border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.tool-nm { font-size: 11px; color: rgba(26,25,8,.65); }
+
+.report-main {
+  flex: 1; padding: 20px 22px; display: flex; flex-direction: column; overflow: hidden;
+}
+.report-section-title {
+  font-size: 15px; font-weight: 400; color: #1A1908;
+  border-left: 3px solid #F15025; padding-left: 10px; margin-bottom: 14px;
+}
+
+.rec-banner {
+  background: rgba(6,229,160,.06); border: 1px solid rgba(6,229,160,.2);
+  border-radius: 6px; padding: 11px 14px; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 11px;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .4s ease, transform .4s ease;
+}
+.rec-banner.in { opacity: 1; transform: none; }
+.rec-icon { width: 32px; height: 32px; border-radius: 6px; background: #0A0A0A; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.rec-label { font-size: 8px; font-weight: 500; text-transform: uppercase; letter-spacing: .1em; color: #069D70; margin-bottom: 2px; }
+.rec-name { font-size: 15px; font-weight: 400; color: #1A1908; }
+.rec-sub { font-size: 11px; color: rgba(26,25,8,.5); }
+.rec-score { font-size: 11px; font-weight: 500; color: #069D70; margin-top: 2px; }
+
+.findings-label { font-size: 9px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: rgba(26,25,8,.28); margin-bottom: 7px; }
+
+.finding-row {
+  display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;
+  opacity: 0; transform: translateX(-6px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.finding-row.in { opacity: 1; transform: none; }
+.fdot { width: 6px; height: 6px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+.fdot.green { background: #06E5A0; }
+.fdot.orange { background: #F15025; }
+.ftext { font-size: 11px; color: rgba(26,25,8,.62); line-height: 1.55; }
+
+.score-table {
+  margin-top: 12px; border: 1px solid rgba(0,0,0,.07); border-radius: 5px; overflow: hidden;
+  opacity: 0; transform: translateY(6px);
+  transition: opacity .4s ease, transform .4s ease;
+}
+.score-table.in { opacity: 1; transform: none; }
+.score-head {
+  display: grid; grid-template-columns: 1fr 60px 60px 60px;
+  padding: 8px 12px; background: #FAFAFA; border-bottom: 1px solid rgba(0,0,0,.07);
+}
+.score-hcell { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: .04em; color: rgba(26,25,8,.28); text-align: center; }
+.score-hcell:first-child { text-align: left; }
+.score-row { display: grid; grid-template-columns: 1fr 60px 60px 60px; padding: 8px 12px; border-bottom: 1px solid rgba(0,0,0,.05); }
+.score-row:last-child { border-bottom: none; }
+.score-rlbl { font-size: 11px; color: rgba(26,25,8,.55); font-weight: 300; }
+.score-val { font-size: 13px; font-weight: 400; text-align: center; color: rgba(26,25,8,.55); }
+.score-val.win { color: #069D70; }
+.score-val.sec { color: #F15025; }
+
+/* Cursor */
+.cursor {
+  position: absolute; width: 20px; height: 20px;
+  pointer-events: none; z-index: 999; opacity: 0;
+  transition: left .55s cubic-bezier(.23,1,.32,1), top .55s cubic-bezier(.23,1,.32,1), opacity .28s;
+}
+.cursor svg { width: 20px; height: 20px; filter: drop-shadow(0 1px 3px rgba(0,0,0,.28)); }
+
+/* Ripple */
+.ripple {
+  position: absolute; width: 20px; height: 20px;
+  border-radius: 50%; background: rgba(241,80,37,.22);
+  transform: scale(0); animation: rpl .45s ease-out forwards;
+  pointer-events: none; z-index: 998;
+  margin-left: -10px; margin-top: -10px;
+}
+@keyframes rpl { to { transform: scale(3.5); opacity: 0; } }
+
+/* Fade */
+.fade { position: absolute; inset: 0; background: #fff; opacity: 0; pointer-events: none; transition: opacity .55s ease; z-index: 900; border-radius: 10px; }
+.fade.on { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="app" id="app">
+
+  <div class="nav">
+    <div class="nav-logo">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><polygon fill="#1A1908" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/><polygon fill="#1A1908" points="8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54"/><polygon fill="#1A1908" points="12 11.46 16 11.46 12 4.54 8 4.54 12 11.46"/></svg>
+      Airframe<span class="nav-dot">.</span>
+    </div>
+    <div class="nav-right">
+      <div class="nav-btn" id="export-btn">Export PDF</div>
+      <div class="nav-avatar">JR</div>
+    </div>
+  </div>
+
+  <div class="header-bar">
+    <div style="display:flex;align-items:baseline;gap:5px">
+      <span class="header-title" id="header-title">New brief</span>
+      <span class="header-sub" id="header-sub">&nbsp;&middot; AI Coding Assistant Evaluation</span>
+    </div>
+    <span class="header-badge badge-draft" id="header-badge">Draft</span>
+  </div>
+
+  <div class="view-container">
+
+    <!-- VIEW A: BRIEF BUILDER -->
+    <div class="view offr" id="v-brief">
+      <div class="brief-left">
+        <div>
+          <div class="section-eyebrow">Company context</div>
+          <div class="field-group">
+            <div class="field" id="f-company">
+              <div class="field-label">Company</div>
+              <div class="field-value"></div>
+            </div>
+            <div class="field-row">
+              <div class="field" id="f-size">
+                <div class="field-label">Team size</div>
+                <div class="field-value"></div>
+              </div>
+              <div class="field" id="f-budget">
+                <div class="field-label">Budget</div>
+                <div class="field-value"></div>
+              </div>
+            </div>
+            <div class="field" id="f-timeline">
+              <div class="field-label">Decision timeline</div>
+              <div class="field-value"></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-eyebrow">Evaluation criteria</div>
+          <div class="field" id="f-criteria" style="opacity:1;transform:none">
+            <div class="chips-wrap">
+              <div class="fchip sel">Model quality</div>
+              <div class="fchip sel">Enterprise fit</div>
+              <div class="fchip sel">Ease of use</div>
+              <div class="fchip">On-prem</div>
+              <div class="fchip sel">Security</div>
+              <div class="fchip">Price</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-eyebrow">Tools to evaluate</div>
+          <div class="field" id="f-tools" style="opacity:1;transform:none">
+            <div class="chips-wrap">
+              <div class="fchip sel" style="display:flex;align-items:center;gap:5px">
+                <div style="width:14px;height:14px;border-radius:3px;background:#24292E;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                  <img src="https://cdn.simpleicons.org/github/ffffff" width="8" height="8">
+                </div>
+                GitHub Copilot
+              </div>
+              <div class="fchip sel" style="display:flex;align-items:center;gap:5px">
+                <div style="width:14px;height:14px;border-radius:3px;background:#0A0A0A;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                  <svg viewBox="0 0 24 24" fill="white" width="8" height="8"><path d="M4.5 1.5L4.5 17.5L8.5 13.5L11.5 20L13.5 19L10.5 12.5L16.5 12.5Z"/></svg>
+                </div>
+                Cursor
+              </div>
+              <div class="fchip sel" style="display:flex;align-items:center;gap:5px">
+                <div style="width:14px;height:14px;border-radius:3px;background:#10459E;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;font-size:7px;font-weight:700">T</div>
+                Tabnine
+              </div>
+              <div class="fchip">Amazon Q</div>
+              <div class="fchip">Codeium</div>
+            </div>
+          </div>
+        </div>
+
+        <button class="generate-btn" id="gen-btn">
+          <span class="btn-txt">Generate brief</span>
+          <div class="spinner"></div>
+        </button>
+      </div>
+
+      <div class="brief-right">
+        <div class="preview-label">Preview</div>
+
+        <div class="preview-scope" id="prev-scope">
+          <span class="preview-company">Meridian Analytics</span>
+          <span class="preview-detail">140 engineers &middot; $250K budget</span>
+        </div>
+
+        <div>
+          <div class="section-eyebrow">Tools in scope</div>
+          <div class="preview-tools" id="prev-tools">
+            <div class="ptool-row">
+              <div class="ptool-icon" style="background:#24292E"><img src="https://cdn.simpleicons.org/github/ffffff" width="11" height="11" alt="GH"></div>
+              <span class="ptool-name">GitHub Copilot</span>
+              <div class="ptool-bar"><div class="ptool-fill" data-w="68" style="background:#F15025"></div></div>
+              <span style="font-size:9px;color:rgba(26,25,8,.35);min-width:28px;text-align:right">68%</span>
+            </div>
+            <div class="ptool-row">
+              <div class="ptool-icon" style="background:#0A0A0A"><svg viewBox="0 0 24 24" fill="white" width="10" height="10"><path d="M4.5 1.5L4.5 17.5L8.5 13.5L11.5 20L13.5 19L10.5 12.5L16.5 12.5Z"/></svg></div>
+              <span class="ptool-name">Cursor</span>
+              <div class="ptool-bar"><div class="ptool-fill" data-w="41" style="background:#06E5A0"></div></div>
+              <span style="font-size:9px;color:rgba(26,25,8,.35);min-width:28px;text-align:right">41%</span>
+            </div>
+            <div class="ptool-row">
+              <div class="ptool-icon" style="background:#10459E;color:#fff;font-size:9px;font-weight:700">T</div>
+              <span class="ptool-name">Tabnine</span>
+              <div class="ptool-bar"><div class="ptool-fill" data-w="22" style="background:rgba(0,0,0,.2)"></div></div>
+              <span style="font-size:9px;color:rgba(26,25,8,.35);min-width:28px;text-align:right">22%</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="section-eyebrow">Report sections</div>
+          <div class="preview-notes" id="prev-notes">
+            <div class="out-rows">
+              <div class="out-row"><span class="out-num">01</span><span class="out-name">Executive summary</span><span class="out-sts g"></span></div>
+              <div class="out-row"><span class="out-num">02</span><span class="out-name">Tool-by-tool analysis</span><span class="out-sts g"></span></div>
+              <div class="out-row"><span class="out-num">03</span><span class="out-name">Recommendation</span><span class="out-sts g"></span></div>
+              <div class="out-row"><span class="out-num">04</span><span class="out-name">Risk factors</span><span class="out-sts"></span></div>
+              <div class="out-row"><span class="out-num">05</span><span class="out-name">Next steps</span><span class="out-sts"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW B: REPORT OUTPUT -->
+    <div class="view offr" id="v-report">
+      <div class="report-sidebar">
+        <div class="sidebar-section-label">Contents</div>
+        <div class="nav-item active"><span class="nav-num">01</span> Summary</div>
+        <div class="nav-item inactive"><span class="nav-num">02</span> Tool Analysis</div>
+        <div class="nav-item inactive"><span class="nav-num">03</span> Recommendation</div>
+        <div class="nav-item inactive"><span class="nav-num">04</span> Risk factors</div>
+        <div class="nav-item inactive"><span class="nav-num">05</span> Next steps</div>
+
+        <div class="analyzed-block">
+          <div class="analyzed-lbl">Analyzed</div>
+          <div class="tool-row">
+            <div class="tool-icon-sm" style="background:#24292E"><img src="https://cdn.simpleicons.org/github/ffffff" width="11" height="11" alt="GH"></div>
+            <span class="tool-nm">GitHub Copilot</span>
+          </div>
+          <div class="tool-row">
+            <div class="tool-icon-sm" style="background:#0A0A0A"><svg viewBox="0 0 24 24" fill="white" width="10" height="10"><path d="M4.5 1.5L4.5 17.5L8.5 13.5L11.5 20L13.5 19L10.5 12.5L16.5 12.5Z"/></svg></div>
+            <span class="tool-nm">Cursor</span>
+          </div>
+          <div class="tool-row">
+            <div class="tool-icon-sm" style="background:#10459E;color:#fff;font-size:9px;font-weight:700">T</div>
+            <span class="tool-nm">Tabnine</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-main">
+        <div class="report-section-title">Summary</div>
+
+        <div class="rec-banner" id="rec-banner">
+          <div class="rec-icon">
+            <svg viewBox="0 0 24 24" fill="white" width="16" height="16"><path d="M4.5 1.5L4.5 17.5L8.5 13.5L11.5 20L13.5 19L10.5 12.5L16.5 12.5Z"/></svg>
+          </div>
+          <div>
+            <div class="rec-label">Recommended</div>
+            <div style="display:flex;align-items:baseline;gap:6px">
+              <span class="rec-name">Cursor</span>
+              <span class="rec-sub">for greenfield AI engineering</span>
+            </div>
+            <div class="rec-score" id="rec-score-txt">89/100</div>
+          </div>
+        </div>
+
+        <div class="findings-label">Key findings</div>
+
+        <div class="finding-row" id="f1">
+          <div class="fdot green"></div>
+          <div class="ftext">Cursor leads in model quality (96/100) and ease of use (94/100), critical for developer velocity.</div>
+        </div>
+        <div class="finding-row" id="f2">
+          <div class="fdot orange"></div>
+          <div class="ftext">GitHub Copilot retains advantage in enterprise integrations (88/100), preferred by 39% of regulated-industry peers.</div>
+        </div>
+        <div class="finding-row" id="f3">
+          <div class="fdot orange"></div>
+          <div class="ftext">Tabnine's on-prem deployment remains the only option for air-gapped environments.</div>
+        </div>
+
+        <div class="score-table" id="score-table">
+          <div class="score-head">
+            <div class="score-hcell" style="text-align:left"></div>
+            <div class="score-hcell">Copilot</div>
+            <div class="score-hcell">Cursor</div>
+            <div class="score-hcell">Tabnine</div>
+          </div>
+          <div class="score-row">
+            <div class="score-rlbl">Overall score</div>
+            <div class="score-val sec" id="s-copilot">72</div>
+            <div class="score-val win" id="s-cursor">89</div>
+            <div class="score-val" id="s-tabnine">74</div>
+          </div>
+          <div class="score-row">
+            <div class="score-rlbl">Model quality</div>
+            <div class="score-val">70</div>
+            <div class="score-val win">96</div>
+            <div class="score-val">71</div>
+          </div>
+          <div class="score-row">
+            <div class="score-rlbl">Enterprise fit</div>
+            <div class="score-val win">91</div>
+            <div class="score-val">67</div>
+            <div class="score-val">55</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor">
+  <svg viewBox="0 0 20 20" fill="none"><path d="M4 2L16 10L10 11.5L7.5 17L4 2Z" fill="white" stroke="#222" stroke-width="1.1" stroke-linejoin="round"/></svg>
+</div>
+
+<!-- Fade overlay -->
+<div class="fade" id="fade"></div>
+
+</div><!-- .app -->
+</div><!-- .wrap -->
+
+<script>
+const q = s => document.querySelector(s);
+const $ = id => document.getElementById(id);
+
+// Position helper: center of el relative to .wrap
+function pos(el) {
+  const wr = q('.wrap').getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  return {
+    x: Math.round(er.left + er.width / 2 - wr.left),
+    y: Math.round(er.top  + er.height / 2 - wr.top)
+  };
+}
+
+// Cursor movement
+const cur = $('cursor');
+function moveTo(x, y) { cur.style.left = x + 'px'; cur.style.top = y + 'px'; }
+function teleport(x, y) {
+  cur.style.transition = 'opacity .28s';
+  cur.style.left = x + 'px';
+  cur.style.top = y + 'px';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    cur.style.transition = 'left .55s cubic-bezier(.23,1,.32,1), top .55s cubic-bezier(.23,1,.32,1), opacity .28s';
+  }));
+}
+function showCursor() { cur.style.opacity = '1'; }
+function hideCursor() { cur.style.opacity = '0'; }
+
+function addRipple(x, y) {
+  const r = document.createElement('div');
+  r.className = 'ripple';
+  r.style.left = x + 'px'; r.style.top = y + 'px';
+  $('app').appendChild(r);
+  setTimeout(() => r.remove(), 500);
+}
+
+// Timer management
+let timers = [];
+function after(ms, fn) { timers.push(setTimeout(fn, ms)); }
+function stopAll() { timers.forEach(clearTimeout); timers = []; }
+
+// Typing animation — clicks field, types text char by char, then deactivates
+function typeText(fieldId, text, startMs, charDelay) {
+  const val = $(fieldId).querySelector('.field-value');
+  after(startMs, () => val.classList.add('active', 'typing'));
+  text.split('').forEach((ch, i) => {
+    after(startMs + 60 + i * charDelay, () => { val.textContent += ch; });
+  });
+  after(startMs + 60 + text.length * charDelay + 200, () => {
+    val.classList.remove('active', 'typing');
+  });
+}
+
+// Count-up animation
+function countTo(el, target, ms, delay) {
+  setTimeout(() => {
+    let start = null;
+    function step(ts) {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / ms, 1);
+      el.textContent = Math.round(p * target);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }, delay || 0);
+}
+
+function resetAll() {
+  stopAll();
+
+  // Reset views
+  q('#v-brief').classList.remove('off'); q('#v-brief').classList.add('offr');
+  q('#v-report').classList.remove('off'); q('#v-report').classList.add('offr');
+
+  // Reset header
+  $('header-title').textContent = 'New brief';
+  $('header-badge').className = 'header-badge badge-draft';
+  $('header-badge').textContent = 'Draft';
+  $('export-btn').style.display = 'none';
+
+  // Reset form fields
+  ['f-company','f-size','f-budget','f-timeline'].forEach(id => {
+    $(id).classList.remove('in');
+    const val = $(id).querySelector('.field-value');
+    val.textContent = '';
+    val.classList.remove('active', 'typing');
+  });
+
+  // Reset preview
+  $('prev-scope').classList.remove('in');
+  $('prev-tools').classList.remove('in');
+  $('prev-notes').classList.remove('in');
+  document.querySelectorAll('.ptool-fill').forEach(f => { f.style.width = '0'; });
+
+  // Reset generate btn
+  const btn = $('gen-btn');
+  btn.classList.remove('hov','loading');
+
+  // Reset report
+  $('rec-banner').classList.remove('in');
+  ['f1','f2','f3'].forEach(id => $(id).classList.remove('in'));
+  $('score-table').classList.remove('in');
+
+  // Reset header badge
+  $('header-badge').textContent = 'Draft';
+  $('header-badge').className = 'header-badge badge-draft';
+
+  // Reset fade
+  $('fade').classList.remove('on');
+
+  hideCursor();
+}
+
+function runLoop() {
+  resetAll();
+
+  const LOOP = 12400;
+
+  // Show brief view
+  after(200, () => {
+    q('#v-brief').classList.remove('offr');
+  });
+
+  // Animate form fields in
+  const fields = ['f-company','f-size','f-budget','f-timeline'];
+  fields.forEach((id, i) => {
+    after(400 + i * 120, () => $(id).classList.add('in'));
+  });
+
+  // Cursor appears near company field
+  after(900, () => {
+    const p = pos($('f-company').querySelector('.field-value'));
+    teleport(p.x - 30, p.y - 22);
+    showCursor();
+  });
+
+  // Click company field and type "Meridian Analytics" (18 chars × 42ms = 756ms, done ~1876ms)
+  after(1000, () => { const p = pos($('f-company').querySelector('.field-value')); moveTo(p.x - 4, p.y); });
+  after(1060, () => { const p = pos($('f-company').querySelector('.field-value')); addRipple(p.x - 4, p.y); });
+  typeText('f-company', 'Meridian Analytics', 1060, 42);
+
+  // Preview scope shows after company is typed
+  after(1950, () => { $('prev-scope').classList.add('in'); });
+
+  // Click size field and type "140 engineers" (13 chars × 42ms = 546ms, done ~2706ms)
+  after(2000, () => { const p = pos($('f-size').querySelector('.field-value')); moveTo(p.x - 4, p.y); });
+  after(2100, () => { const p = pos($('f-size').querySelector('.field-value')); addRipple(p.x - 4, p.y); });
+  typeText('f-size', '140 engineers', 2100, 42);
+
+  // Click budget field and type "$250K / yr" (10 chars × 42ms = 420ms, done ~3380ms)
+  after(2800, () => { const p = pos($('f-budget').querySelector('.field-value')); moveTo(p.x - 4, p.y); });
+  after(2900, () => { const p = pos($('f-budget').querySelector('.field-value')); addRipple(p.x - 4, p.y); });
+  typeText('f-budget', '$250K / yr', 2900, 42);
+
+  // Preview tools shows mid-typing
+  after(3000, () => {
+    $('prev-tools').classList.add('in');
+    document.querySelectorAll('.ptool-fill').forEach(f => {
+      after(200, () => { f.style.width = f.dataset.w + '%'; });
+    });
+  });
+
+  // Click timeline field and type "Q1 2026" (7 chars × 42ms = 294ms, done ~3954ms)
+  after(3500, () => { const p = pos($('f-timeline').querySelector('.field-value')); moveTo(p.x - 4, p.y); });
+  after(3600, () => { const p = pos($('f-timeline').querySelector('.field-value')); addRipple(p.x - 4, p.y); });
+  typeText('f-timeline', 'Q1 2026', 3600, 42);
+
+  // Preview notes shows
+  after(3900, () => $('prev-notes').classList.add('in'));
+
+  // Cursor drifts to Generate button, hover state
+  after(4200, () => {
+    const p = pos($('gen-btn'));
+    moveTo(p.x, p.y);
+  });
+  after(4700, () => { $('gen-btn').classList.add('hov'); });
+
+  // Click + loading
+  after(5200, () => {
+    const p = pos($('gen-btn'));
+    addRipple(p.x, p.y);
+    $('gen-btn').classList.remove('hov');
+    $('gen-btn').classList.add('loading');
+    hideCursor();
+  });
+
+  // Transition to report
+  after(5800, () => {
+    q('#v-brief').classList.add('off');
+    q('#v-report').classList.remove('offr');
+    $('header-title').textContent = 'AI Coding Assistant Evaluation';
+    $('header-sub').textContent = ' \u00b7 Meridian Analytics';
+    $('export-btn').style.display = '';
+  });
+
+  // Animate report content
+  after(6300, () => { $('rec-banner').classList.add('in'); });
+  after(6700, () => { $('f1').classList.add('in'); });
+  after(6950, () => { $('f2').classList.add('in'); });
+  after(7200, () => { $('f3').classList.add('in'); });
+  after(7500, () => {
+    $('score-table').classList.add('in');
+  });
+
+  // Header badge flips to Final
+  after(7600, () => {
+    $('header-badge').textContent = 'Final';
+    $('header-badge').className = 'header-badge badge-final';
+  });
+
+  // 6.5s: cursor reappears near rec-banner as it fades in (6.3s)
+  after(6500, () => {
+    const p = pos($('rec-banner'));
+    teleport(p.x + 55, p.y);
+    showCursor();
+  });
+
+  // 7.0s: cursor drifts down to findings as they stagger in
+  after(7000, () => {
+    const p = pos($('f1'));
+    moveTo(p.x + 42, p.y);
+  });
+
+  // 7.55s: cursor moves to score table as it appears (7.5s)
+  after(7600, () => {
+    const p = pos($('score-table'));
+    moveTo(p.x + 32, p.y - 18);
+  });
+
+  // Cursor browses score table rows
+  after(8600, () => {
+    const p = pos(document.querySelector('.score-row'));
+    moveTo(p.x + 40, p.y);
+  });
+  after(9300, () => {
+    const rows = document.querySelectorAll('.score-row');
+    const p = pos(rows[1]);
+    moveTo(p.x + 40, p.y);
+  });
+  after(9900, () => {
+    const rows = document.querySelectorAll('.score-row');
+    const p = pos(rows[2]);
+    moveTo(p.x + 40, p.y);
+  });
+
+  // Fade out and loop
+  after(LOOP - 600, () => { hideCursor(); });
+  after(LOOP - 450, () => { $('fade').classList.add('on'); });
+  after(LOOP, () => { runLoop(); });
+}
+
+// Hide export btn initially
+$('export-btn').style.display = 'none';
+
+runLoop();
+</script>
+</body>
+</html>
