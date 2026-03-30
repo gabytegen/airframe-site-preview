@@ -1576,6 +1576,15 @@ h2.editorial.lt { color: var(--text-dark); }
 .ha-context a { color: var(--orange); text-decoration: none; }
 .ha-context a:hover { text-decoration: underline; }
 
+/* Studio closing line */
+.studio-closer {
+  font-size: 16px; font-weight: 400; line-height: 1.5;
+  color: var(--text-dark);
+  border-left: 2px solid var(--orange);
+  padding-left: 16px;
+  margin-top: 8px;
+}
+
 /* ── HERO CARD MOBILE OVERRIDES (must come after .hvc-main base rule) ── */
 @media (max-width: 960px) {
   .hero-vis-card-stack { width: 100%; min-width: 0; }
@@ -1860,7 +1869,7 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="disc-left">
       <span class="product-tag ptag-orange" data-reveal>Discover</span>
       <h2 class="editorial section-h2 lt" data-reveal data-delay="1">See what the market is actually running</h2>
-      <p class="section-body lt" data-reveal data-delay="2">Proprietary data on 17,000+ tools. What's gaining ground in your segment, what companies like yours replaced, what's rising. The signal your peers have, before you need to ask.</p>
+      <p class="section-body lt" data-reveal data-delay="2">You can read what a vendor claims about adoption. Or you can see what 140,000 real company stacks actually contain. Discover surfaces what your peers are running, what they replaced, and what's gaining ground in your segment — filtered to companies that look like yours.</p>
       <ul class="feature-list">
         <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>Peer adoption signals across 140,000+ real company stacks</li>
         <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>Data you won't find in a vendor deck or analyst report</li>
@@ -1976,9 +1985,9 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="folio-right">
       <span class="product-tag ptag-mint" data-reveal>Folio</span>
       <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Your stack. And everything your org already knows about it.</h2>
-      <p class="section-body lt" data-reveal data-delay="2">Most tool decisions start from zero. Marketing evaluated a tool five months ago. Sales is looking at it today. Procurement already holds licenses in another department. No one knows. Folio is your org's technology record: every tool run, evaluated, or decided against, with the notes and ownership behind each one.</p>
+      <p class="section-body lt" data-reveal data-delay="2">Most tool decisions start from zero. Marketing evaluated a tool five months ago. Sales is looking at it today. Procurement already holds licenses in another department. No one knows. Folio is your org's technology record. Every team starts with what the last one found.</p>
       <ul class="feature-list">
-        <li class="feature-item lt" data-reveal data-delay="3"><span class="fdot"></span>Evaluations other teams already ran — visible before you start yours</li>
+        <li class="feature-item lt" data-reveal data-delay="3"><span class="fdot"></span>Evaluations other teams already ran, visible before you start yours</li>
         <li class="feature-item lt" data-reveal data-delay="4"><span class="fdot"></span>Active licenses across departments surface automatically</li>
         <li class="feature-item lt" data-reveal data-delay="5"><span class="fdot"></span>Notes and decisions that don't disappear when the project ends</li>
       </ul>
@@ -1993,13 +2002,9 @@ h2.editorial.lt { color: var(--text-dark); }
   <div class="studio-inner">
     <div class="studio-left">
       <span class="product-tag ptag-mint" data-reveal>Studio</span>
-      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Where your AI decisions get made</h2>
-      <p class="section-body lt" data-reveal data-delay="2">A new capability to evaluate. A case to build for the board. A renewal on the horizon. Studio gives every initiative a structure. Airframe's intelligence backs it up from day one.</p>
-      <ul class="feature-list">
-        <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>Describe the scenario. Airframe detects the decision structure and builds the initiative.</li>
-        <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>It populates what it already knows and asks only for what it doesn't.</li>
-        <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Every initiative ends in a recommendation. Not a framework. An actual call.</li>
-      </ul>
+      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Describe the scenario. Airframe structures the rest.</h2>
+      <p class="section-body lt" data-reveal data-delay="2">Every AI initiative needs structure before it can move. Studio creates it from the moment you describe the scenario. Airframe detects the decision type, populates what it already knows, and asks only for what it still needs.</p>
+      <p class="studio-closer" data-reveal data-delay="3">Every initiative ends in a recommendation. Not a framework. An actual call.</p>
     </div>
     <div class="studio-mockup-wrap mockup-wrap-studio" data-reveal data-delay="2">
       <div class="mockup mockup-lt" id="studio-mockup">
@@ -2889,13 +2894,32 @@ function showDiscScene() {
 }
 
 function animateDiscScene() {
-  if (!discBody) return;
+  // Animate static compare view
+  const sa = document.getElementById('disc-score-a');
+  const sb = document.getElementById('disc-score-b');
+  const pa = document.getElementById('disc-peer-a');
+  const pb = document.getElementById('disc-peer-b');
+  if (sa) animateCount(sa, 0, 72, 900, v => Math.round(v));
+  if (sb) setTimeout(() => animateCount(sb, 0, 89, 900, v => Math.round(v)), 180);
+  if (pa) setTimeout(() => animateCount(pa, 0, 39, 700, v => Math.round(v) + '%'), 550);
+  if (pb) setTimeout(() => animateCount(pb, 0, 61, 700, v => Math.round(v) + '%'), 700);
   setTimeout(() => {
-    discBody.querySelectorAll('.disc-bar-anim').forEach(b => {
-      b.style.transition = 'width .9s cubic-bezier(.16,1,.3,1)';
-      b.style.width = b.dataset.w + '%';
+    document.querySelectorAll('.disc-cmp-bar').forEach((b, i) => {
+      setTimeout(() => {
+        b.style.transition = 'width .8s cubic-bezier(.16,1,.3,1)';
+        b.style.width = b.dataset.w + '%';
+      }, i * 55);
     });
-  }, 60);
+  }, 80);
+  // Also animate any JS-rendered disc bars
+  if (discBody) {
+    setTimeout(() => {
+      discBody.querySelectorAll('.disc-bar-anim').forEach(b => {
+        b.style.transition = 'width .9s cubic-bezier(.16,1,.3,1)';
+        b.style.width = b.dataset.w + '%';
+      });
+    }, 60);
+  }
 }
 
 
@@ -3237,12 +3261,6 @@ function showStudioScene() {
 
 function animateStudioScene() {
   if (!studioBody) return;
-  setTimeout(() => {
-    studioBody.querySelectorAll('.disc-bar-anim').forEach(b => {
-      b.style.transition = 'width .9s cubic-bezier(.16,1,.3,1)';
-      b.style.width = b.dataset.w + '%';
-    });
-  }, 80);
   ['si-1','si-2','si-3','si-4'].forEach((id, i) => {
     setTimeout(() => { const el = document.getElementById(id); if (el) el.classList.add('up'); }, i * 150);
   });
