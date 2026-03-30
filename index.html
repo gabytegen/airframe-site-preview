@@ -76,6 +76,33 @@ body {
 .nav-cta:hover { background: rgba(255,255,255,.06); }
 #nav.light .nav-cta:hover { background: rgba(26,25,8,.05); }
 
+.nav-btn-group { display: flex; align-items: center; gap: 6px; }
+.nav-login {
+  font-size: 12px; font-weight: 400; letter-spacing: .04em;
+  background: var(--orange); color: #fff;
+  padding: 8px 18px; border-radius: 3px;
+  border: none; cursor: pointer; text-decoration: none;
+  transition: opacity .18s; display: inline-block;
+}
+.nav-login:hover { opacity: .88; }
+
+/* Hero peer badge */
+.hero-peer-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 100px; padding: 6px 14px 6px 10px;
+  font-size: 11px; font-weight: 400;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 16px; letter-spacing: .01em;
+}
+.hpb-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0;
+  background: var(--orange); box-shadow: 0 0 6px rgba(241,80,37,.65);
+  animation: pipGlow 2s ease-in-out infinite;
+}
+@keyframes pipGlow { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.55;transform:scale(.8)} }
+
 .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
 .nav-burger span { display: block; width: 22px; height: 1.5px; background: var(--text-light); transition: all .25s; border-radius: 2px; }
 #nav.light .nav-burger span { background: var(--text-dark); }
@@ -237,17 +264,148 @@ body {
 .hcard-savings { font-size: 10px; color: var(--mint-text); font-weight: 400; }
 .hcard-arrow { font-size: 11px; color: var(--text-ldim2); }
 
+/* ── DARK HERO OVERRIDES ──────────────────────────────── */
+#hero {
+  background: #070810;
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  overflow: hidden; text-align: center;
+}
+#hero::before, #hero::after { display: none; }
+
+#hero-canvas {
+  display: block; position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; opacity: .65;
+}
+.hero-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 55% at 50% 52%, rgba(241,80,37,.055) 0%, transparent 68%);
+  pointer-events: none; z-index: 1;
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  width: 100%; max-width: none;
+  padding: 76px 40px 24px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-start;
+}
+.hero-eyebrow {
+  font-size: 10px; font-weight: 500;
+  letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.52); margin-bottom: 5px;
+  display: flex; align-items: center; gap: 10px;
+}
+.hero-eyebrow::before { display: none; }
+.hero-eyebrow-dot { width: 3px; height: 3px; border-radius: 50%; background: #F15025; }
+.hero-h1 {
+  font-size: clamp(30px, 3.4vw, 48px);
+  font-weight: 200; letter-spacing: -.04em; line-height: 1.08;
+  color: #fff; margin-bottom: 5px; max-width: 840px;
+}
+.hero-h1-muted { color: rgba(255,255,255,.38); font-style: normal; }
+.hero-sub {
+  font-size: 15px; font-weight: 300;
+  color: rgba(255,255,255,.38); line-height: 1.7;
+  max-width: 480px; margin: 0 auto 10px;
+}
+.hero-sub-inner { transform: none; transition: none; }
+
+/* Demo frame in hero */
+#hero .demo-outer { width: min(680px, calc(100vw - 64px)); margin: 0 auto; position: relative; }
+#hero .demo-frame-wrap {
+  width: 100%; aspect-ratio: 680/480; position: relative;
+  overflow: hidden; border-radius: 6px;
+  transform: perspective(1400px) rotateX(2deg);
+  transform-origin: 50% 55%;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 1px 0 0 rgba(255,255,255,.07),
+    0 0 0 1px rgba(255,255,255,.06),
+    0 2px 4px rgba(0,0,0,.4),
+    0 20px 60px rgba(0,0,0,.75),
+    0 60px 120px rgba(0,0,0,.55),
+    0 0 120px rgba(241,80,37,.10);
+  transition: opacity 1.2s ease;
+}
+#hero .demo-frame-wrap.dim { opacity: 0.28; }
+#hero .demo-frame-wrap::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.04) 30%, transparent 54%);
+  pointer-events: none; z-index: 10; border-radius: inherit;
+}
+#hero .demo-frame-wrap iframe { pointer-events: none; }
+
+/* Post-demo CTA overlay */
+.demo-cta {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 22px; opacity: 0; transition: opacity 1.4s ease;
+  pointer-events: none; z-index: 20;
+}
+.demo-cta.on { opacity: 1; pointer-events: auto; }
+.demo-cta-line {
+  font-size: clamp(20px, 2.8vw, 32px); font-weight: 200;
+  letter-spacing: -.03em; color: #fff; text-align: center;
+}
+.demo-cta-btns { display: flex; align-items: center; gap: 10px; }
+.demo-cta-btn {
+  font-size: 13px; font-weight: 400;
+  background: #F15025; color: #fff;
+  padding: 12px 28px; border-radius: 4px;
+  border: none; cursor: pointer; letter-spacing: .01em;
+  transition: opacity .18s;
+  box-shadow: 0 4px 24px rgba(241,80,37,.35);
+  text-decoration: none; display: inline-block;
+}
+.demo-cta-btn:hover { opacity: .88; }
+.demo-cta-btn-ghost {
+  font-size: 13px; font-weight: 400;
+  background: rgba(255,255,255,.06); color: rgba(255,255,255,.82);
+  padding: 12px 24px; border-radius: 4px;
+  border: 1px solid rgba(255,255,255,.28); cursor: pointer; letter-spacing: .01em;
+  transition: border-color .2s, color .2s, background .2s;
+}
+.demo-cta-btn-ghost:hover { border-color: rgba(255,255,255,.45); color: #fff; background: rgba(255,255,255,.10); }
+.cta-welcome { display: none; }
+.demo-cta.welcome .cta-default { display: none; }
+.demo-cta.welcome .cta-welcome { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+
 /* Scroll indicator */
 .scroll-ind { display: none; }
 @keyframes bob { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
 .scroll-chev { width: 12px; height: 12px; border-right: 1px solid rgba(26,25,8,.35); border-bottom: 1px solid rgba(26,25,8,.35); transform: rotate(45deg); }
+
+/* ── PRODUCT DEMO FRAMES ────────────────────────────── */
+.demo-frame-wrap {
+  width: 100%;
+  aspect-ratio: 680 / 480;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,.04), 0 16px 48px rgba(0,0,0,.14), 0 40px 80px rgba(0,0,0,.10);
+}
+.demo-frame-wrap iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 680px; height: 480px;
+  border: none;
+  transform-origin: top left;
+  pointer-events: none;
+  display: block;
+}
+
+/* Studio demo is 540px tall (not 480) — needs matching container */
+#studio .demo-frame-wrap { aspect-ratio: 680 / 540; }
+#studio .demo-frame-wrap iframe { height: 540px; }
 
 /* ── BLEEDS (hidden — transitions embedded in section backgrounds) */
 .bleed-d2l, .bleed-l2d, .bleed-d2la, .bleed-la2d { display: none; }
 
 /* ── PROBLEM ──────────────────────────────────────────── */
 #problem { background: var(--light); position: relative; overflow: hidden; }
-.prob-inner { max-width: 1280px; margin: 0 auto; padding: 120px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.prob-inner { max-width: 1280px; margin: 0 auto; padding: 80px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 
 .eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 .eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--orange); }
@@ -283,31 +441,31 @@ h2.editorial.lt { color: var(--text-dark); }
 .pdc-vendor {
   background: #0d1117;
   box-shadow: 0 8px 32px rgba(0,0,0,.38), 0 1px 4px rgba(0,0,0,.22);
-  top: 72px; left: 0; z-index: 3;
+  top: 72px; left: 0; z-index: 1;
   transform: rotate(-6deg) translateY(12px);
 }
 .pdc-vendor.pdc-visible { transform: rotate(-6deg) translateY(0); }
 .vd-hdr { padding: 13px 15px 11px; border-bottom: 1px solid rgba(255,255,255,.07); }
 .vd-logo { font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,.9); letter-spacing: -.02em; margin-bottom: 2px; }
 .vd-logo em { font-style: normal; color: #3fb950; }
-.vd-sub { font-size: 8.5px; font-weight: 400; color: rgba(255,255,255,.28); letter-spacing: .03em; }
+.vd-sub { font-size: 8.5px; font-weight: 400; color: rgba(255,255,255,.55); letter-spacing: .03em; }
 .vd-body { padding: 11px 15px; }
 .vd-num { font-size: 34px; font-weight: 200; color: #fff; letter-spacing: -.05em; line-height: 1; }
 .vd-num-lbl { font-size: 7.5px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.28); margin-bottom: 11px; }
 .vd-bars { display: flex; flex-direction: column; gap: 6px; }
 .vd-bar-row { display: flex; align-items: center; gap: 8px; }
-.vd-bar-name { font-size: 8px; color: rgba(255,255,255,.3); width: 76px; flex-shrink: 0; }
+.vd-bar-name { font-size: 8px; color: rgba(255,255,255,.55); width: 76px; flex-shrink: 0; }
 .vd-bar-track { flex: 1; height: 3px; background: rgba(255,255,255,.07); border-radius: 2px; overflow: hidden; }
 .vd-bar-fill { height: 100%; border-radius: 2px; background: var(--orange); }
 .vd-ftr { padding: 8px 15px; border-top: 1px solid rgba(255,255,255,.06); display: flex; align-items: center; justify-content: space-between; }
-.vd-conf { font-size: 7.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.2); border: 1px solid rgba(255,255,255,.12); padding: 2px 7px; border-radius: 2px; }
-.vd-ver { font-size: 8px; color: rgba(255,255,255,.16); }
+.vd-conf { font-size: 7.5px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.45); border: 1px solid rgba(255,255,255,.28); padding: 2px 7px; border-radius: 2px; }
+.vd-ver { font-size: 8px; color: rgba(255,255,255,.38); }
 /* ── Newsletter (white, center, on top) ── */
 .pdc-email {
   background: #fff;
   border: 1px solid rgba(0,0,0,.11);
   box-shadow: 0 8px 32px rgba(0,0,0,.16), 0 1px 4px rgba(0,0,0,.08);
-  top: 0; left: 144px; z-index: 1;
+  top: 0; left: 144px; z-index: 2;
   transform: rotate(-1deg) translateY(12px);
 }
 .pdc-email.pdc-visible { transform: rotate(-1deg) translateY(0); }
@@ -328,13 +486,13 @@ h2.editorial.lt { color: var(--text-dark); }
   background: #fff;
   border: 1px solid rgba(0,0,0,.1);
   box-shadow: 0 8px 28px rgba(0,0,0,.14), 0 1px 3px rgba(0,0,0,.07);
-  top: 68px; right: 0; z-index: 2;
+  top: 68px; right: 0; z-index: 3;
   transform: rotate(5deg) translateY(12px);
 }
 .pdc-report.pdc-visible { transform: rotate(5deg) translateY(0); }
 .rp-hdr { padding: 9px 14px; background: #1a2744; display: flex; align-items: flex-start; justify-content: space-between; }
 .rp-firm { font-size: 9px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.82); }
-.rp-date { font-size: 8.5px; color: rgba(255,255,255,.38); }
+.rp-date { font-size: 8.5px; color: rgba(255,255,255,.62); }
 .rp-cat { padding: 6px 14px; font-size: 7.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: rgba(0,0,0,.35); border-bottom: 1px solid rgba(0,0,0,.07); }
 .rp-body { padding: 10px 14px 12px; }
 .rp-title { font-size: 13px; font-weight: 600; color: #0a0a0a; line-height: 1.3; letter-spacing: -.02em; margin-bottom: 10px; }
@@ -352,7 +510,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── PLATFORM ─────────────────────────────────────────── */
 #platform { background: var(--dark); position: relative; overflow: hidden; min-height: 80vh; display: flex; align-items: center; }
-.plat-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 120px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.plat-inner { position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; padding: 80px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 
 .plat-pillars { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 40px; }
 .pillar { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; padding: 7px 14px; border: 1px solid rgba(241,80,37,.22); border-radius: 2px; color: var(--orange); background: rgba(241,80,37,.05); }
@@ -486,8 +644,8 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── DISCOVER ─────────────────────────────────────────── */
 #discover { background: var(--light); min-height: 100vh; display: flex; align-items: center; position: relative; }
-.disc-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 120px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; min-height: 100vh; }
-.disc-left { position: sticky; top: 120px; align-self: start; }
+.disc-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.disc-left { align-self: start; }
 
 .product-tag { display: inline-block; font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; border-radius: 3px; padding: 4px 10px; margin-bottom: 20px; }
 .ptag-orange { color: var(--orange); border: 1px solid rgba(241,80,37,.3); }
@@ -540,8 +698,8 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── FOLIO ────────────────────────────────────────────── */
 #folio { background: var(--light); min-height: 100vh; display: flex; align-items: center; position: relative; }
-.folio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 120px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; min-height: 100vh; }
-.folio-right { position: sticky; top: 120px; align-self: start; }
+.folio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.folio-right { align-self: start; }
 
 /* Folio mockup internals */
 .folio-head { padding: 12px 16px; border-bottom: 1px solid rgba(0,0,0,.07); display: flex; align-items: center; justify-content: space-between; background: #FAFAFA; }
@@ -593,9 +751,9 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── STUDIO ───────────────────────────────────────────── */
 #studio { background: var(--light); min-height: 100vh; display: flex; align-items: center; position: relative; }
-.studio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 120px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; min-height: 100vh; }
-.studio-left { position: sticky; top: 120px; align-self: start; }
-.studio-mockup-wrap { width: 100%; position: relative; overflow: visible; }
+.studio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.studio-left { align-self: start; }
+.studio-mockup-wrap { width: 100%; position: relative; overflow: visible; padding: 28px 0 40px; }
 .studio-mockup-wrap .mockup { width: 100%; }
 
 /* Studio mockup: split panel */
@@ -883,12 +1041,37 @@ h2.editorial.lt { color: var(--text-dark); }
 .emodal-submit:hover { background: #ede8e5; }
 .emodal-note { font-size: 11px; color: var(--text-ldim2); text-align: center; margin-top: 14px; }
 
+/* Modal success state */
+.emodal-success {
+  display: none; flex-direction: column; align-items: center;
+  text-align: center; padding: 12px 0 8px; gap: 6px;
+}
+.emodal-success.show { display: flex; }
+.emodal-success-icon {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(6,229,160,.12); border: 1px solid rgba(6,229,160,.25);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 8px;
+  color: var(--mint); font-size: 18px;
+}
+.emodal-success-h { font-size: 20px; font-weight: 300; letter-spacing: -.03em; color: var(--text-light); margin-bottom: 6px; }
+.emodal-success-sub { font-size: 13px; color: var(--text-ldim); line-height: 1.55; max-width: 280px; margin-bottom: 24px; }
+.emodal-explore-btn {
+  display: inline-block; width: 100%;
+  background: var(--orange); color: #fff;
+  font-family: inherit; font-size: 13px; font-weight: 400; letter-spacing: .04em;
+  padding: 13px 24px; border-radius: var(--r); border: none;
+  cursor: pointer; text-decoration: none;
+  transition: opacity .18s;
+}
+.emodal-explore-btn:hover { opacity: .88; }
+
 
 /* ── FLYWHEEL + SCALE (combined) ──────────────────────── */
 #flywheel { background: var(--light); border-top: 1px solid var(--border-lm); }
 .fly-inner { max-width: 1100px; margin: 0 auto; padding: 100px 80px; }
 .fly-top { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-.fly-left h2 { letter-spacing: -.04em; margin-top: 16px; }
+.fly-left h2 { font-size: clamp(26px, 2.8vw, 38px); letter-spacing: -.04em; margin-top: 16px; }
 .fly-right {}
 .fly-sentence {
   font-size: 17px; font-weight: 300; color: var(--text-mid);
@@ -1151,7 +1334,12 @@ h2.editorial.lt { color: var(--text-dark); }
   #nav { padding: 16px 24px; }
   .nav-links { display: none; }
   .nav-cta { display: none; }
+  .nav-btn-group { display: none; }
   .nav-burger { display: flex; }
+
+  /* Dark hero — tablet */
+  #hero .hero-inner { padding: 80px 32px 48px; }
+  #hero .demo-outer { width: calc(100vw - 48px); }
 
   .hero-inner { grid-template-columns: 1fr; padding: 0 32px; padding-top: 100px; padding-bottom: 72px; }
   .hero-right { display: flex; justify-content: center; overflow: hidden; }
@@ -1179,6 +1367,8 @@ h2.editorial.lt { color: var(--text-dark); }
   .fly-top { grid-template-columns: 1fr; gap: 40px; }
   .fly-outcome-big { font-size: clamp(32px, 6vw, 44px); }
 
+  .mid-cta { padding: 24px 32px; gap: 16px; }
+
   .cta-inner { padding: 100px 32px; }
 
   .footer-inner { padding: 60px 32px 40px; }
@@ -1191,19 +1381,15 @@ h2.editorial.lt { color: var(--text-dark); }
 @media (max-width: 640px) {
   /* Nav */
   #nav { padding: 14px 20px; }
-  .nav-cta { font-size: 11px; padding: 7px 14px; }
 
-  /* Hero */
-  .hero-inner { padding: 0 20px; padding-top: 88px; padding-bottom: 60px; }
-  .hero-h1 { font-size: clamp(38px, 10vw, 56px); letter-spacing: -.03em; }
-  .hero-sub { font-size: 16px; margin-bottom: 36px; }
-  .hero-actions { flex-direction: column; align-items: flex-start; gap: 16px; }
-  .hero-btn { width: 100%; text-align: center; padding: 15px 28px; font-size: 14px; }
-  .hero-vis-outer { padding: 0; }
-  .hero-vis-scene { overflow: hidden; }
-  .hvc-main { font-size: 11px; }
-  .hvc-t-score { font-size: 22px; }
-  .hvc-peer-pct { font-size: 18px; }
+  /* Dark hero — mobile */
+  #hero .hero-inner { padding: 72px 20px 36px; }
+  #hero .demo-outer { width: calc(100vw - 32px); }
+  .hero-h1 { font-size: clamp(26px, 7vw, 38px); }
+  .hero-sub { font-size: 14px; margin-bottom: 28px; }
+  .demo-cta-line { font-size: clamp(16px, 5vw, 22px); }
+  .demo-cta-btns { flex-direction: column; width: 100%; padding: 0 16px; box-sizing: border-box; }
+  .demo-cta-btn, .demo-cta-btn-ghost { width: 100%; text-align: center; }
 
   /* Sections */
   .prob-inner,
@@ -1237,6 +1423,14 @@ h2.editorial.lt { color: var(--text-dark); }
 
   /* Mockups: flatten tilt on mobile */
   .mockup { transform: none !important; }
+
+  /* Mid-CTA bar */
+  .mid-cta { flex-direction: column; padding: 24px 20px; gap: 14px; text-align: center; }
+  .mid-cta-sep { display: none; }
+
+  /* Human / agent toggle */
+  .ha-wrap { margin-top: 36px; }
+  .ha-btn { padding: 8px 16px; font-size: 11px; }
 
   /* Discover mockup */
   .disc-mockup-body { grid-template-columns: 1fr; }
@@ -1609,7 +1803,10 @@ h2.editorial.lt { color: var(--text-dark); }
     <li><a href="#folio" data-section="folio">Folio</a></li>
     <li><a href="#studio" data-section="studio">Studio</a></li>
   </ul>
-  <a href="#" id="access-nav-btn" class="nav-cta">Get early access &rarr;</a>
+  <div class="nav-btn-group">
+    <a href="/login" class="nav-login">Log in</a>
+    <a href="#" id="access-nav-btn" class="nav-cta">Request access</a>
+  </div>
   <button class="nav-burger" id="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
 <div id="mobile-nav">
@@ -1617,133 +1814,54 @@ h2.editorial.lt { color: var(--text-dark); }
   <a href="#discover" class="mob-link">Discover</a>
   <a href="#folio" class="mob-link">Folio</a>
   <a href="#studio" class="mob-link">Studio</a>
-  <a href="#">Get early access &rarr;</a>
+  <a href="/login">Log in</a>
+  <a href="#" id="access-mob-btn">Request access &rarr;</a>
 </div>
 
 <!-- HERO -->
 <section id="hero">
   <canvas id="hero-canvas"></canvas>
-  <div class="hero-grain" aria-hidden="true"></div>
+  <div class="hero-glow"></div>
   <div class="hero-inner">
-    <div class="hero-left">
-      <div class="hero-eyebrow">Transformation intelligence</div>
-      <h1 class="hero-h1" id="hero-h1">
-        <span class="word-wrap"><span class="word-inner">The</span></span>&#32;<span class="word-wrap"><span class="word-inner">AI</span></span>&#32;<span class="word-wrap"><span class="word-inner">market</span></span><br>
-        <span class="word-wrap"><span class="word-inner">moves</span></span>&#32;<span class="word-wrap"><span class="word-inner">fast.</span></span><br>
-        <span class="hero-h1-line-2">
-          <span class="word-wrap"><span class="word-inner">Airframe</span></span>&#32;<span class="word-wrap"><span class="word-inner">is</span></span>&#32;<span class="word-wrap"><span class="word-inner">how</span></span><br>
-          <span class="word-wrap"><span class="word-inner">you</span></span>&#32;<span class="word-wrap"><span class="word-inner">stay</span></span>&#32;<span class="word-wrap"><span class="word-inner">ahead.</span></span>
-        </span>
-      </h1>
-      <div class="hero-sub"><div class="hero-sub-inner">Built for the technology leaders who can't afford to get AI wrong.</div></div>
-      <div class="hero-actions">
-        <a href="#" id="access-hero-btn" class="hero-btn">Get early access &rarr;</a>
-        <a href="#platform" class="hero-link">Explore the platform ↓</a>
-      </div>
-      <div class="hero-trust">
-        <span class="hero-trust-dot"></span>
-        <span>127 technology leaders on the waitlist</span>
-      </div>
+
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-dot"></span>
+      Transformation intelligence
+      <span class="hero-eyebrow-dot"></span>
     </div>
 
-    <div class="hero-right">
-      <div class="hero-vis-outer">
-        <div class="hero-vis-scene">
+    <h1 class="hero-h1" id="hero-h1">
+      The AI market moves fast.<br>
+      <em class="hero-h1-muted">Airframe is how you stay ahead.</em>
+    </h1>
 
-          <!-- Floating 3D stack -->
-          <div class="hero-vis-stack">
+    <p class="hero-sub">Built for the technology leaders who can't afford to get AI wrong.</p>
 
-            <!-- Card stack: ghost cards anchor to bottom of main -->
-            <div class="hero-vis-card-stack">
+    <div class="demo-outer">
+      <div class="demo-frame-wrap" id="hero-demo-wrap">
+        <iframe src="airframe-demo-report.html?noloop=1" scrolling="no" frameborder="0" id="hero-demo-iframe"></iframe>
+      </div>
+      <div class="demo-cta" id="hero-demo-cta">
 
-            <!-- Main card -->
-            <div class="hvc-main" style="position:relative;z-index:10;">
-
-              <!-- Brief scan overlay -->
-              <div class="hvc-brief-scan" aria-hidden="true"></div>
-
-              <!-- Window chrome -->
-              <div class="hvc-chrome">
-                <div class="hvc-dots">
-                  <span class="hvc-dot hvc-dot-r"></span>
-                  <span class="hvc-dot hvc-dot-y"></span>
-                  <span class="hvc-dot hvc-dot-g"></span>
-                </div>
-                <span class="hvc-chrome-title">Airframe Studio</span>
-                <div class="hvc-badge-ready hvc-badge-analyzing">
-                  <span class="hvc-badge-dot"></span>
-                  Analyzing...
-                </div>
-              </div>
-
-              <!-- Context -->
-              <div class="hvc-context">
-                <div class="hvc-ctx-left">
-                  <div class="hvc-ctx-org">Meridian Software</div>
-                  <div class="hvc-ctx-init">AI Engineering Standard &nbsp;·&nbsp; Q2 Decision</div>
-                </div>
-                <span class="hvc-ctx-tag">Active</span>
-              </div>
-
-              <!-- Tool comparison -->
-              <div class="hvc-compare">
-                <div class="hvc-tool-card">
-                  <div class="hvc-t-name">GitHub Copilot</div>
-                  <div class="hvc-t-score" data-target="72">—</div>
-                  <div class="hvc-t-bar"><div class="hvc-t-bar-fill dim" data-w="72%"></div></div>
-                  <div class="hvc-t-stacks">48.2K stacks &nbsp;·&nbsp; Enterprise</div>
-                </div>
-                <div class="hvc-vs-label">vs</div>
-                <div class="hvc-tool-card w">
-                  <div class="hvc-t-name">Cursor <span class="hvc-t-arrow">↑</span></div>
-                  <div class="hvc-t-score" data-target="89">—</div>
-                  <div class="hvc-t-bar"><div class="hvc-t-bar-fill bright" data-w="89%"></div></div>
-                  <div class="hvc-t-stacks">31.7K stacks &nbsp;·&nbsp; Rising fast</div>
-                </div>
-              </div>
-
-              <!-- Peer signal -->
-              <div class="hvc-peer">
-                <div class="hvc-peer-head">
-                  <span class="hvc-peer-label">Peer signal</span>
-                  <span class="hvc-peer-count"><b>847</b> companies matched to your profile</span>
-                </div>
-                <div class="hvc-peer-match">Filtered to your company size and stack</div>
-                <div class="hvc-peer-bar-row">
-                  <div class="hvc-peer-track"><div class="hvc-peer-fill"></div></div>
-                  <div class="hvc-peer-pct" data-target="61">—</div>
-                </div>
-                <div class="hvc-peer-note">chose <strong>Cursor</strong> for greenfield engineering teams &nbsp;·&nbsp; Copilot dominant in regulated industries</div>
-              </div>
-
-              <!-- Recommendation verdict -->
-              <div class="hvc-verdict">
-                <div class="hvc-verdict-left">
-                  <div class="hvc-verdict-label">Recommendation</div>
-                  <div class="hvc-verdict-call">
-                    <span class="hvc-verdict-arrow">→</span>
-                    <span class="hvc-verdict-name">Cursor</span>
-                  </div>
-                </div>
-                <div class="hvc-verdict-reason">for greenfield AI engineering teams at your scale</div>
-              </div>
-
-              <!-- Footer -->
-              <div class="hvc-footer">
-                <span class="hvc-footer-stat"><b>140K+</b> stacks &nbsp;·&nbsp; <b>12K+</b> use cases &nbsp;·&nbsp; No vendor bias</span>
-                <a href="#" class="hvc-footer-cta">See full brief →</a>
-              </div>
-
-            </div><!-- /hvc-main -->
-            </div><!-- /hero-vis-card-stack -->
-          </div><!-- /hero-vis-stack -->
-
-          <div class="hero-vis-reflection"></div>
+        <!-- Default: shown after demo plays -->
+        <div class="cta-default" style="display:flex;flex-direction:column;align-items:center;gap:22px;">
+          <span class="demo-cta-line">See where your stack ranks.</span>
+          <div class="demo-cta-btns">
+            <a href="#" id="access-hero-btn" class="demo-cta-btn">Request access</a>
+            <button class="demo-cta-btn-ghost" id="hero-explore-btn">Explore the platform ↓</button>
+          </div>
         </div>
+
+        <!-- Welcome: shown on ?welcome=1 -->
+        <div class="cta-welcome">
+          <span class="demo-cta-line">Welcome to Airframe.</span>
+          <a class="demo-cta-btn" href="/app">Enter Airframe →</a>
+        </div>
+
       </div>
     </div>
+
   </div>
-  <div class="scroll-ind"><div class="scroll-chev"></div></div>
 </section>
 
 <div class="bleed-d2l"></div>
@@ -1754,7 +1872,7 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="prob-left">
       <div class="eyebrow" data-reveal>Sound familiar?</div>
       <h2 class="editorial lt" data-reveal data-delay="1">Buying AI.<br>Building it.<br>Staying ahead of it.</h2>
-      <p class="body-copy lt" data-reveal data-delay="2">Every company has an AI mandate. Nobody has a playbook. And every research tool you'd use to build one is funded by the vendors you're evaluating.</p>
+      <p class="body-copy lt" data-reveal data-delay="2">Every company has an AI mandate. Nobody has a playbook, because the market rewrites itself faster than any playbook can. And every research tool you'd use to build one is funded by the vendors you're evaluating.</p>
       <p class="prob-closer" data-reveal data-delay="3">The companies winning on AI aren't smarter. They just had better intelligence.</p>
     </div>
     <div id="prob-cards-outer" data-reveal data-delay="2">
@@ -1869,94 +1987,16 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="disc-left">
       <span class="product-tag ptag-orange" data-reveal>Discover</span>
       <h2 class="editorial section-h2 lt" data-reveal data-delay="1">See what the market is actually running</h2>
-      <p class="section-body lt" data-reveal data-delay="2">You can read what a vendor claims about adoption. Or you can see what 140,000 real company stacks actually contain. Discover surfaces what your peers are running, what they replaced, and what's gaining ground in your segment — filtered to companies that look like yours.</p>
+      <p class="section-body lt" data-reveal data-delay="2">You can read what a vendor claims about adoption. Or you can see what real company stacks actually contain: what your peers are running, what they've replaced, and what's pulling ahead in your segment, filtered to companies that look like yours.</p>
       <ul class="feature-list">
         <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>Peer adoption signals across 140,000+ real company stacks</li>
         <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>Data you won't find in a vendor deck or analyst report</li>
         <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Compare any tool against what you already run</li>
       </ul>
     </div>
-    <div class="mockup-wrap mockup-wrap-disc" data-reveal data-delay="2" style="padding: 16px 24px 80px">
-      <div class="mockup mockup-lt" id="discover-mockup">
-        <div class="browser-chrome chrome-lt">
-          <div class="browser-dots"><div class="bdot bdot-r"></div><div class="bdot bdot-y"></div><div class="bdot bdot-g"></div></div>
-          <div class="burl burl-lt"><img src="https://www.google.com/s2/favicons?domain=airframe.ai&sz=32" width="11" height="11" style="border-radius:2px;opacity:.75;flex-shrink:0">app.airframe.ai/discover</div>
-        </div>
-        <div class="app-nav-bar lt">
-          <span class="app-brand lt">Airframe<span class="dot">.</span></span>
-          <div class="spacer"></div><div class="app-avatar">MS</div>
-        </div>
-        <div id="disc-compare-view" style="display:flex;flex-direction:column;background:#F5F5F5;min-height:280px">
-          <!-- tabs -->
-          <div style="padding:8px 12px 0;background:#FAFAFA;border-bottom:1px solid rgba(0,0,0,.07)">
-            <div style="font-size:8px;color:rgba(26,25,8,.35);letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px">Discover &rsaquo; AI / ML &rsaquo; <span style="color:rgba(26,25,8,.72)">Compare</span></div>
-            <div style="display:flex">
-              <div style="font-size:9.5px;padding:5px 11px;color:rgba(26,25,8,.38);border-bottom:2px solid transparent">Browse</div>
-              <div style="font-size:9.5px;padding:5px 11px;color:#1A1908;border-bottom:2px solid #F15025;font-weight:500">Compare</div>
-              <div style="font-size:9.5px;padding:5px 11px;color:rgba(26,25,8,.38);border-bottom:2px solid transparent">Trending</div>
-              <div style="font-size:9.5px;padding:5px 11px;color:rgba(26,25,8,.38);border-bottom:2px solid transparent">Peer picks</div>
-            </div>
-          </div>
-          <!-- two-col -->
-          <div style="display:grid;grid-template-columns:1fr 1fr;flex:1">
-            <!-- Copilot -->
-            <div style="padding:11px 12px;border-right:1px solid rgba(0,0,0,.07);background:#fff">
-              <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
-                <img src="https://www.google.com/s2/favicons?domain=github.com&sz=32" width="20" height="20" style="border-radius:4px;flex-shrink:0;display:block">
-                <span style="font-size:11px;font-weight:500;color:#1A1908">Copilot</span>
-                <span style="margin-left:auto;font-size:7px;font-weight:500;padding:1px 5px;border-radius:100px;background:rgba(0,0,0,.06);color:rgba(26,25,8,.42);letter-spacing:.04em;text-transform:uppercase">Incumbent</span>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:9px">
-                <span id="disc-score-a" style="font-size:26px;font-weight:200;color:#F15025;letter-spacing:-.04em;line-height:1">0</span>
-                <span style="font-size:9px;color:rgba(26,25,8,.28)">/100</span>
-              </div>
-              <div style="font-size:7.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,25,8,.28);margin-bottom:6px">Dimensions</div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Integrations</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="88" style="height:3px;border-radius:2px;background:#F15025;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">88</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Ease of use</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="62" style="height:3px;border-radius:2px;background:#F15025;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">62</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Model quality</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="70" style="height:3px;border-radius:2px;background:#F15025;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">70</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Enterprise fit</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="91" style="height:3px;border-radius:2px;background:#F15025;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">91</span></div>
-              <div style="background:rgba(0,0,0,.03);border-radius:3px;padding:6px 8px;margin-top:8px">
-                <div style="font-size:7.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(26,25,8,.32);margin-bottom:3px">Peer adoption</div>
-                <div id="disc-peer-a" style="font-size:17px;font-weight:200;color:#1A1908;letter-spacing:-.03em">0%</div>
-                <div style="font-size:8px;color:rgba(26,25,8,.4);margin-top:1px;line-height:1.35">of 847 matched &middot; regulated industries</div>
-              </div>
-            </div>
-            <!-- Cursor -->
-            <div style="padding:11px 12px;background:#fff">
-              <div style="display:flex;align-items:center;gap:7px;margin-bottom:8px">
-                <img src="https://www.google.com/s2/favicons?domain=cursor.com&sz=32" width="20" height="20" style="border-radius:4px;flex-shrink:0;display:block">
-                <span style="font-size:11px;font-weight:500;color:#1A1908">Cursor</span>
-                <span style="font-size:9px;color:#06E5A0">&#8593;</span>
-                <span style="margin-left:auto;font-size:7px;font-weight:500;padding:1px 5px;border-radius:100px;background:rgba(6,229,160,.15);color:#069D70;letter-spacing:.04em;text-transform:uppercase">Rising</span>
-              </div>
-              <div style="display:flex;align-items:baseline;gap:2px;margin-bottom:9px">
-                <span id="disc-score-b" style="font-size:26px;font-weight:200;color:#069D70;letter-spacing:-.04em;line-height:1">0</span>
-                <span style="font-size:9px;color:rgba(26,25,8,.28)">/100</span>
-              </div>
-              <div style="font-size:7.5px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(26,25,8,.28);margin-bottom:6px">Dimensions</div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Integrations</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="74" style="height:3px;border-radius:2px;background:#06E5A0;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">74</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Ease of use</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="94" style="height:3px;border-radius:2px;background:#06E5A0;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">94</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Model quality</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="96" style="height:3px;border-radius:2px;background:#06E5A0;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">96</span></div>
-              <div style="display:flex;align-items:center;gap:5px;margin-bottom:5px"><span style="font-size:8.5px;color:rgba(26,25,8,.52);width:70px;flex-shrink:0">Enterprise fit</span><div style="flex:1;height:3px;background:rgba(0,0,0,.08);border-radius:2px"><div class="disc-cmp-bar" data-w="67" style="height:3px;border-radius:2px;background:#06E5A0;width:0%"></div></div><span style="font-size:9px;color:#1A1908;width:18px;text-align:right">67</span></div>
-              <div style="background:rgba(0,0,0,.03);border-radius:3px;padding:6px 8px;margin-top:8px">
-                <div style="font-size:7.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(26,25,8,.32);margin-bottom:3px">Peer adoption</div>
-                <div id="disc-peer-b" style="font-size:17px;font-weight:200;color:#1A1908;letter-spacing:-.03em">0%</div>
-                <div style="font-size:8px;color:rgba(26,25,8,.4);margin-top:1px;line-height:1.35">of 847 matched &middot; greenfield teams</div>
-              </div>
-            </div>
-          </div>
-          <!-- Rec bar -->
-          <div style="padding:6px 12px;background:rgba(6,229,160,.06);border-top:1px solid rgba(6,229,160,.15);display:flex;align-items:center;gap:7px">
-            <span style="font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:#069D70;font-weight:500;white-space:nowrap;flex-shrink:0">Airframe rec.</span>
-            <span style="font-size:9px;color:rgba(26,25,8,.7)"><strong style="color:#1A1908;font-weight:500">Cursor</strong> for greenfield AI engineering at your scale. Copilot holds advantage in regulated environments.</span>
-          </div>
-          <!-- Stack count -->
-          <div style="padding:8px 12px 18px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(0,0,0,.06);background:#FAFAFA">
-            <span style="font-size:12px;font-weight:500;color:rgba(26,25,8,.72);white-space:nowrap"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#F15025;margin-right:5px;vertical-align:middle"></span>Copilot &nbsp;48.2K</span>
-            <span style="font-size:12px;font-weight:500;color:rgba(26,25,8,.72);white-space:nowrap"><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#06E5A0;margin-right:5px;vertical-align:middle"></span>Cursor &nbsp;31.7K</span>
-            <span style="font-size:11px;font-weight:400;color:rgba(26,25,8,.5);white-space:nowrap">140K+ &middot; No vendor bias</span>
-          </div>
-        </div>
+    <div class="mockup-wrap mockup-wrap-disc" data-reveal data-delay="2">
+      <div class="demo-frame-wrap">
+        <iframe src="airframe-demo-discover.html" scrolling="no" frameborder="0" loading="lazy"></iframe>
       </div>
     </div>
   </div>
@@ -1967,21 +2007,11 @@ h2.editorial.lt { color: var(--text-dark); }
 <!-- FOLIO -->
 <section id="folio">
   <div class="folio-inner">
-    <div>
       <div class="mockup-wrap mockup-wrap-folio">
-        <div class="mockup mockup-lt tilt-r" id="folio-mockup">
-          <div class="browser-chrome chrome-lt">
-            <div class="browser-dots"><div class="bdot bdot-r"></div><div class="bdot bdot-y"></div><div class="bdot bdot-g"></div></div>
-            <div class="burl burl-lt"><img src="https://www.google.com/s2/favicons?domain=airframe.ai&sz=32" width="11" height="11" style="border-radius:2px;opacity:.75;flex-shrink:0">app.airframe.ai/folio</div>
-          </div>
-          <div class="app-nav-bar lt">
-            <span class="app-brand lt">Airframe<span class="dot">.</span></span>
-            <div class="spacer"></div><div class="app-avatar">MS</div>
-          </div>
-          <div id="folio-scene-body"></div>
+        <div class="demo-frame-wrap">
+          <iframe src="airframe-demo-folio.html" scrolling="no" frameborder="0" loading="lazy"></iframe>
         </div>
       </div>
-    </div>
     <div class="folio-right">
       <span class="product-tag ptag-mint" data-reveal>Folio</span>
       <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Your stack. And everything your org already knows about it.</h2>
@@ -2003,39 +2033,12 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="studio-left">
       <span class="product-tag ptag-mint" data-reveal>Studio</span>
       <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Describe the scenario. Airframe structures the rest.</h2>
-      <p class="section-body lt" data-reveal data-delay="2">Every AI initiative needs structure before it can move. Studio creates it from the moment you describe the scenario. Airframe detects the decision type, populates what it already knows, and asks only for what it still needs.</p>
-      <p class="studio-closer" data-reveal data-delay="3">Every initiative ends in a recommendation. Not a framework. An actual call.</p>
+      <p class="section-body lt" data-reveal data-delay="2">Every AI initiative needs structure before it can move. Studio creates it the moment you describe the scenario. <strong>Airframe detects the decision type</strong>, populates what it already knows, and asks only for what it still needs.</p>
+      <p class="studio-closer" data-reveal data-delay="3">Every evaluation ends with a concrete recommendation your team can act on: what to buy, what to cut, and what to hold. An answer, not a framework to decipher.</p>
     </div>
     <div class="studio-mockup-wrap mockup-wrap-studio" data-reveal data-delay="2">
-      <div class="mockup mockup-lt" id="studio-mockup">
-        <div class="browser-chrome chrome-lt">
-          <div class="browser-dots"><div class="bdot bdot-r"></div><div class="bdot bdot-y"></div><div class="bdot bdot-g"></div></div>
-          <div class="burl burl-lt"><img src="https://www.google.com/s2/favicons?domain=airframe.ai&sz=32" width="11" height="11" style="border-radius:2px;opacity:.75;flex-shrink:0">app.airframe.ai/studio</div>
-        </div>
-        <div class="app-nav-bar lt">
-          <span class="app-brand lt">Airframe<span class="dot">.</span></span>
-          <div class="spacer"></div><div class="app-avatar">MS</div>
-        </div>
-        <div class="studio-ws-bar">
-          <div class="studio-ws-info">
-            <span class="studio-ws-name">Meridian Software</span>
-            <span class="studio-ws-sep">&middot;</span>
-            <span class="studio-ws-plan">AI Transformation Plan</span>
-          </div>
-          <span class="studio-ws-badge">2 Critical Gaps</span>
-        </div>
-        <div class="studio-body">
-          <div class="studio-list">
-            <div class="studio-list-head"><span class="studio-list-title">Initiatives</span><span class="studio-new-btn">+ New</span></div>
-            <div class="studio-init si-selected" id="si-1">
-              <div class="studio-init-top"><div class="studio-dot sdi-active"></div><span class="studio-name">Salesforce Renewal</span><span class="studio-status sst-critical">Critical</span></div>
-            </div>
-            <div class="studio-init" id="si-2">
-              <div class="studio-init-top"><div class="studio-dot sdi-active"></div><span class="studio-name">AI Coding Standard</span><span class="studio-status sst-active">Active</span></div>
-            </div>
-          </div>
-          <div class="studio-detail" id="studio-scene-body" style="display:flex;flex-direction:column;height:340px;overflow:hidden"></div>
-        </div>
+      <div class="demo-frame-wrap">
+        <iframe src="airframe-demo-studio.html" scrolling="no" frameborder="0" loading="lazy"></iframe>
       </div>
     </div>
   </div>
@@ -2047,10 +2050,10 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="fly-top">
       <div class="fly-left">
         <div class="eyebrow" data-reveal>Always working</div>
-        <h2 class="editorial lt" data-reveal data-delay="1">The market moves while you're in meetings. Airframe keeps up.</h2>
+        <h2 class="editorial lt" data-reveal data-delay="1">The market moves while you're in meetings. <strong>Airframe</strong> keeps up.</h2>
       </div>
       <div class="fly-right" data-reveal data-delay="2">
-        <p class="fly-sentence">The AI market now has 50 to 200 vendors in every category you need to navigate. No team reads fast enough. No consultant does either. Airframe is the intelligence infrastructure that keeps pace. <span class="fly-chip fly-chip-f"><span class="fly-chip-dot" style="background:var(--text-mid)"></span>Folio</span> captures your context. <span class="fly-chip fly-chip-m"><span class="fly-chip-dot" style="background:var(--mint)"></span>Discover</span> filters the market to it. <span class="fly-chip fly-chip-o"><span class="fly-chip-dot" style="background:var(--orange)"></span>Studio</span> turns every signal into a decision.</p>
+        <p class="fly-sentence">Your categories now have 50 to 200 vendors, and they rewrite themselves every quarter. No team reads fast enough. No analyst does either. Airframe runs continuously, so your team doesn't have to. <span class="fly-chip fly-chip-f"><span class="fly-chip-dot" style="background:var(--text-mid)"></span>Folio</span> holds your context. <span class="fly-chip fly-chip-m"><span class="fly-chip-dot" style="background:var(--mint)"></span>Discover</span> filters the market to it. <span class="fly-chip fly-chip-o"><span class="fly-chip-dot" style="background:var(--orange)"></span>Studio</span> turns every signal into a decision.</p>
       </div>
     </div>
   </div>
@@ -2122,6 +2125,14 @@ h2.editorial.lt { color: var(--text-dark); }
       <button class="emodal-submit" type="submit">Submit application &rarr;</button>
     </form>
     <p class="emodal-note">We review every application personally.</p>
+
+    <div class="emodal-success" id="access-success">
+      <div class="emodal-success-icon">✓</div>
+      <div class="emodal-success-h">You're on the list.</div>
+      <p class="emodal-success-sub">We review every application personally and will be in touch soon. In the meantime, explore the platform.</p>
+      <button class="emodal-explore-btn" id="access-explore-btn">Explore the platform ↓</button>
+    </div>
+
   </div>
 </div>
 
@@ -2231,11 +2242,11 @@ h2.editorial.lt { color: var(--text-dark); }
 const nav = document.getElementById('nav');
 const navLinks = document.querySelectorAll('.nav-links a');
 const allSections = document.querySelectorAll('section[id]');
-const lightSections = new Set(['hero', 'problem', 'discover', 'folio', 'studio', 'flywheel']);
+const lightSections = new Set(['problem', 'discover', 'folio', 'studio', 'flywheel']);
 
 function updateNav() {
   const sy = window.scrollY;
-  if (sy < 60) { nav.className = 'light'; return; }
+  if (sy < 60) { nav.className = 'dark'; return; }
   let current = '';
   allSections.forEach(s => { if (sy >= s.offsetTop - 120) current = s.id; });
   nav.className = lightSections.has(current) ? 'light' : 'dark';
@@ -2267,16 +2278,81 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 document.querySelector('.nav-logo').addEventListener('click', e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
 
-// ── HERO WORD REVEAL ──────────────────────────────────────
-function revealWords() {
-  const words = document.querySelectorAll('#hero-h1 .word-inner');
-  words.forEach((w, i) => setTimeout(() => w.classList.add('up'), 180 + i * 65));
-  setTimeout(() => {
-    const sub = document.querySelector('.hero-sub-inner');
-    if (sub) sub.classList.add('up');
-  }, 180 + words.length * 65 + 80);
-}
-window.addEventListener('load', revealWords);
+// ── HERO CANVAS ───────────────────────────────────────────
+(function() {
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes;
+  const NODE_COUNT = 38, MAX_DIST = 140, NODE_OPACITY = 0.18, EDGE_OPACITY = 0.04, NODE_RADIUS = 1.6, SPEED = 0.22;
+  function resize() {
+    const hero = document.getElementById('hero');
+    W = canvas.width  = hero ? hero.offsetWidth  : window.innerWidth;
+    H = canvas.height = hero ? hero.offsetHeight : window.innerHeight;
+  }
+  function initNodes() {
+    nodes = Array.from({ length: NODE_COUNT }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      vx: (Math.random() - 0.5) * SPEED, vy: (Math.random() - 0.5) * SPEED,
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    ctx.lineWidth = 0.6;
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        const dx = nodes[i].x - nodes[j].x, dy = nodes[i].y - nodes[j].y;
+        const d = Math.sqrt(dx*dx + dy*dy);
+        if (d < MAX_DIST) {
+          ctx.strokeStyle = 'rgba(255,255,255,' + (EDGE_OPACITY * (1 - d/MAX_DIST)).toFixed(3) + ')';
+          ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y); ctx.stroke();
+        }
+      }
+    }
+    ctx.fillStyle = 'rgba(255,255,255,' + NODE_OPACITY + ')';
+    for (const n of nodes) {
+      ctx.beginPath(); ctx.arc(n.x, n.y, NODE_RADIUS, 0, Math.PI*2); ctx.fill();
+      n.x += n.vx; n.y += n.vy;
+      if (n.x < -20) n.x = W+20; if (n.x > W+20) n.x = -20;
+      if (n.y < -20) n.y = H+20; if (n.y > H+20) n.y = -20;
+    }
+    requestAnimationFrame(draw);
+  }
+  resize(); initNodes(); draw();
+  window.addEventListener('resize', resize);
+})();
+
+// ── HERO DEMO ─────────────────────────────────────────────
+(function() {
+  const wrap   = document.getElementById('hero-demo-wrap');
+  const iframe = document.getElementById('hero-demo-iframe');
+  const cta    = document.getElementById('hero-demo-cta');
+  const exploreBtn = document.getElementById('hero-explore-btn');
+  if (!wrap || !iframe || !cta) return;
+
+  function scaleDemo() {
+    const s = wrap.offsetWidth / 680;
+    iframe.style.transform = 'scale(' + s + ')';
+    wrap.style.height = Math.round(480 * s) + 'px';
+  }
+  scaleDemo();
+  window.addEventListener('resize', scaleDemo);
+
+  if (exploreBtn) {
+    exploreBtn.addEventListener('click', () => {
+      const target = document.getElementById('problem') || document.querySelector('section:nth-of-type(2)');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  const isWelcome = new URLSearchParams(location.search).has('welcome');
+  if (isWelcome) {
+    wrap.classList.add('dim');
+    cta.classList.add('on', 'welcome');
+  } else {
+    setTimeout(() => { wrap.classList.add('dim'); cta.classList.add('on'); }, 9000);
+  }
+})();
 
 
 // ── SCROLL REVEAL ─────────────────────────────────────────
@@ -3334,6 +3410,24 @@ const metricObs = new IntersectionObserver(entries => {
 }, { threshold: 0.5 });
 document.querySelectorAll('.metric-num[data-count]').forEach(el => metricObs.observe(el));
 
+// ── SECTION DEMO RESTART ─────────────────────────────────
+// Reload section iframes every time they enter the viewport so animations
+// always start from the beginning, regardless of when the user scrolls to them.
+const sectionDemoFrames = document.querySelectorAll(
+  '#discover .demo-frame-wrap iframe, #folio .demo-frame-wrap iframe, #studio .demo-frame-wrap iframe'
+);
+const demoRestartObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const iframe = e.target;
+      const src = iframe.getAttribute('src');
+      iframe.setAttribute('src', '');
+      requestAnimationFrame(() => iframe.setAttribute('src', src));
+    }
+  });
+}, { threshold: 0.35 });
+sectionDemoFrames.forEach(f => demoRestartObs.observe(f));
+
 
 // ── EXPERT NETWORK MODAL ─────────────────────────────────
 const expertModal = document.getElementById('expert-modal');
@@ -3396,7 +3490,7 @@ const accessForm  = document.getElementById('access-form');
 function openAccessModal(e) { if (e) e.preventDefault(); accessModal.classList.add('open'); document.body.style.overflow = 'hidden'; }
 function closeAccessModal() { accessModal.classList.remove('open'); document.body.style.overflow = ''; }
 
-['access-nav-btn','access-hero-btn','access-mid-btn','access-cta-btn'].forEach(id => {
+['access-nav-btn','access-hero-btn','access-mid-btn','access-cta-btn','access-mob-btn'].forEach(id => {
   const el = document.getElementById(id);
   if (el) el.addEventListener('click', openAccessModal);
 });
@@ -3406,18 +3500,32 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape' && accessModa
 if (accessForm) {
   accessForm.addEventListener('submit', e => {
     e.preventDefault();
-    const btn = accessForm.querySelector('.emodal-submit');
-    btn.textContent = 'Application received.';
-    btn.style.background = 'rgba(6,229,160,.9)';
-    btn.style.color = 'white';
-    setTimeout(() => {
-      closeAccessModal();
-      accessForm.reset();
-      btn.textContent = 'Submit application \u2192';
-      btn.style.background = '';
-      btn.style.color = '';
-    }, 2200);
+    /* Hide form, show success state */
+    accessForm.style.display = 'none';
+    accessModal.querySelector('.emodal-eyebrow').style.display = 'none';
+    accessModal.querySelector('.emodal-h2').style.display = 'none';
+    accessModal.querySelector('.emodal-sub').style.display = 'none';
+    accessModal.querySelector('.emodal-note').style.display = 'none';
+    document.getElementById('access-success').classList.add('show');
   });
+
+  const exploreBtn = document.getElementById('access-explore-btn');
+  if (exploreBtn) {
+    exploreBtn.addEventListener('click', () => {
+      closeAccessModal();
+      /* Reset modal for next open */
+      accessForm.reset();
+      accessForm.style.display = '';
+      ['emodal-eyebrow','emodal-h2','emodal-sub','emodal-note'].forEach(cls => {
+        const el = accessModal.querySelector('.' + cls);
+        if (el) el.style.display = '';
+      });
+      document.getElementById('access-success').classList.remove('show');
+      /* Scroll to platform */
+      const target = document.getElementById('problem');
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
 }
 
 
@@ -4006,6 +4114,19 @@ window.addEventListener('load', () => {
 
 })();
 
+// Scale product demo iframes to their container width
+function scaleDemoFrames() {
+  document.querySelectorAll('.demo-frame-wrap').forEach(wrap => {
+    const iframe = wrap.querySelector('iframe');
+    if (iframe) {
+      const s = wrap.offsetWidth / 680;
+      iframe.style.transform = 'scale(' + s + ')';
+    }
+  });
+}
+scaleDemoFrames();
+window.addEventListener('resize', scaleDemoFrames);
+
 /* ── HUMAN / AGENT TOGGLE ─────────────────────────────── */
 (function() {
   const btns = document.querySelectorAll('.ha-btn');
@@ -4027,5 +4148,6 @@ window.addEventListener('load', () => {
   });
 })();
 </script>
+<script src="annotation-layer.js"></script>
 </body>
 </html>
