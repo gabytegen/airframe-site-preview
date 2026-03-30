@@ -405,9 +405,9 @@ body {
 
 /* ── PROBLEM ──────────────────────────────────────────── */
 #problem { background: var(--light); position: relative; overflow: hidden; }
-.prob-inner { max-width: 1280px; margin: 0 auto; padding: 80px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.prob-inner { max-width: 1280px; margin: 0 auto; padding: 60px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 
-.eyebrow { font-size: 10px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
 .eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--orange); }
 .eyebrow.light { color: var(--text-ldim2); }
 .eyebrow.light::before { background: var(--text-ldim2); }
@@ -644,10 +644,10 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── DISCOVER ─────────────────────────────────────────── */
 #discover { background: var(--light); min-height: 100vh; display: flex; align-items: center; position: relative; }
-.disc-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.disc-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 72px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .disc-left { align-self: start; }
 
-.product-tag { display: inline-block; font-size: 9px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase; border-radius: 3px; padding: 4px 10px; margin-bottom: 20px; }
+.product-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; border-radius: 3px; padding: 5px 12px; margin-bottom: 20px; }
 .ptag-orange { color: var(--orange); border: 1px solid rgba(241,80,37,.3); }
 .ptag-mint { color: var(--mint-text); border: 1px solid rgba(6,229,160,.25); }
 .ptag-lt { color: var(--mint-text); border: 1px solid rgba(6,157,112,.3); }
@@ -698,7 +698,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── FOLIO ────────────────────────────────────────────── */
 #folio { background: var(--light); min-height: 100vh; display: flex; align-items: center; position: relative; }
-.folio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.folio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 72px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .folio-right { align-self: start; }
 
 /* Folio mockup internals */
@@ -751,7 +751,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── STUDIO ───────────────────────────────────────────── */
 #studio { background: var(--light); min-height: 100vh; display: flex; align-items: center; position: relative; }
-.studio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 100px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.studio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 72px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .studio-left { align-self: start; }
 .studio-mockup-wrap { width: 100%; position: relative; overflow: visible; padding: 28px 0 40px; }
 .studio-mockup-wrap .mockup { width: 100%; }
@@ -837,16 +837,22 @@ h2.editorial.lt { color: var(--text-dark); }
 /* ── FOOTER ───────────────────────────────────────────── */
 #footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,.06); }
 .footer-inner { max-width: 1280px; margin: 0 auto; padding: 80px 80px 48px; }
-.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 64px; }
+.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
 .footer-logo { font-size: 17px; font-weight: 300; letter-spacing: -.02em; color: var(--text-light); margin-bottom: 16px; }
 .footer-logo .dot { color: var(--orange); }
 .footer-tag { font-size: 13px; font-weight: 300; color: var(--text-ldim); line-height: 1.6; margin-bottom: 32px; max-width: 220px; }
 .footer-social { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-ldim); text-decoration: none; transition: color .2s; }
 .footer-social:hover { color: var(--text-light); }
 .footer-col-h { font-size: 10px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 20px; }
-.footer-nav { display: flex; flex-direction: column; gap: 14px; }
+.footer-nav { display: flex; flex-direction: column; gap: 12px; }
 .footer-nav a { font-size: 13px; font-weight: 300; color: var(--text-ldim); text-decoration: none; transition: color .2s; }
 .footer-nav a:hover { color: var(--text-light); }
+.footer-nav-group { margin-bottom: 24px; }
+.footer-nav-group:last-child { margin-bottom: 0; }
+.footer-nav-group-h { font-size: 11px; font-weight: 400; color: rgba(255,255,255,.62); margin-bottom: 10px; }
+.footer-nav-sub { display: flex; flex-direction: column; gap: 10px; }
+.footer-nav-sub a { font-size: 12px; font-weight: 300; color: var(--text-ldim); text-decoration: none; transition: color .2s; padding-left: 10px; border-left: 1px solid rgba(255,255,255,.07); }
+.footer-nav-sub a:hover { color: var(--text-light); border-color: rgba(255,255,255,.22); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.06); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; }
 .footer-copy { font-size: 11px; color: rgba(255,255,255,.42); }
 .footer-legal { display: flex; gap: 24px; }
@@ -1069,7 +1075,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── FLYWHEEL + SCALE (combined) ──────────────────────── */
 #flywheel { background: var(--light); border-top: 1px solid var(--border-lm); }
-.fly-inner { max-width: 1100px; margin: 0 auto; padding: 100px 80px; }
+.fly-inner { max-width: 1100px; margin: 0 auto; padding: 72px 80px; }
 .fly-top { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .fly-left h2 { font-size: clamp(26px, 2.8vw, 38px); letter-spacing: -.04em; margin-top: 16px; }
 .fly-right {}
@@ -1954,7 +1960,7 @@ h2.editorial.lt { color: var(--text-dark); }
       <div class="plat-pillars" data-reveal data-delay="3">
         <span class="pillar">Competitive intelligence</span>
         <span class="pillar">Stack benchmarking</span>
-        <span class="pillar">Market mapping</span>
+        <span class="pillar">Adoption trends</span>
         <span class="pillar muted">No conflicts of interest</span>
       </div>
     </div>
@@ -1990,7 +1996,7 @@ h2.editorial.lt { color: var(--text-dark); }
       <p class="section-body lt" data-reveal data-delay="2">You can read what a vendor claims about adoption. Or you can see what real company stacks actually contain: what your peers are running, what they've replaced, and what's pulling ahead in your segment, filtered to companies that look like yours.</p>
       <ul class="feature-list">
         <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>Peer adoption signals across 140,000+ real company stacks</li>
-        <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>Data you won't find in a vendor deck or analyst report</li>
+        <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>Data you won't find in a vendor deck, analyst report, or review site</li>
         <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Compare any tool against what you already run</li>
       </ul>
     </div>
@@ -2017,9 +2023,8 @@ h2.editorial.lt { color: var(--text-dark); }
       <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Your stack. And everything your org already knows about it.</h2>
       <p class="section-body lt" data-reveal data-delay="2">Most tool decisions start from zero. Marketing evaluated a tool five months ago. Sales is looking at it today. Procurement already holds licenses in another department. No one knows. Folio is your org's technology record. Every team starts with what the last one found.</p>
       <ul class="feature-list">
-        <li class="feature-item lt" data-reveal data-delay="3"><span class="fdot"></span>Evaluations other teams already ran, visible before you start yours</li>
-        <li class="feature-item lt" data-reveal data-delay="4"><span class="fdot"></span>Active licenses across departments surface automatically</li>
-        <li class="feature-item lt" data-reveal data-delay="5"><span class="fdot"></span>Notes and decisions that don't disappear when the project ends</li>
+        <li class="feature-item lt" data-reveal data-delay="3"><span class="fdot"></span>Alerts on overlapping tech before you buy</li>
+        <li class="feature-item lt" data-reveal data-delay="4"><span class="fdot"></span>Insights into what you can cut</li>
       </ul>
     </div>
   </div>
@@ -2033,8 +2038,8 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="studio-left">
       <span class="product-tag ptag-mint" data-reveal>Studio</span>
       <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Describe the scenario. Airframe structures the rest.</h2>
-      <p class="section-body lt" data-reveal data-delay="2">Every AI initiative needs structure before it can move. Studio creates it the moment you describe the scenario. <strong>Airframe detects the decision type</strong>, populates what it already knows, and asks only for what it still needs.</p>
-      <p class="studio-closer" data-reveal data-delay="3">Every evaluation ends with a concrete recommendation your team can act on: what to buy, what to cut, and what to hold. An answer, not a framework to decipher.</p>
+      <p class="section-body lt" data-reveal data-delay="2">Every AI project needs structure before it can move. Studio creates it the moment you describe the scenario. <strong>Airframe reads the brief and understands the shape of the problem before you've finished describing it</strong>, populates what it already knows, and asks only for what it still needs.</p>
+      <p class="studio-closer" data-reveal data-delay="3">The output isn't a report. It's a recommendation: what to buy, what to cut, and what to hold.</p>
     </div>
     <div class="studio-mockup-wrap mockup-wrap-studio" data-reveal data-delay="2">
       <div class="demo-frame-wrap">
@@ -2191,22 +2196,63 @@ h2.editorial.lt { color: var(--text-dark); }
 <footer id="footer">
   <div class="footer-inner">
     <div class="footer-grid">
+
+      <!-- Brand -->
       <div>
         <div class="footer-logo">Airframe<span class="dot">.</span></div>
-        <p class="footer-tag">Transformation intelligence.</p>
+        <p class="footer-tag">Transformation intelligence for the teams building on AI.</p>
         <a href="https://www.linkedin.com/company/airframe-ai" target="_blank" rel="noopener" class="footer-social">
           <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"/></svg>
           LinkedIn
         </a>
       </div>
+
+      <!-- Platform -->
       <div>
-        <div class="footer-col-h">Product</div>
+        <div class="footer-col-h">Platform</div>
+        <div class="footer-nav-group">
+          <div class="footer-nav-group-h">Discover</div>
+          <nav class="footer-nav-sub">
+            <a href="#discover">Tool adoption by peers</a>
+            <a href="#discover">Stack benchmarking</a>
+            <a href="#discover">Vendor comparison</a>
+            <a href="#discover">Market adoption signals</a>
+          </nav>
+        </div>
+        <div class="footer-nav-group">
+          <div class="footer-nav-group-h">Folio</div>
+          <nav class="footer-nav-sub">
+            <a href="#folio">Stack inventory</a>
+            <a href="#folio">Overlap detection</a>
+            <a href="#folio">License tracking</a>
+            <a href="#folio">Renewal alerts</a>
+          </nav>
+        </div>
+        <div class="footer-nav-group">
+          <div class="footer-nav-group-h">Studio</div>
+          <nav class="footer-nav-sub">
+            <a href="#studio">AI project briefs</a>
+            <a href="#studio">Buy vs. build analysis</a>
+            <a href="#studio">Vendor shortlisting</a>
+            <a href="#studio">Stack audit</a>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Solutions -->
+      <div>
+        <div class="footer-col-h">Solutions</div>
         <nav class="footer-nav">
-          <a href="#discover">Discover</a>
-          <a href="#folio">Folio</a>
-          <a href="#studio">Studio</a>
+          <a href="https://airframe.ai/solutions/cto">For CTOs</a>
+          <a href="https://airframe.ai/solutions/it-procurement">For IT Procurement</a>
+          <a href="https://airframe.ai/solutions/engineering-leaders">For Engineering Leaders</a>
+          <a href="https://airframe.ai/solutions/strategy">For Strategy Teams</a>
+          <a href="https://airframe.ai/solutions/agents">For AI Agents</a>
+          <a href="https://airframe.ai/api">API Access</a>
         </nav>
       </div>
+
+      <!-- Company -->
       <div>
         <div class="footer-col-h">Company</div>
         <nav class="footer-nav">
@@ -2214,15 +2260,22 @@ h2.editorial.lt { color: var(--text-dark); }
           <a href="https://airframe.ai/careers">Careers</a>
           <a href="https://airframe.ai/articles">Articles</a>
           <a href="https://airframe.ai/blog">Blog</a>
+          <a href="#" id="expert-modal-trigger">Join Expert Network</a>
         </nav>
       </div>
+
+      <!-- Resources -->
       <div>
         <div class="footer-col-h">Resources</div>
         <nav class="footer-nav">
           <a href="https://help.airframe.ai">Help Center</a>
-          <a href="#" id="expert-modal-trigger">Join Expert Network</a>
+          <a href="https://airframe.ai/docs">Documentation</a>
+          <a href="https://airframe.ai/changelog">Changelog</a>
+          <a href="https://airframe.ai/security">Security</a>
+          <a href="https://airframe.ai/status">Status</a>
         </nav>
       </div>
+
     </div>
     <div class="footer-bottom">
       <span class="footer-copy">&copy; 2026 Airframe, Inc. All rights reserved.</span>
