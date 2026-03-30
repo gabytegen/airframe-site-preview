@@ -836,8 +836,8 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── FOOTER ───────────────────────────────────────────── */
 #footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,.06); }
-.footer-inner { max-width: 1280px; margin: 0 auto; padding: 80px 80px 48px; }
-.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px; }
+.footer-inner { max-width: 1280px; margin: 0 auto; padding: 64px 80px 40px; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr; gap: 40px; margin-bottom: 48px; }
 .footer-logo { font-size: 17px; font-weight: 300; letter-spacing: -.02em; color: var(--text-light); margin-bottom: 16px; }
 .footer-logo .dot { color: var(--orange); }
 .footer-tag { font-size: 13px; font-weight: 300; color: var(--text-ldim); line-height: 1.6; margin-bottom: 32px; max-width: 220px; }
@@ -2207,36 +2207,37 @@ h2.editorial.lt { color: var(--text-dark); }
         </a>
       </div>
 
-      <!-- Platform -->
+      <!-- Discover -->
       <div>
-        <div class="footer-col-h">Platform</div>
-        <div class="footer-nav-group">
-          <div class="footer-nav-group-h">Discover</div>
-          <nav class="footer-nav-sub">
-            <a href="#discover">Tool adoption by peers</a>
-            <a href="#discover">Stack benchmarking</a>
-            <a href="#discover">Vendor comparison</a>
-            <a href="#discover">Market adoption signals</a>
-          </nav>
-        </div>
-        <div class="footer-nav-group">
-          <div class="footer-nav-group-h">Folio</div>
-          <nav class="footer-nav-sub">
-            <a href="#folio">Stack inventory</a>
-            <a href="#folio">Overlap detection</a>
-            <a href="#folio">License tracking</a>
-            <a href="#folio">Renewal alerts</a>
-          </nav>
-        </div>
-        <div class="footer-nav-group">
-          <div class="footer-nav-group-h">Studio</div>
-          <nav class="footer-nav-sub">
-            <a href="#studio">AI project briefs</a>
-            <a href="#studio">Buy vs. build analysis</a>
-            <a href="#studio">Vendor shortlisting</a>
-            <a href="#studio">Stack audit</a>
-          </nav>
-        </div>
+        <div class="footer-col-h">Discover</div>
+        <nav class="footer-nav">
+          <a href="#discover">Peer adoption signals</a>
+          <a href="#discover">Stack benchmarking</a>
+          <a href="#discover">Vendor comparison</a>
+          <a href="#discover">Market trends</a>
+        </nav>
+      </div>
+
+      <!-- Folio -->
+      <div>
+        <div class="footer-col-h">Folio</div>
+        <nav class="footer-nav">
+          <a href="#folio">Stack inventory</a>
+          <a href="#folio">Overlap detection</a>
+          <a href="#folio">License tracking</a>
+          <a href="#folio">Renewal alerts</a>
+        </nav>
+      </div>
+
+      <!-- Studio -->
+      <div>
+        <div class="footer-col-h">Studio</div>
+        <nav class="footer-nav">
+          <a href="#studio">AI project briefs</a>
+          <a href="#studio">Buy vs. build</a>
+          <a href="#studio">Vendor shortlisting</a>
+          <a href="#studio">Stack audit</a>
+        </nav>
       </div>
 
       <!-- Solutions -->
@@ -2245,33 +2246,26 @@ h2.editorial.lt { color: var(--text-dark); }
         <nav class="footer-nav">
           <a href="https://airframe.ai/solutions/cto">For CTOs</a>
           <a href="https://airframe.ai/solutions/it-procurement">For IT Procurement</a>
-          <a href="https://airframe.ai/solutions/engineering-leaders">For Engineering Leaders</a>
-          <a href="https://airframe.ai/solutions/strategy">For Strategy Teams</a>
+          <a href="https://airframe.ai/solutions/engineering-leaders">For Eng Leaders</a>
           <a href="https://airframe.ai/solutions/agents">For AI Agents</a>
           <a href="https://airframe.ai/api">API Access</a>
         </nav>
       </div>
 
-      <!-- Company -->
+      <!-- Company + Resources -->
       <div>
         <div class="footer-col-h">Company</div>
-        <nav class="footer-nav">
+        <nav class="footer-nav" style="margin-bottom:28px">
           <a href="https://airframe.ai/company">About</a>
           <a href="https://airframe.ai/careers">Careers</a>
           <a href="https://airframe.ai/articles">Articles</a>
-          <a href="https://airframe.ai/blog">Blog</a>
-          <a href="#" id="expert-modal-trigger">Join Expert Network</a>
+          <a href="#" id="expert-modal-trigger">Expert Network</a>
         </nav>
-      </div>
-
-      <!-- Resources -->
-      <div>
         <div class="footer-col-h">Resources</div>
         <nav class="footer-nav">
           <a href="https://help.airframe.ai">Help Center</a>
-          <a href="https://airframe.ai/docs">Documentation</a>
+          <a href="https://airframe.ai/docs">Docs</a>
           <a href="https://airframe.ai/changelog">Changelog</a>
-          <a href="https://airframe.ai/security">Security</a>
           <a href="https://airframe.ai/status">Status</a>
         </nav>
       </div>
