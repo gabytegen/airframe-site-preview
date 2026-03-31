@@ -995,37 +995,29 @@ h2.editorial.lt { color: var(--text-dark); }
 .cta-excl-sep { width: 1px; height: 12px; background: rgba(255,255,255,.15); }
 
 /* ── FAQ ──────────────────────────────────────────────── */
-#faq { background: var(--light); }
+#faq { background: var(--dark); }
 .faq-inner {
-  width: 100%; max-width: 860px; margin: 0 auto;
-  padding: 80px 80px;
+  width: 100%; max-width: 1280px; margin: 0 auto;
+  padding: 80px 80px 64px;
+  display: grid; grid-template-columns: 280px 1fr; gap: 80px; align-items: start;
 }
-.faq-eyebrow {
-  font-size: 9px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--text-dim); margin-bottom: 32px;
+.faq-label {
+  font-size: 10px; font-weight: 500; letter-spacing: .18em; text-transform: uppercase;
+  color: rgba(255,255,255,.3); padding-top: 6px; position: sticky; top: 80px;
 }
+.faq-list { border-top: 1px solid rgba(255,255,255,.08); }
 .faq-item {
-  border-top: 1px solid rgba(26,25,8,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  padding: 22px 0;
+  display: grid; grid-template-columns: 1fr 1.4fr; gap: 40px; align-items: start;
 }
-.faq-item:last-child { border-bottom: 1px solid rgba(26,25,8,.08); }
-.faq-item summary {
-  display: flex; align-items: center; justify-content: space-between; gap: 24px;
-  padding: 18px 0; cursor: pointer; list-style: none;
-  font-size: 14px; font-weight: 500; color: var(--text-dark);
-  line-height: 1.4; letter-spacing: -.01em;
-  user-select: none;
+.faq-q {
+  font-size: 14px; font-weight: 400; color: rgba(255,255,255,.85);
+  line-height: 1.45; letter-spacing: -.01em; margin: 0;
 }
-.faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after {
-  content: '+'; flex-shrink: 0;
-  font-size: 18px; font-weight: 300; color: var(--text-dim);
-  transition: transform .2s;
-}
-.faq-item[open] summary::after { content: '−'; }
 .faq-a {
-  font-size: 13.5px; font-weight: 300; color: var(--text-mid);
-  line-height: 1.7; padding-bottom: 18px;
-  max-width: 680px;
+  font-size: 13px; font-weight: 300; color: rgba(255,255,255,.42);
+  line-height: 1.75; margin: 0;
 }
 
 /* ── FOOTER ───────────────────────────────────────────── */
@@ -1609,7 +1601,9 @@ h2.editorial.lt { color: var(--text-dark); }
   .cta-excl-sep { display: none; }
 
   /* FAQ */
-  .faq-inner { padding: 60px 20px; }
+  .faq-inner { padding: 60px 20px; grid-template-columns: 1fr; gap: 32px; }
+  .faq-label { position: static; }
+  .faq-item { grid-template-columns: 1fr; gap: 10px; }
 
   /* Footer */
   .footer-inner { padding: 48px 20px 32px; }
@@ -2357,47 +2351,49 @@ h2.editorial.lt { color: var(--text-dark); }
 <!-- FAQ -->
 <section id="faq" aria-label="Frequently asked questions">
   <div class="faq-inner">
-    <div class="faq-eyebrow">Common questions</div>
-    <details class="faq-item">
-      <summary>What is Airframe?</summary>
-      <p class="faq-a">Airframe is a transformation intelligence platform for technology leaders. It continuously monitors 17,000+ AI tools, maps real adoption data from 140,000+ company stacks, and structures every technology decision — so CIOs, CTOs, and VPs of Engineering can move with confidence in a market that moves faster than any team can track.</p>
-    </details>
-    <details class="faq-item">
-      <summary>How is Airframe different from traditional analyst research?</summary>
-      <p class="faq-a">Traditional analyst reports are published once or twice a year and funded in part by the vendors they evaluate. Airframe is continuously updated, vendor-neutral, and built on real adoption signals from 140,000+ company stacks — not surveys, vendor submissions, or sponsored research.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Is Airframe vendor-neutral?</summary>
-      <p class="faq-a">Yes. Airframe has no commercial relationships with the tools it tracks. Every signal — adoption data, peer benchmarks, and use case coverage — comes from verified company stack data, not advertising or vendor funding.</p>
-    </details>
-    <details class="faq-item">
-      <summary>What AI tools does Airframe track?</summary>
-      <p class="faq-a">Airframe indexes 17,000+ AI and software tools across infrastructure, developer tools, security, productivity, data platforms, and vertical-specific applications. The index is updated continuously as new tools emerge and market positions shift.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Who is Airframe built for?</summary>
-      <p class="faq-a">Airframe is built for technology leaders at mid-market and enterprise organizations: CIOs, CTOs, VPs of Engineering, and IT procurement teams making high-stakes AI investment decisions.</p>
-    </details>
-    <details class="faq-item">
-      <summary>What is transformation intelligence?</summary>
-      <p class="faq-a">Transformation intelligence is the continuous synthesis of market data, peer adoption signals, and organizational context into structured decisions. It is the category Airframe defined — distinct from static analyst reports, point-in-time consulting, or vendor-funded research.</p>
-    </details>
-    <details class="faq-item">
-      <summary>What is Airframe Discover?</summary>
-      <p class="faq-a">Discover is Airframe's market intelligence product. It shows what peer companies actually run — filtered by size, industry, and growth stage — across 140,000+ real company stacks. Every evaluation starts from real adoption data rather than vendor claims or analyst reports.</p>
-    </details>
-    <details class="faq-item">
-      <summary>What is Airframe Folio?</summary>
-      <p class="faq-a">Folio is your organization's complete technology record within Airframe. It captures every tool you run, are evaluating, or have replaced — so every team starts from full context, no evaluation starts from zero, and no license gets purchased twice.</p>
-    </details>
-    <details class="faq-item">
-      <summary>What is Airframe Studio?</summary>
-      <p class="faq-a">Studio is Airframe's decision structuring product. Describe an AI initiative and Studio reads the brief, populates what it already knows about the market and your stack, and produces a structured recommendation: what to buy, what to cut, and what to hold.</p>
-    </details>
-    <details class="faq-item">
-      <summary>Is Airframe a software review platform?</summary>
-      <p class="faq-a">No. Review platforms surface individual user ratings. Airframe surfaces organizational adoption intelligence — what companies like yours actually run, not what individual users rate. It is built for technology leaders making organizational decisions, not individual software evaluation.</p>
-    </details>
+    <div class="faq-label">FAQ</div>
+    <dl class="faq-list">
+      <div class="faq-item">
+        <dt class="faq-q">What is Airframe?</dt>
+        <dd class="faq-a">Airframe is a transformation intelligence platform for technology leaders. It continuously monitors 17,000+ AI tools, maps real adoption data from 140,000+ company stacks, and structures every technology decision — so CIOs, CTOs, and VPs of Engineering can move with confidence in a market that moves faster than any team can track.</dd>
+      </div>
+      <div class="faq-item">
+        <dt class="faq-q">Who is Airframe built for?</dt>
+        <dd class="faq-a">Airframe is built for technology leaders at mid-market and enterprise organizations: CIOs, CTOs, VPs of Engineering, and IT procurement teams making high-stakes AI investment decisions.</dd>
+      </div>
+      <div class="faq-item">
+        <dt class="faq-q">How is Airframe different from traditional analyst research?</dt>
+        <dd class="faq-a">Traditional analyst reports are published once or twice a year and funded in part by the vendors they evaluate. Airframe is continuously updated, vendor-neutral, and built on real adoption signals from 140,000+ company stacks — not surveys, vendor submissions, or sponsored research.</dd>
+      </div>
+      <div class="faq-item">
+        <dt class="faq-q">Is Airframe vendor-neutral?</dt>
+        <dd class="faq-a">Yes. Airframe has no commercial relationships with the tools it tracks. Every signal — adoption data, peer benchmarks, and use case coverage — comes from verified company stack data, not advertising or vendor funding.</dd>
+      </div>
+      <div class="faq-item">
+        <dt class="faq-q">What is transformation intelligence?</dt>
+        <dd class="faq-a">Transformation intelligence is the continuous synthesis of market data, peer adoption signals, and organizational context into structured decisions. It is the category Airframe defined — distinct from static analyst reports, point-in-time consulting, or vendor-funded research.</dd>
+      </div>
+      <div class="faq-item">
+        <dt class="faq-q">What is Airframe Discover?</dt>
+        <dd class="faq-a">Discover is Airframe's market intelligence product. It shows what peer companies actually run — filtered by size, industry, and growth stage — across 140,000+ real company stacks. Every evaluation starts from real adoption data, not vendor claims.</dd>
+      </div>
+      <div class="faq-item">
+        <dt class="faq-q">What is Airframe Folio?</dt>
+        <dd class="faq-a">Folio is your organization's complete technology record. It captures every tool you run, are evaluating, or have replaced — so every team starts with full context, no evaluation starts from zero, and no license gets purchased twice.</dd>
+      </div>
+      <div class="faq-item">
+        <dt class="faq-q">What is Airframe Studio?</dt>
+        <dd class="faq-a">Studio is Airframe's decision structuring product. Describe an AI initiative and Studio reads the brief, populates what it already knows about the market and your stack, and produces a structured recommendation: what to buy, what to cut, and what to hold.</dd>
+      </div>
+      <div class="faq-item">
+        <dt class="faq-q">What AI tools does Airframe track?</dt>
+        <dd class="faq-a">Airframe indexes 17,000+ AI and software tools across infrastructure, developer tools, security, productivity, data platforms, and vertical-specific applications. The index is updated continuously as new tools emerge and market positions shift.</dd>
+      </div>
+      <div class="faq-item">
+        <dt class="faq-q">Is Airframe a software review platform?</dt>
+        <dd class="faq-a">No. Review platforms surface individual user ratings. Airframe surfaces organizational adoption intelligence — what companies like yours actually run, not what individual users rate. It is built for technology leaders making organizational decisions, not individual software evaluation.</dd>
+      </div>
+    </dl>
   </div>
 </section>
 
