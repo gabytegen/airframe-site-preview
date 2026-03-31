@@ -2585,6 +2585,26 @@ document.querySelector('.nav-logo').addEventListener('click', e => { e.preventDe
   window.addEventListener('resize', resize);
 })();
 
+// ── PRODUCT SECTION IFRAMES — scale to fit container ──────
+(function() {
+  const pairs = [
+    { wrap: document.querySelector('#discover .demo-frame-wrap'), h: 480 },
+    { wrap: document.querySelector('#folio .demo-frame-wrap'),    h: 480 },
+    { wrap: document.querySelector('#studio .demo-frame-wrap'),   h: 540 },
+  ];
+  function scaleSectionFrames() {
+    pairs.forEach(({ wrap, h }) => {
+      if (!wrap) return;
+      const iframe = wrap.querySelector('iframe');
+      if (!iframe) return;
+      const s = wrap.offsetWidth / 680;
+      iframe.style.transform = 'scale(' + s + ')';
+    });
+  }
+  scaleSectionFrames();
+  window.addEventListener('resize', scaleSectionFrames);
+})();
+
 // ── HERO DEMO ─────────────────────────────────────────────
 (function() {
   const wrap   = document.getElementById('hero-demo-wrap');
