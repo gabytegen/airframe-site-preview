@@ -625,20 +625,20 @@ function run() {
     cur.style.opacity = '0';
   });
 
-  // 3.65s: switch to tool view
-  after(3650, () => {
+  // 5.0s: switch to tool view (was 3.65s, +1.35s to show overview longer)
+  after(5000, () => {
     $('v-stack').className = 'view off';
     $('v-tool').className = 'view';
   });
 
   // PHASE 2: Tool Intelligence
 
-  // 4.25s: score count up + bar
-  countTo($('tool-score'), 94, 900, 4250);
-  after(4250, () => { $('score-bar').style.width = '94%'; });
+  // 5.6s: score count up + bar (was 4.25s, +1.35s)
+  countTo($('tool-score'), 94, 900, 5600);
+  after(5600, () => { $('score-bar').style.width = '94%'; });
 
-  // 4.05s: cursor reappears in left panel (score area) after view switch settles at 3.65s
-  after(4050, () => {
+  // 5.4s: cursor reappears in left panel (was 4.05s, +1.35s)
+  after(5400, () => {
     const left = document.querySelector('.tool-left');
     const p = pos(left);
     cur.style.transition = 'none'; cur.style.opacity = '0';
@@ -650,25 +650,25 @@ function run() {
     }));
   });
 
-  // 4.65s: stats stagger in
-  ['s0','s1','s2'].forEach((id, i) => after(4650 + i * 100, () => $(id).classList.add('in')));
+  // 6.0s: stats stagger in (was 4.65s, +1.35s)
+  ['s0','s1','s2'].forEach((id, i) => after(6000 + i * 100, () => $(id).classList.add('in')));
 
-  // 4.67s: cursor drifts down to stat rows
-  after(4670, () => {
+  // 6.02s: cursor drifts down to stat rows (was 4.67s, +1.35s)
+  after(6020, () => {
     const p = pos(document.querySelector('.stat-rows'));
     cur.style.left = (p.x + 22) + 'px';
     cur.style.top = p.y + 'px';
   });
 
-  // 4.95s: peer bars fill (staggered)
-  after(4950, () => {
+  // 6.3s: peer bars fill (staggered) (was 4.95s, +1.35s)
+  after(6300, () => {
     q('.peer-fill', true).forEach((b, i) => {
       after(i * 140, () => b.style.width = b.dataset.w + '%');
     });
   });
 
-  // 5.15s: cursor TELEPORTS to right panel area, then slides into view
-  after(5150, () => {
+  // 6.5s: cursor TELEPORTS to right panel area (was 5.15s, +1.35s)
+  after(6500, () => {
     const p = pos($('tool-right'));
     cur.style.transition = 'none'; cur.style.opacity = '0';
     cur.style.left = (p.x + 40) + 'px'; cur.style.top = (p.y - 50) + 'px';
@@ -679,26 +679,26 @@ function run() {
     }));
   });
 
-  // 5.55s: trend bars rise
-  after(5550, () => {
+  // 6.9s: trend bars rise (was 5.55s, +1.35s)
+  after(6900, () => {
     q('.trend-bar', true).forEach(b => b.style.height = b.dataset.h + 'px');
   });
 
-  // 6.15s: related chips appear
-  after(6150, () => $('related').classList.add('in'));
+  // 7.5s: related chips appear (was 6.15s, +1.35s)
+  after(7500, () => $('related').classList.add('in'));
 
-  // 6.95s: cursor drifts to trend chart area
-  after(6950, () => {
+  // 8.3s: cursor drifts to trend chart area (was 6.95s, +1.35s)
+  after(8300, () => {
     const p = pos($('trend'));
     cur.style.left = p.x + 'px';
     cur.style.top = (p.y + 10) + 'px';
   });
 
-  // 8.55s: fade out
-  after(8550, () => $('fade').classList.add('on'));
+  // 9.9s: fade out (was 8.55s, +1.35s)
+  after(9900, () => $('fade').classList.add('on'));
 
-  // 9.35s: loop
-  after(9350, reset);
+  // 10.7s: loop (was 9.35s, +1.35s)
+  after(10700, reset);
 }
 
 window.addEventListener('load', () => after(400, run));

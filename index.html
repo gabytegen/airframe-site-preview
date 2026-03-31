@@ -400,7 +400,7 @@ body {
 .bleed-d2l, .bleed-l2d, .bleed-d2la, .bleed-la2d { display: none; }
 
 /* ── PROBLEM ──────────────────────────────────────────── */
-#problem { background: var(--light); position: relative; overflow: hidden; }
+#problem { background: var(--light); position: relative; overflow: visible; }
 .prob-inner { max-width: 1280px; margin: 0 auto; padding: 60px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 
 .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
@@ -640,7 +640,7 @@ h2.editorial.lt { color: var(--text-dark); }
 }
 
 /* ── DISCOVER ─────────────────────────────────────────── */
-#discover { background: var(--light); min-height: 100vh; display: flex; align-items: center; position: relative; }
+#discover { background: var(--light); display: flex; align-items: center; position: relative; }
 .disc-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 45px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .disc-left { align-self: start; }
 
@@ -694,7 +694,7 @@ h2.editorial.lt { color: var(--text-dark); }
 .disc-logo-box { width: 16px; height: 16px; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 7px; font-weight: 700; color: #fff; flex-shrink: 0; }
 
 /* ── FOLIO ────────────────────────────────────────────── */
-#folio { background: var(--light); min-height: 100vh; display: flex; align-items: center; position: relative; }
+#folio { background: var(--light); display: flex; align-items: center; position: relative; }
 .folio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 45px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .folio-right { align-self: start; }
 
@@ -747,7 +747,7 @@ h2.editorial.lt { color: var(--text-dark); }
 .folio-foot-txt { font-size: 10px; color: var(--mint-text); font-weight: 400; }
 
 /* ── STUDIO ───────────────────────────────────────────── */
-#studio { background: var(--light); min-height: 100vh; display: flex; align-items: center; position: relative; }
+#studio { background: var(--light); display: flex; align-items: center; position: relative; }
 .studio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 45px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .studio-left { align-self: start; }
 .studio-mockup-wrap { width: 100%; position: relative; overflow: visible; padding: 28px 0 40px; }
@@ -812,7 +812,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── CTA ──────────────────────────────────────────────── */
 #cta { background: var(--dark-cta); min-height: 56vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-.cta-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
+.cta-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.012) 1px, transparent 1px); background-size: 60px 60px; pointer-events: none; }
 
 .cta-inner { position: relative; z-index: 1; text-align: center; padding: 72px 80px; max-width: 900px; margin: 0 auto; }
 .cta-badge { display: inline-flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: var(--orange); border: 1px solid rgba(241,80,37,.22); padding: 6px 16px; border-radius: 2px; margin-bottom: 48px; }
@@ -1967,8 +1967,8 @@ h2.editorial.lt { color: var(--text-dark); }
         <span class="metric-label">AI tools indexed</span>
       </div>
       <div class="metric-row">
-        <span class="metric-num" data-count="12000" data-suffix="+">0</span>
-        <span class="metric-label">use cases tracked</span>
+        <span class="metric-num" data-count="60000" data-suffix="+">0</span>
+        <span class="metric-label">experts tracked</span>
       </div>
       <div class="metric-row">
         <span class="metric-num" data-count="140000" data-suffix="+">0</span>
@@ -1997,7 +1997,7 @@ h2.editorial.lt { color: var(--text-dark); }
         <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Compare any tool against what you already run</li>
       </ul>
     </div>
-    <div class="mockup-wrap mockup-wrap-disc" data-reveal data-delay="2">
+    <div class="mockup-wrap mockup-wrap-disc">
       <div class="demo-frame-wrap">
         <iframe src="airframe-demo-discover.html" scrolling="no" frameborder="0" loading="lazy"></iframe>
       </div>
@@ -2015,9 +2015,10 @@ h2.editorial.lt { color: var(--text-dark); }
           <iframe src="airframe-demo-folio.html" scrolling="no" frameborder="0" loading="lazy"></iframe>
         </div>
       </div>
+
     <div class="folio-right">
       <span class="product-tag ptag-mint" data-reveal>Folio</span>
-      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Your stack. And everything your org already knows about it.</h2>
+      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">What you run. Where you're behind. What to do about it.</h2>
       <p class="section-body lt" data-reveal data-delay="2">Most tool decisions start from zero. Marketing evaluated a tool five months ago. Sales is looking at it today. Procurement already holds licenses in another department. No one knows. Folio is your org's technology record. Every team starts with what the last one found.</p>
       <ul class="feature-list">
         <li class="feature-item lt" data-reveal data-delay="3"><span class="fdot"></span>Alerts on overlapping tech before you buy</li>
@@ -2038,7 +2039,7 @@ h2.editorial.lt { color: var(--text-dark); }
       <p class="section-body lt" data-reveal data-delay="2">Every AI project needs structure before it can move. Studio creates it the moment you describe the scenario. <strong>Airframe reads the brief and understands the shape of the problem before you've finished describing it</strong>, populates what it already knows, and asks only for what it still needs.</p>
       <p class="studio-closer" data-reveal data-delay="3">The output isn't a report. It's a recommendation: what to buy, what to cut, and what to hold.</p>
     </div>
-    <div class="studio-mockup-wrap mockup-wrap-studio" data-reveal data-delay="2">
+    <div class="studio-mockup-wrap mockup-wrap-studio">
       <div class="demo-frame-wrap">
         <iframe src="airframe-demo-studio.html" scrolling="no" frameborder="0" loading="lazy"></iframe>
       </div>
@@ -2521,7 +2522,7 @@ document.querySelectorAll('[data-reveal]').forEach(el => revealObs.observe(el));
   function search(q) {
     const trimmed = (q||'').trim();
     if (!trimmed) {
-      results.innerHTML = `<div class="hsw-empty"><strong>Explore the platform</strong>Search 17,000+ tools, 12,000+ use cases, and peer stacks</div>`;
+      results.innerHTML = `<div class="hsw-empty"><strong>Explore the platform</strong>Search 17,000+ tools, 60,000+ experts, and peer stacks</div>`;
       return;
     }
     // Show skeleton immediately
