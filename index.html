@@ -166,6 +166,95 @@
 }
 </script>
 
+<!-- JSON-LD: Speakable -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Airframe — Transformation Intelligence Platform for Technology Leaders",
+  "url": "https://airframe.ai",
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": ["#hero-h1", ".hero-sub", ".section-body"]
+  }
+}
+</script>
+
+<!-- JSON-LD: Airframe Discover -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Airframe Discover",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Airframe Discover is a market intelligence product for technology leaders. It maps real adoption data from 140,000+ company stacks — showing what peer companies actually run, filtered by size, industry, and growth stage. Every evaluation starts from real adoption data, not vendor claims.",
+  "isPartOf": {
+    "@type": "SoftwareApplication",
+    "name": "Airframe"
+  },
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "CIOs, CTOs, VPs of Engineering, IT procurement leaders"
+  }
+}
+</script>
+
+<!-- JSON-LD: Airframe Folio -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Airframe Folio",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Airframe Folio is an organizational technology record for enterprise teams. It captures every tool a company runs, is evaluating, or has replaced — so every team starts with full context, no evaluation starts from zero, and no license gets purchased twice.",
+  "isPartOf": {
+    "@type": "SoftwareApplication",
+    "name": "Airframe"
+  },
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "CIOs, CTOs, IT procurement leaders, engineering managers"
+  }
+}
+</script>
+
+<!-- JSON-LD: Airframe Studio -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Airframe Studio",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "description": "Airframe Studio is a decision structuring product for AI initiatives. Technology leaders describe a scenario and Studio reads the brief, populates what it knows about the market and the organization's stack, and produces a structured recommendation: what to buy, what to cut, and what to hold.",
+  "isPartOf": {
+    "@type": "SoftwareApplication",
+    "name": "Airframe"
+  },
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "CIOs, CTOs, VPs of Engineering making AI investment decisions"
+  }
+}
+</script>
+
+<!-- JSON-LD: DefinedTerm — transformation intelligence -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "DefinedTerm",
+  "name": "Transformation intelligence",
+  "description": "Transformation intelligence is the continuous synthesis of market data, peer adoption signals, and organizational context into structured technology decisions. It is a category defined by Airframe — distinct from static analyst reports, point-in-time consulting, or vendor-funded research. Where traditional research is periodic and vendor-influenced, transformation intelligence is continuous, neutral, and grounded in real adoption signals.",
+  "inDefinedTermSet": {
+    "@type": "DefinedTermSet",
+    "name": "Airframe Glossary",
+    "url": "https://airframe.ai"
+  }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200;0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -1632,7 +1721,6 @@ h2.editorial.lt { color: var(--text-dark); }
   /* FAQ */
   .faq-inner { padding: 60px 20px; grid-template-columns: 1fr; gap: 32px; }
   .faq-label { position: static; }
-  .faq-item { grid-template-columns: 1fr; gap: 10px; }
 
   /* Footer */
   .footer-inner { padding: 48px 20px 32px; }
