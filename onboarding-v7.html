@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airframe — Welcome</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F8F9FC;--card:#FFF;
+  --border:rgba(0,0,0,.07);--bh:rgba(0,0,0,.13);
+  --text:#0A0A12;--dim:rgba(10,10,18,.52);--muted:rgba(10,10,18,.29);
+  --orange:#F15025;--os:rgba(241,80,37,.07);--ob:rgba(241,80,37,.18);
+  --mint:#06B97E;--ms:rgba(6,185,126,.07);--mb:rgba(6,185,126,.18);
+  --violet:#6B5FD4;
+  --r:4px;
+  --sh: 0 1px 3px rgba(0,0,0,.05), 0 6px 24px rgba(0,0,0,.04);
+}
+html,body{height:100%;margin:0}
+body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;
+  background:var(--bg);color:var(--text);overflow:hidden}
+
+/* ── step indicator ────────────────────────── */
+.steps{position:fixed;top:22px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:5px;z-index:200;pointer-events:none}
+.sdot{height:6px;width:6px;border-radius:3px;background:rgba(0,0,0,.10);
+  transition:all .45s cubic-bezier(.34,1.56,.64,1)}
+.sdot.active{width:22px;background:var(--orange)}
+.sdot.done{background:var(--mint)}
+
+/* ── bg glows ──────────────────────────────── */
+.bg-g1{position:fixed;pointer-events:none;z-index:0;width:700px;height:700px;
+  border-radius:50%;background:radial-gradient(circle,rgba(241,80,37,.035) 0%,transparent 65%);
+  top:50%;left:50%;transform:translate(-50%,-50%);animation:ga 14s ease-in-out infinite}
+.bg-g2{position:fixed;pointer-events:none;z-index:0;width:500px;height:500px;
+  border-radius:50%;background:radial-gradient(circle,rgba(6,185,126,.04) 0%,transparent 65%);
+  bottom:-80px;right:-60px;animation:gb 18s ease-in-out infinite}
+@keyframes ga{0%,100%{opacity:.7;transform:translate(-50%,-50%)}50%{opacity:1;transform:translate(-48%,-53%) scale(1.12)}}
+@keyframes gb{0%,100%{transform:scale(1)}50%{transform:scale(1.2) translate(-10px,-8px)}}
+
+/* ── screens ───────────────────────────────── */
+.screen{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:60px 24px 40px;overflow-y:auto;
+  opacity:0;pointer-events:none;transition:opacity .3s ease,transform .3s ease;
+  transform:translateY(8px)}
+.screen.on{opacity:1;pointer-events:all;transform:translateY(0)}
+.screen.out{opacity:0;transform:scale(.97) translateY(-8px)}
+#s2,#s4{justify-content:flex-start;padding-top:60px}
+.sw{width:100%;display:flex;flex-direction:column;align-items:stretch;margin:0 auto}
+
+/* ── keyframes ─────────────────────────────── */
+@keyframes up{from{opacity:0;transform:translateY(13px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{from{opacity:0;transform:scale(.86) translateY(6px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes ping{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.9);opacity:0}}
+@keyframes check{0%{stroke-dashoffset:16}100%{stroke-dashoffset:0}}
+
+/* ── shared ────────────────────────────────── */
+.logo{text-align:center;margin-bottom:40px;opacity:0;animation:up .4s ease forwards .04s}
+.logo-mark{display:inline-flex;align-items:center;gap:7px;font-size:16px;font-weight:600;
+  letter-spacing:-.025em;color:var(--text)}
+.topbar{display:flex;align-items:center;width:100%;margin-bottom:24px;
+  opacity:0;animation:up .3s ease forwards .04s}
+.backbtn{font-size:12.5px;color:var(--muted);cursor:pointer;background:none;border:none;
+  font-family:inherit;padding:0;transition:color .2s;display:flex;align-items:center;gap:5px}
+.backbtn:hover{color:var(--text)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;
+  padding:3px 9px;border-radius:100px;background:var(--ms);color:var(--mint);border:1px solid var(--mb)}
+.badge .dot{width:5px;height:5px;border-radius:50%;background:currentColor;animation:blink 2s ease infinite}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--mint);
+  margin-bottom:8px;display:flex;align-items:center;gap:7px}
+.eyebrow::before{content:'';width:14px;height:1px;background:var(--mint)}
+.section-title{font-size:25px;font-weight:300;letter-spacing:-.03em;color:var(--text);line-height:1.15}
+.section-sub{font-size:13.5px;color:var(--dim);margin-top:6px;line-height:1.55}
+
+/* ── buttons ───────────────────────────────── */
+.btn{border:none;border-radius:var(--r);font-size:13.5px;font-weight:500;font-family:inherit;
+  cursor:pointer;transition:all .2s;letter-spacing:-.01em;
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;width:100%}
+.btn-primary{background:var(--orange);color:#fff;padding:13px 24px}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px)}
+.btn-primary:active{opacity:.74;transform:scale(.98) translateY(0)}
+.btn-primary.confirmed{background:var(--mint);transition:background .25s ease}
+.btn-ghost{background:none;color:var(--muted);padding:10px 0;font-size:12.5px}
+.btn-ghost:hover{color:var(--dim)}
+
+
+/* ══════════════════════════════════════════
+   S1 — IDENTITY
+══════════════════════════════════════════ */
+
+.id-card{background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:28px 24px 22px;box-shadow:var(--sh);
+  opacity:0;animation:up .45s ease forwards .08s}
+
+.id-avatar{width:54px;height:54px;border-radius:50%;
+  background:linear-gradient(135deg,var(--orange) 0%,#FF8F6A 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-size:19px;font-weight:600;color:#fff;letter-spacing:-.01em;
+  margin:0 auto 18px;box-shadow:0 4px 16px rgba(241,80,37,.25)}
+.id-name{font-size:24px;font-weight:300;letter-spacing:-.03em;text-align:center;
+  margin-bottom:3px;color:var(--text)}
+.id-greeting{font-size:13.5px;color:var(--dim);text-align:center;margin-bottom:22px}
+
+.id-fields{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.id-field{display:flex;align-items:center;justify-content:space-between;
+  padding:11px 13px;background:rgba(0,0,0,.022);border:1px solid var(--border);
+  border-radius:var(--r);transition:all .2s;cursor:pointer}
+.id-field:hover{border-color:var(--bh);background:rgba(0,0,0,.035)}
+.id-field.editing{border-color:var(--ob);box-shadow:0 0 0 3px rgba(241,80,37,.07);background:var(--card)}
+.id-field-left{display:flex;align-items:center;gap:10px}
+.id-ico{width:28px;height:28px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.id-ico.co{background:var(--os);color:var(--orange)}
+.id-ico.ro{background:rgba(107,95,212,.08);color:var(--violet)}
+.id-label{font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:2px}
+.id-val{font-size:13px;font-weight:500;color:var(--text);line-height:1}
+.id-field-input{background:none;border:none;outline:none;font-family:inherit;
+  font-size:13px;font-weight:500;color:var(--text);width:160px}
+.id-edit-label{font-size:11px;color:var(--muted);transition:color .2s;flex-shrink:0}
+.id-field:hover .id-edit-label{color:var(--orange)}
+
+.id-source{font-size:11px;color:var(--muted);text-align:center;margin-bottom:18px;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  opacity:0;animation:up .38s ease forwards .2s}
+
+.id-actions{display:flex;flex-direction:column;gap:7px;
+  opacity:0;animation:up .38s ease forwards .26s}
+
+
+/* ══════════════════════════════════════════
+   S2 — STACK
+══════════════════════════════════════════ */
+
+.stack-head{width:100%;margin-bottom:20px;opacity:0;animation:up .35s ease forwards .08s}
+
+/* analyzing state */
+.analyzing{display:flex;flex-direction:column;align-items:center;padding:48px 0;
+  opacity:0;animation:up .35s ease forwards .14s}
+.scan-ring{position:relative;width:56px;height:56px;margin-bottom:16px}
+.scan-r1{position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(6,185,126,.12);animation:ping 1.6s ease-out infinite}
+.scan-r2{position:absolute;inset:0;border-radius:50%;
+  border:1px solid rgba(6,185,126,.08);animation:ping 1.6s ease-out .5s infinite}
+.scan-core{position:absolute;inset:9px;border-radius:50%;
+  background:var(--ms);border:1px solid var(--mb);
+  display:flex;align-items:center;justify-content:center;color:var(--mint)}
+.scan-label{font-size:13.5px;color:var(--dim);margin-bottom:10px}
+.scan-dots{display:flex;gap:4px}
+.sd{width:5px;height:5px;border-radius:50%;background:var(--mint);animation:blink 1.4s ease-in-out infinite}
+.sd:nth-child(2){animation-delay:.2s}.sd:nth-child(3){animation-delay:.4s}
+
+/* stack bar */
+.stack-meta{display:flex;align-items:center;justify-content:space-between;
+  width:100%;margin-bottom:10px;display:none}
+.stack-count{font-size:12.5px;color:var(--dim)}
+.stack-count strong{color:var(--text);font-weight:600;font-size:14px}
+.add-btn{background:none;border:none;font-family:inherit;font-size:12px;
+  color:var(--orange);cursor:pointer;padding:0;display:flex;align-items:center;gap:4px;
+  transition:opacity .15s}
+.add-btn:hover{opacity:.72}
+
+/* tool grid */
+.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;width:100%;
+  margin-bottom:10px;display:none}
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:10px 12px;cursor:pointer;
+  transition:all .22s cubic-bezier(.34,1.56,.64,1);
+  display:flex;align-items:center;gap:9px;
+  opacity:0;transform:scale(.92) translateY(5px)}
+.tool-card.in{animation:pop .28s cubic-bezier(.34,1.56,.64,1) forwards}
+.tool-card:not(.removed):hover{border-color:var(--bh);
+  box-shadow:0 3px 14px rgba(0,0,0,.07);transform:translateY(-1px) scale(1.005)}
+.tool-card.confirmed{border-color:rgba(6,185,126,.22)}
+.tool-card.confirmed:hover{border-color:rgba(6,185,126,.38);
+  box-shadow:0 3px 14px rgba(6,185,126,.08)}
+.tool-card.removed{opacity:.32;filter:grayscale(.8);transform:scale(.96)}
+.tool-ico{width:30px;height:30px;border-radius:5px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:#fff;letter-spacing:.01em}
+.tool-info{flex:1;min-width:0}
+.tool-name{font-size:12.5px;font-weight:500;color:var(--text);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  line-height:1.2;margin-bottom:2px}
+.tool-card.removed .tool-name{text-decoration:line-through;opacity:.7}
+.tool-cat{font-size:10.5px;color:var(--muted)}
+.tool-chk{width:17px;height:17px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;transition:all .2s}
+.tool-card.confirmed .tool-chk{background:var(--mint);color:#fff}
+.tool-card.removed .tool-chk{background:rgba(0,0,0,.06);color:var(--muted)}
+
+/* add input */
+.add-input-wrap{width:100%;margin-bottom:10px;display:none}
+.add-input{width:100%;background:var(--card);border:1.5px solid var(--border);
+  border-radius:var(--r);padding:10px 14px;font-size:13.5px;font-family:inherit;
+  color:var(--text);outline:none;transition:border-color .2s,box-shadow .2s}
+.add-input:focus{border-color:var(--ob);box-shadow:0 0 0 3px rgba(241,80,37,.07)}
+.add-input::placeholder{color:var(--muted)}
+
+.stack-actions{display:flex;flex-direction:column;gap:7px;width:100%;display:none}
+
+
+/* ══════════════════════════════════════════
+   S3 — INTENT
+══════════════════════════════════════════ */
+
+.intent-head{width:100%;margin-bottom:22px;opacity:0;animation:up .35s ease forwards .08s}
+.intent-ctx{font-size:12px;color:var(--muted);margin-bottom:9px;
+  display:flex;align-items:center;gap:5px}
+
+.intent-opts{display:flex;flex-direction:column;gap:7px;width:100%;margin-bottom:20px}
+.iopt{background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:14px 16px;cursor:pointer;
+  transition:all .22s cubic-bezier(.34,1.56,.64,1);
+  display:flex;align-items:center;justify-content:space-between;
+  opacity:0;animation:up .35s ease forwards}
+.iopt:nth-child(1){animation-delay:.12s}
+.iopt:nth-child(2){animation-delay:.19s}
+.iopt:nth-child(3){animation-delay:.26s}
+.iopt:nth-child(4){animation-delay:.33s}
+.iopt:hover{border-color:var(--ob);transform:translateX(4px);
+  box-shadow:0 4px 18px rgba(241,80,37,.07)}
+.iopt.selected{border-color:var(--orange);background:var(--os)}
+.iopt-body{flex:1}
+.iopt-text{font-size:13.5px;font-weight:500;color:var(--text);margin-bottom:2px}
+.iopt-hint{font-size:11.5px;color:var(--muted)}
+.iopt-arrow{width:28px;height:28px;border-radius:50%;background:rgba(0,0,0,.04);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:all .2s;flex-shrink:0}
+.iopt:hover .iopt-arrow,.iopt.selected .iopt-arrow{background:var(--os);color:var(--orange)}
+
+.intent-actions{display:flex;flex-direction:column;gap:7px;width:100%;
+  opacity:0;animation:up .35s ease forwards .4s}
+
+
+/* ══════════════════════════════════════════
+   S4 — PAYOFF
+══════════════════════════════════════════ */
+
+.payoff-intro{width:100%;margin-bottom:18px;opacity:0;animation:up .35s ease forwards .08s}
+.payoff-title{font-size:22px;font-weight:300;letter-spacing:-.025em;color:var(--text);
+  margin-bottom:5px;opacity:0;animation:up .35s ease forwards .14s;line-height:1.3}
+.payoff-sub{font-size:12.5px;color:var(--muted);margin-bottom:18px;
+  opacity:0;animation:up .35s ease forwards .2s}
+
+.pcard{background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:16px 18px;width:100%;margin-bottom:7px;box-shadow:var(--sh)}
+.plabel{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);margin-bottom:13px}
+
+.vrow{display:grid;grid-template-columns:116px 1fr 34px;align-items:center;gap:10px;margin-bottom:9px}
+.vrow:last-child{margin-bottom:0}
+.vname{font-size:12.5px;font-weight:500;color:var(--text)}
+.vbar-wrap{height:7px;background:rgba(0,0,0,.05);border-radius:4px;overflow:hidden}
+.vbar{height:100%;border-radius:4px;background:var(--orange);width:0;
+  transition:width 1.15s cubic-bezier(.4,0,.2,1)}
+.vscore{font-size:11.5px;color:var(--dim);font-weight:600;text-align:right}
+
+.crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px}
+.ci{font-size:12.5px;color:var(--dim);display:flex;align-items:center;gap:6px}
+.ci::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0}
+
+.insight-card{display:flex;align-items:flex-start;gap:11px;padding:13px 16px;
+  border:1px solid rgba(6,185,126,.18);border-radius:6px;
+  background:linear-gradient(120deg,rgba(6,185,126,.06),rgba(6,185,126,.02));
+  width:100%;margin-bottom:7px}
+.insight-text{font-size:12.5px;color:var(--dim);line-height:1.6}
+.insight-text strong{color:var(--text);font-weight:500}
+
+.peer-card{background:var(--card);border:1px solid var(--border);border-radius:6px;
+  padding:14px 18px;width:100%;margin-bottom:14px;box-shadow:var(--sh)}
+.peer-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted);margin-bottom:12px}
+.prow{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.prow:last-child{margin-bottom:0}
+.pname{font-size:12.5px;font-weight:500;color:var(--text);width:116px;flex-shrink:0}
+.ptrack{flex:1;height:5px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden}
+.pfill{height:100%;border-radius:3px;background:var(--mint);width:0;
+  transition:width 1.05s cubic-bezier(.4,0,.2,1)}
+.ppct{font-size:11.5px;color:var(--muted);width:30px;text-align:right;flex-shrink:0}
+
+.payoff-cta{opacity:0;animation:up .35s ease forwards .44s}
+
+/* payoff card entrance delays */
+.pcard:nth-child(1){opacity:0;animation:up .38s ease forwards .26s}
+.pcard:nth-child(2){opacity:0;animation:up .38s ease forwards .33s}
+.insight-card{opacity:0;animation:up .38s ease forwards .4s}
+.peer-card{opacity:0;animation:up .38s ease forwards .47s}
+</style>
+</head>
+<body>
+
+<div class="steps">
+  <div class="sdot active" id="d1"></div>
+  <div class="sdot" id="d2"></div>
+  <div class="sdot" id="d3"></div>
+  <div class="sdot" id="d4"></div>
+</div>
+
+<div class="bg-g1"></div>
+<div class="bg-g2"></div>
+
+
+<!-- ══ S1: IDENTITY ════════════════════════════════════ -->
+<div id="s1" class="screen">
+<div class="sw" style="max-width:390px">
+
+  <div class="logo">
+    <div class="logo-mark">
+      <svg width="17" height="17" viewBox="0 0 16 16" fill="none">
+        <polygon fill="currentColor" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/>
+        <polygon fill="currentColor" points="8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54"/>
+        <polygon fill="currentColor" points="12 11.46 16 11.46 12 4.54 8 4.54 12 11.46"/>
+      </svg>
+      Airframe
+    </div>
+  </div>
+
+  <div class="id-card">
+    <div class="id-avatar" id="s1-avatar">SH</div>
+    <div class="id-name" id="s1-name">Welcome, Sarah.</div>
+    <div class="id-greeting">We set up your account from LinkedIn. Take a quick look.</div>
+
+    <div class="id-fields">
+      <div class="id-field" onclick="editField('company')" id="field-company">
+        <div class="id-field-left">
+          <div class="id-ico co">
+            <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M5 7V5a4 4 0 018 0v2"/></svg>
+          </div>
+          <div>
+            <div class="id-label">Company</div>
+            <div class="id-val" id="company-val">Stripe</div>
+          </div>
+        </div>
+        <div class="id-edit-label">Edit</div>
+      </div>
+      <div class="id-field" onclick="editField('role')" id="field-role">
+        <div class="id-field-left">
+          <div class="id-ico ro">
+            <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="6" r="3.5"/><path d="M2 16c0-3.314 3.134-6 7-6s7 2.686 7 6"/></svg>
+          </div>
+          <div>
+            <div class="id-label">Role</div>
+            <div class="id-val" id="role-val">Chief Technology Officer</div>
+          </div>
+        </div>
+        <div class="id-edit-label">Edit</div>
+      </div>
+    </div>
+
+    <div class="id-source">
+      <svg width="13" height="13" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".5"><rect x="2" y="2" width="14" height="14" rx="2"/><circle cx="6.5" cy="7.5" r="1.5"/><path d="M2 13l4-3.5 3 3 3.5-4 3.5 5"/></svg>
+      Pulled from your LinkedIn and email
+    </div>
+
+    <div class="id-actions">
+      <button class="btn btn-primary" id="confirm-btn" onclick="confirmIdentity()">That's right →</button>
+    </div>
+  </div>
+
+</div></div>
+
+
+<!-- ══ S2: STACK ═══════════════════════════════════════ -->
+<div id="s2" class="screen">
+<div class="sw" style="max-width:580px">
+
+  <div class="topbar">
+    <button class="backbtn" onclick="goBack('s2','s1')">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+      Back
+    </button>
+    <div style="flex:1"></div>
+    <span class="badge" id="stack-badge"><span class="dot"></span>Scanning</span>
+  </div>
+
+  <div class="stack-head">
+    <div class="eyebrow">Your stack</div>
+    <div class="section-title" id="stack-title">Here's what we know about <span id="stack-co">Stripe</span>.</div>
+    <div class="section-sub">Confirm the tools you use. We'll use this to personalize everything.</div>
+  </div>
+
+  <div class="analyzing" id="analyzing">
+    <div class="scan-ring">
+      <div class="scan-r1"></div>
+      <div class="scan-r2"></div>
+      <div class="scan-core">
+        <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M12.5 12.5l3 3"/></svg>
+      </div>
+    </div>
+    <div class="scan-label" id="scan-label">Mapping Stripe's signals</div>
+    <div class="scan-dots"><div class="sd"></div><div class="sd"></div><div class="sd"></div></div>
+  </div>
+
+  <div class="stack-meta" id="stack-meta">
+    <div class="stack-count"><strong id="confirmed-count">8</strong>&nbsp;tools confirmed</div>
+    <button class="add-btn" onclick="toggleAddTool()">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
+      Add a tool
+    </button>
+  </div>
+
+  <div class="tool-grid" id="tool-grid"></div>
+
+  <div class="add-input-wrap" id="add-input-wrap">
+    <input class="add-input" id="add-input" placeholder="Search 17,000+ tools…" autocomplete="off"
+      onkeydown="if(event.key==='Escape')toggleAddTool()" />
+  </div>
+
+  <div class="stack-actions" id="stack-actions">
+    <button class="btn btn-primary" onclick="toS3()">Looks right →</button>
+    <button class="btn btn-ghost" onclick="toS3()">Skip — I'll fill this in later</button>
+  </div>
+
+</div></div>
+
+
+<!-- ══ S3: INTENT ══════════════════════════════════════ -->
+<div id="s3" class="screen">
+<div class="sw" style="max-width:480px">
+
+  <div class="topbar">
+    <button class="backbtn" onclick="goBack('s3','s2')">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+      Back
+    </button>
+  </div>
+
+  <div class="intent-head">
+    <div class="intent-ctx">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"/><path d="M6 4v2.5l1.5 1"/></svg>
+      <span id="intent-ctx-text">For a CTO at Stripe</span>
+    </div>
+    <div class="section-title">What's your most pressing<br>AI decision right now?</div>
+  </div>
+
+  <div class="intent-opts" id="intent-opts">
+    <div class="iopt" onclick="selectIntent(this,0)">
+      <div class="iopt-body">
+        <div class="iopt-text">Evaluating our AI development tools</div>
+        <div class="iopt-hint">Copilot, Cursor, or alternatives — what's right for us</div>
+      </div>
+      <div class="iopt-arrow"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg></div>
+    </div>
+    <div class="iopt" onclick="selectIntent(this,1)">
+      <div class="iopt-body">
+        <div class="iopt-text">Building our AI transformation roadmap</div>
+        <div class="iopt-hint">Prioritizing what to build, buy, or cut</div>
+      </div>
+      <div class="iopt-arrow"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg></div>
+    </div>
+    <div class="iopt" onclick="selectIntent(this,2)">
+      <div class="iopt-body">
+        <div class="iopt-text">Understanding what peers are adopting</div>
+        <div class="iopt-hint">What fintech teams at our scale are running</div>
+      </div>
+      <div class="iopt-arrow"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg></div>
+    </div>
+    <div class="iopt" onclick="selectIntent(this,3)">
+      <div class="iopt-body">
+        <div class="iopt-text">Rationalizing our AI tool spend</div>
+        <div class="iopt-hint">Finding overlap, cutting waste, optimizing ROI</div>
+      </div>
+      <div class="iopt-arrow"><svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg></div>
+    </div>
+  </div>
+
+  <div class="intent-actions">
+    <button class="btn btn-primary" id="intent-btn" onclick="toS4()" disabled style="opacity:.4;cursor:not-allowed">
+      Show me what Airframe found →
+    </button>
+    <button class="btn btn-ghost" onclick="toS4()">Skip for now</button>
+  </div>
+
+</div></div>
+
+
+<!-- ══ S4: PAYOFF ══════════════════════════════════════ -->
+<div id="s4" class="screen">
+<div class="sw" style="max-width:600px">
+
+  <div class="topbar">
+    <button class="backbtn" onclick="goBack('s4','s3')">
+      <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+      Back
+    </button>
+    <div style="flex:1"></div>
+    <span class="badge"><span class="dot"></span><span id="payoff-badge-text">Brief ready</span></span>
+  </div>
+
+  <div class="payoff-intro">
+    <div class="eyebrow">Your Airframe brief</div>
+  </div>
+  <div class="payoff-title" id="payoff-title">Evaluating AI Development Tools</div>
+  <div class="payoff-sub" id="payoff-sub">Benchmarked against Stripe · 8,400 peer evaluations analyzed</div>
+
+  <div class="pcard">
+    <div class="plabel">Top contenders — peer-weighted at your scale</div>
+    <div class="vrow"><div class="vname">GitHub Copilot</div><div class="vbar-wrap"><div class="vbar" id="vb1"></div></div><div class="vscore" id="vs1">—</div></div>
+    <div class="vrow"><div class="vname">Cursor</div><div class="vbar-wrap"><div class="vbar" id="vb2"></div></div><div class="vscore" id="vs2">—</div></div>
+    <div class="vrow"><div class="vname">Tabnine</div><div class="vbar-wrap"><div class="vbar" id="vb3" style="opacity:.65"></div></div><div class="vscore" id="vs3">—</div></div>
+    <div class="vrow"><div class="vname">Cody</div><div class="vbar-wrap"><div class="vbar" id="vb4" style="opacity:.42"></div></div><div class="vscore" id="vs4">—</div></div>
+  </div>
+
+  <div class="pcard">
+    <div class="plabel">What fintech CTOs evaluate on</div>
+    <div class="crit-grid">
+      <div class="ci">Codebase-aware context</div>
+      <div class="ci">IDE integration quality</div>
+      <div class="ci">Security &amp; compliance</div>
+      <div class="ci">Pricing at scale (100+ seats)</div>
+      <div class="ci">Air-gapped / on-prem option</div>
+      <div class="ci">SSO &amp; team admin</div>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="var(--mint)" stroke-width="1.5" stroke-linecap="round" style="flex-shrink:0;margin-top:1px"><circle cx="9" cy="9" r="7.5"/><path d="M9 5v4l2.5 1.5"/></svg>
+    <div class="insight-text" id="payoff-insight"><strong>78% of Series B+ fintech engineering teams</strong> standardized on two AI coding tools in 2025 — one IDE-native, one enterprise-wide.</div>
+  </div>
+
+  <div class="peer-card">
+    <div class="peer-label" id="peer-label">Adoption at companies like Stripe</div>
+    <div class="prow"><div class="pname">GitHub Copilot</div><div class="ptrack"><div class="pfill" data-w="91%"></div></div><div class="ppct">91%</div></div>
+    <div class="prow"><div class="pname">Cursor</div><div class="ptrack"><div class="pfill" data-w="68%"></div></div><div class="ppct">68%</div></div>
+    <div class="prow"><div class="pname">Tabnine</div><div class="ptrack"><div class="pfill" data-w="34%"></div></div><div class="ppct">34%</div></div>
+  </div>
+
+  <div class="payoff-cta">
+    <button class="btn btn-primary" onclick="alert('Opening in Studio…')">Open full brief in Studio →</button>
+    <div style="text-align:center;margin-top:10px">
+      <span style="font-size:11.5px;color:var(--muted)">Based on 140,000+ company stacks · Updated daily · No vendor funding</span>
+    </div>
+  </div>
+
+</div></div>
+
+
+<script>
+/* ── state ─────────────────────────────────────── */
+const state = {
+  name: 'Sarah', initials: 'SH',
+  company: 'Stripe', role: 'Chief Technology Officer',
+  intent: -1
+};
+
+const TOOLS = [
+  { name:'GitHub Copilot', cat:'AI Development', color:'#1B1F24', abbr:'GC', confirmed:true },
+  { name:'Cursor',         cat:'AI IDE',         color:'#7C3AED', abbr:'Cu', confirmed:true },
+  { name:'Datadog',        cat:'Observability',  color:'#774AA4', abbr:'Dd', confirmed:true },
+  { name:'Snowflake',      cat:'Data Platform',  color:'#1EA7D8', abbr:'Sf', confirmed:true },
+  { name:'Linear',         cat:'Project Mgmt',   color:'#5E6AD2', abbr:'Li', confirmed:true },
+  { name:'Notion AI',      cat:'AI Workspace',   color:'#374151', abbr:'No', confirmed:true },
+  { name:'OpenAI API',     cat:'AI Platform',    color:'#10A37F', abbr:'Oa', confirmed:true },
+  { name:'dbt',            cat:'Data Transform', color:'#E03D2F', abbr:'db', confirmed:true },
+];
+
+const INTENT_COPY = [
+  { title:'Evaluating AI Development Tools', sub:'Benchmarked against {co} · 8,400 peer evaluations analyzed', insight:'<strong>78% of Series B+ fintech engineering teams</strong> standardized on two AI coding tools in 2025 — one IDE-native, one enterprise-wide.' },
+  { title:'AI Transformation Roadmap — {co}', sub:'Built from your stack + 140,000+ peer stacks analyzed', insight:'<strong>The top priority for enterprise CTOs in 2026</strong> is rationalizing fragmented AI tooling acquired during the 2023-2024 adoption wave.' },
+  { title:'What Peers Are Running', sub:'Filtered to fintech companies at {co}\'s scale', insight:'<strong>Fintech companies at 1,000–5,000 employees</strong> average 23 active AI tools — 4.2x more than two years ago.' },
+  { title:'AI Tool Rationalization — {co}', sub:'Your stack analyzed against 140,000+ peer stacks', insight:'<strong>The average enterprise has 34% tool overlap</strong> in AI categories — driven by department-level purchasing without central visibility.' },
+];
+
+/* ── screen nav ────────────────────────────────── */
+let cur = 's1';
+function show(id) {
+  document.getElementById(id).classList.add('on');
+  cur = id;
+  updateSteps(id);
+}
+function hide(id, cb) {
+  const el = document.getElementById(id);
+  el.classList.add('out');
+  setTimeout(() => { el.classList.remove('on','out'); if(cb) cb(); }, 290);
+}
+function goBack(from, to) { hide(from, () => show(to)); }
+function advance(from, to, cb) { hide(from, () => { show(to); if(cb) cb(); }); }
+
+function updateSteps(id) {
+  const map = {s1:0, s2:1, s3:2, s4:3};
+  const active = map[id] ?? 0;
+  ['d1','d2','d3','d4'].forEach((d,i) => {
+    const el = document.getElementById(d);
+    el.classList.remove('active','done');
+    if(i < active) el.classList.add('done');
+    else if(i === active) el.classList.add('active');
+  });
+}
+
+/* ── S1: identity ──────────────────────────────── */
+function editField(key) {
+  const valEl = document.getElementById(key + '-val');
+  const fieldEl = document.getElementById('field-' + key);
+  if (fieldEl.classList.contains('editing')) return;
+  fieldEl.classList.add('editing');
+  const cur = valEl.textContent;
+  const input = document.createElement('input');
+  input.className = 'id-field-input';
+  input.value = cur;
+  valEl.replaceWith(input);
+  input.focus(); input.select();
+
+  function save() {
+    const v = input.value.trim() || cur;
+    state[key] = v;
+    const span = document.createElement('div');
+    span.className = 'id-val'; span.id = key + '-val'; span.textContent = v;
+    input.replaceWith(span);
+    fieldEl.classList.remove('editing');
+    if (key === 'company') {
+      document.getElementById('stack-co').textContent = v;
+      document.getElementById('scan-label').textContent = 'Mapping ' + v + '\'s signals';
+    }
+  }
+  input.addEventListener('blur', save);
+  input.addEventListener('keydown', e => { if(e.key==='Enter') input.blur(); });
+}
+
+function confirmIdentity() {
+  const btn = document.getElementById('confirm-btn');
+  btn.innerHTML = '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 8.5 6.5 12 13 4" stroke-dasharray="16" stroke-dashoffset="16" style="animation:check .25s ease forwards .05s;fill:none"></polyline></svg> Confirmed';
+  btn.classList.add('confirmed');
+  setTimeout(() => advance('s1', 's2', startScan), 640);
+}
+
+/* ── S2: stack reveal ──────────────────────────── */
+function startScan() {
+  document.getElementById('stack-badge').innerHTML = '<span class="dot"></span>Scanning';
+  const analyzingEl = document.getElementById('analyzing');
+  analyzingEl.style.display = 'flex';
+
+  setTimeout(() => {
+    analyzingEl.style.transition = 'opacity .3s ease';
+    analyzingEl.style.opacity = '0';
+    setTimeout(() => {
+      analyzingEl.style.display = 'none';
+      document.getElementById('stack-badge').innerHTML = '<span class="dot" style="background:var(--mint)"></span>Stack mapped';
+      buildToolGrid();
+    }, 300);
+  }, 1400);
+}
+
+function buildToolGrid() {
+  const grid = document.getElementById('tool-grid');
+  grid.style.display = 'grid';
+  grid.innerHTML = '';
+
+  TOOLS.forEach((t, i) => {
+    const card = document.createElement('div');
+    card.className = 'tool-card confirmed';
+    card.dataset.index = i;
+    card.innerHTML = `
+      <div class="tool-ico" style="background:${t.color}">${t.abbr}</div>
+      <div class="tool-info">
+        <div class="tool-name">${t.name}</div>
+        <div class="tool-cat">${t.cat}</div>
+      </div>
+      <div class="tool-chk">
+        <svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>
+      </div>`;
+    card.onclick = () => toggleTool(i, card);
+    grid.appendChild(card);
+    setTimeout(() => card.classList.add('in'), i * 80);
+  });
+
+  // show meta + actions after last card
+  setTimeout(() => {
+    document.getElementById('stack-meta').style.display = 'flex';
+    document.getElementById('stack-actions').style.display = 'flex';
+    updateCount();
+  }, TOOLS.length * 80 + 200);
+}
+
+function toggleTool(i, card) {
+  TOOLS[i].confirmed = !TOOLS[i].confirmed;
+  card.classList.toggle('confirmed', TOOLS[i].confirmed);
+  card.classList.toggle('removed', !TOOLS[i].confirmed);
+  card.querySelector('.tool-chk').innerHTML = TOOLS[i].confirmed
+    ? '<svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>'
+    : '<svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 2l6 6M8 2l-6 6"/></svg>';
+  updateCount();
+}
+
+function updateCount() {
+  const n = TOOLS.filter(t => t.confirmed).length;
+  const el = document.getElementById('confirmed-count');
+  el.textContent = n;
+  el.style.transform = 'scale(1.25)';
+  setTimeout(() => el.style.transform = 'scale(1)', 180);
+}
+
+function toggleAddTool() {
+  const wrap = document.getElementById('add-input-wrap');
+  const isOpen = wrap.style.display === 'block';
+  wrap.style.display = isOpen ? 'none' : 'block';
+  if (!isOpen) document.getElementById('add-input').focus();
+}
+
+/* ── S3: intent ────────────────────────────────── */
+function toS3() {
+  const co = state.company;
+  const role = state.role.includes('Chief') ? 'CTO' :
+               state.role.includes('VP') ? state.role.replace('Vice President','VP') :
+               state.role;
+  document.getElementById('intent-ctx-text').textContent = 'For a ' + role + ' at ' + co;
+  advance('s2', 's3');
+}
+
+function selectIntent(el, idx) {
+  document.querySelectorAll('.iopt').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  state.intent = idx;
+  const btn = document.getElementById('intent-btn');
+  btn.disabled = false;
+  btn.style.opacity = '1';
+  btn.style.cursor = 'pointer';
+}
+
+/* ── S4: payoff ────────────────────────────────── */
+function toS4() {
+  const idx = state.intent >= 0 ? state.intent : 0;
+  const copy = INTENT_COPY[idx];
+  const co = state.company;
+
+  document.getElementById('payoff-title').textContent = copy.title.replace('{co}', co);
+  document.getElementById('payoff-sub').textContent = copy.sub.replace('{co}', co);
+  document.getElementById('payoff-insight').innerHTML = copy.insight;
+  document.getElementById('peer-label').textContent = 'Adoption at companies like ' + co;
+
+  // reset bars
+  ['vb1','vb2','vb3','vb4'].forEach(id => document.getElementById(id).style.width = '0');
+  ['vs1','vs2','vs3','vs4'].forEach(id => document.getElementById(id).textContent = '—');
+  document.querySelectorAll('.pfill').forEach(el => el.style.width = '0');
+
+  advance('s3', 's4', () => setTimeout(animatePayoff, 320));
+}
+
+function animatePayoff() {
+  [[82,'vb1','vs1'],[74,'vb2','vs2'],[46,'vb3','vs3'],[38,'vb4','vs4']].forEach(([s,bid,vid],i) => {
+    setTimeout(() => {
+      document.getElementById(bid).style.width = s + '%';
+      countUp(document.getElementById(vid), s, '', 900);
+    }, i * 100);
+  });
+  document.querySelectorAll('.pfill').forEach((el, i) => {
+    setTimeout(() => el.style.width = el.dataset.w, i * 80 + 200);
+  });
+}
+
+function countUp(el, to, sfx, ms) {
+  const t0 = Date.now();
+  (function tick() {
+    const p = Math.min((Date.now()-t0)/ms, 1);
+    el.textContent = Math.round((1-Math.pow(1-p,3))*to) + sfx;
+    if(p<1) requestAnimationFrame(tick);
+  })();
+}
+
+show('s1');
+</script>
+</body>
+</html>
