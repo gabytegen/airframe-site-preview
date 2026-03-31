@@ -331,7 +331,7 @@ body {
   background: linear-gradient(135deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.04) 30%, transparent 54%);
   pointer-events: none; z-index: 10; border-radius: inherit;
 }
-#hero .demo-frame-wrap iframe { pointer-events: none; height: 560px; }
+#hero .demo-frame-wrap iframe { pointer-events: none; height: 490px; }
 
 /* Post-demo CTA overlay */
 .demo-cta {
@@ -400,7 +400,7 @@ body {
 .bleed-d2l, .bleed-l2d, .bleed-d2la, .bleed-la2d { display: none; }
 
 /* ── PROBLEM ──────────────────────────────────────────── */
-#problem { background: var(--light); position: relative; overflow: visible; }
+#problem { background: var(--light); position: relative; overflow: hidden; }
 .prob-inner { max-width: 1280px; margin: 0 auto; padding: 60px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 
 .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; color: var(--orange); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
@@ -641,7 +641,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── DISCOVER ─────────────────────────────────────────── */
 #discover { background: var(--light); display: flex; align-items: center; position: relative; }
-.disc-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 45px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.disc-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 54px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .disc-left { align-self: start; }
 
 .product-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase; border-radius: 3px; padding: 5px 12px; margin-bottom: 20px; }
@@ -695,7 +695,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── FOLIO ────────────────────────────────────────────── */
 #folio { background: var(--light); display: flex; align-items: center; position: relative; }
-.folio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 45px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.folio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 54px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .folio-right { align-self: start; }
 
 /* Folio mockup internals */
@@ -748,7 +748,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── STUDIO ───────────────────────────────────────────── */
 #studio { background: var(--light); display: flex; align-items: center; position: relative; }
-.studio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 45px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.studio-inner { width: 100%; max-width: 1280px; margin: 0 auto; padding: 54px 80px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
 .studio-left { align-self: start; }
 .studio-mockup-wrap { width: 100%; position: relative; overflow: visible; padding: 28px 0 40px; }
 .studio-mockup-wrap .mockup { width: 100%; }
@@ -1431,9 +1431,26 @@ h2.editorial.lt { color: var(--text-dark); }
   .mid-cta { flex-direction: column; padding: 24px 20px; gap: 14px; text-align: center; }
   .mid-cta-sep { display: none; }
 
-  /* Human / agent toggle */
+  /* Human / agent toggle — meet 44px tap target */
   .ha-wrap { margin-top: 36px; }
-  .ha-btn { padding: 8px 16px; font-size: 11px; }
+  .ha-btn { padding: 8px 16px; font-size: 11px; min-height: 44px; }
+
+  /* Problem cards — fan layout doesn't work at mobile widths, hide it */
+  #prob-cards-outer { display: none; }
+
+  /* Modal form — collapse 2-col grid to 1-col */
+  .emodal-row { grid-template-columns: 1fr; }
+  .emodal-box { padding: 32px 20px; max-height: 90vh; overflow-y: auto; }
+
+  /* Footer links — increase tap target height */
+  .footer-nav a { display: block; padding: 7px 0; }
+  .footer-nav-sub a { display: block; padding: 7px 0 7px 10px; }
+
+  /* Mid-CTA link — increase tap target */
+  .mid-cta-link { padding: 10px 0; }
+
+  /* Hero CTA buttons — meet 44px minimum */
+  .demo-cta-btn, .demo-cta-btn-ghost { min-height: 44px; }
 
   /* Discover mockup */
   .disc-mockup-body { grid-template-columns: 1fr; }
@@ -2378,7 +2395,7 @@ document.querySelector('.nav-logo').addEventListener('click', e => { e.preventDe
   function scaleDemo() {
     const s = wrap.offsetWidth / 680;
     iframe.style.transform = 'scale(' + s + ')';
-    wrap.style.height = Math.round(480 * s) + 'px';
+    wrap.style.height = Math.round(490 * s) + 'px';
   }
   scaleDemo();
   window.addEventListener('resize', scaleDemo);
