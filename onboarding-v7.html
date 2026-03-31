@@ -95,7 +95,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
   opacity:0;animation:up .45s ease forwards .08s}
 
 .id-avatar{width:54px;height:54px;border-radius:50%;
-  background:linear-gradient(135deg,var(--orange) 0%,#FF8F6A 100%);
+  background:var(--orange);
   display:flex;align-items:center;justify-content:center;
   font-size:19px;font-weight:600;color:#fff;letter-spacing:-.01em;
   margin:0 auto 18px;box-shadow:0 4px 16px rgba(241,80,37,.25)}
@@ -176,8 +176,8 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
   box-shadow:0 3px 14px rgba(6,185,126,.08)}
 .tool-card.removed{opacity:.32;filter:grayscale(.8);transform:scale(.96)}
 .tool-ico{width:30px;height:30px;border-radius:5px;flex-shrink:0;
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;font-weight:700;color:#fff;letter-spacing:.01em}
+  display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tool-logo{width:22px;height:22px;object-fit:contain;display:block}
 .tool-info{flex:1;min-width:0}
 .tool-name{font-size:12.5px;font-weight:500;color:var(--text);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
@@ -234,58 +234,32 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 
 
 /* ══════════════════════════════════════════
-   S4 — PAYOFF
+   S4 — PRODUCTS
 ══════════════════════════════════════════ */
 
-.payoff-intro{width:100%;margin-bottom:18px;opacity:0;animation:up .35s ease forwards .08s}
-.payoff-title{font-size:22px;font-weight:300;letter-spacing:-.025em;color:var(--text);
-  margin-bottom:5px;opacity:0;animation:up .35s ease forwards .14s;line-height:1.3}
-.payoff-sub{font-size:12.5px;color:var(--muted);margin-bottom:18px;
-  opacity:0;animation:up .35s ease forwards .2s}
+.products-head{width:100%;margin-bottom:20px;opacity:0;animation:up .35s ease forwards .08s}
 
-.pcard{background:var(--card);border:1px solid var(--border);border-radius:6px;
-  padding:16px 18px;width:100%;margin-bottom:7px;box-shadow:var(--sh)}
-.plabel{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
-  color:var(--muted);margin-bottom:13px}
+.prod-grid{display:flex;flex-direction:column;gap:10px;width:100%;margin-bottom:18px}
+.prod-card{background:var(--card);border:1px solid var(--border);border-radius:8px;
+  padding:20px 20px 18px;box-shadow:var(--sh);opacity:0;animation:up .38s ease forwards}
+.prod-card:nth-child(1){animation-delay:.14s}
+.prod-card:nth-child(2){animation-delay:.22s}
+.prod-card:nth-child(3){animation-delay:.30s}
+.prod-header{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.prod-icon{width:34px;height:34px;border-radius:var(--r);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.prod-icon.discover{background:var(--os);color:var(--orange)}
+.prod-icon.folio{background:rgba(107,95,212,.08);color:var(--violet)}
+.prod-icon.studio{background:var(--ms);color:var(--mint)}
+.prod-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:1px}
+.prod-name{font-size:14px;font-weight:600;color:var(--text);letter-spacing:-.015em;line-height:1.1}
+.prod-body{font-size:13px;color:var(--dim);line-height:1.62;margin-bottom:12px}
+.prod-cta-link{font-size:12px;font-weight:500;color:var(--orange);display:inline-flex;
+  align-items:center;gap:4px;cursor:pointer;background:none;border:none;
+  font-family:inherit;padding:0;transition:opacity .15s;letter-spacing:-.01em}
+.prod-cta-link:hover{opacity:.7}
 
-.vrow{display:grid;grid-template-columns:116px 1fr 34px;align-items:center;gap:10px;margin-bottom:9px}
-.vrow:last-child{margin-bottom:0}
-.vname{font-size:12.5px;font-weight:500;color:var(--text)}
-.vbar-wrap{height:7px;background:rgba(0,0,0,.05);border-radius:4px;overflow:hidden}
-.vbar{height:100%;border-radius:4px;background:var(--orange);width:0;
-  transition:width 1.15s cubic-bezier(.4,0,.2,1)}
-.vscore{font-size:11.5px;color:var(--dim);font-weight:600;text-align:right}
-
-.crit-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px}
-.ci{font-size:12.5px;color:var(--dim);display:flex;align-items:center;gap:6px}
-.ci::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--orange);flex-shrink:0}
-
-.insight-card{display:flex;align-items:flex-start;gap:11px;padding:13px 16px;
-  border:1px solid rgba(6,185,126,.18);border-radius:6px;
-  background:linear-gradient(120deg,rgba(6,185,126,.06),rgba(6,185,126,.02));
-  width:100%;margin-bottom:7px}
-.insight-text{font-size:12.5px;color:var(--dim);line-height:1.6}
-.insight-text strong{color:var(--text);font-weight:500}
-
-.peer-card{background:var(--card);border:1px solid var(--border);border-radius:6px;
-  padding:14px 18px;width:100%;margin-bottom:14px;box-shadow:var(--sh)}
-.peer-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;
-  color:var(--muted);margin-bottom:12px}
-.prow{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.prow:last-child{margin-bottom:0}
-.pname{font-size:12.5px;font-weight:500;color:var(--text);width:116px;flex-shrink:0}
-.ptrack{flex:1;height:5px;background:rgba(0,0,0,.05);border-radius:3px;overflow:hidden}
-.pfill{height:100%;border-radius:3px;background:var(--mint);width:0;
-  transition:width 1.05s cubic-bezier(.4,0,.2,1)}
-.ppct{font-size:11.5px;color:var(--muted);width:30px;text-align:right;flex-shrink:0}
-
-.payoff-cta{opacity:0;animation:up .35s ease forwards .44s}
-
-/* payoff card entrance delays */
-.pcard:nth-child(1){opacity:0;animation:up .38s ease forwards .26s}
-.pcard:nth-child(2){opacity:0;animation:up .38s ease forwards .33s}
-.insight-card{opacity:0;animation:up .38s ease forwards .4s}
-.peer-card{opacity:0;animation:up .38s ease forwards .47s}
+.products-footer{opacity:0;animation:up .35s ease forwards .42s}
 </style>
 </head>
 <body>
@@ -475,9 +449,9 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 </div></div>
 
 
-<!-- ══ S4: PAYOFF ══════════════════════════════════════ -->
+<!-- ══ S4: PRODUCTS ════════════════════════════════════ -->
 <div id="s4" class="screen">
-<div class="sw" style="max-width:600px">
+<div class="sw" style="max-width:460px">
 
   <div class="topbar">
     <button class="backbtn" onclick="goBack('s4','s3')">
@@ -485,51 +459,65 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
       Back
     </button>
     <div style="flex:1"></div>
-    <span class="badge"><span class="dot"></span><span id="payoff-badge-text">Brief ready</span></span>
+    <span class="badge"><span class="dot" style="animation:none;background:var(--mint)"></span>You're set up</span>
   </div>
 
-  <div class="payoff-intro">
-    <div class="eyebrow">Your Airframe brief</div>
-  </div>
-  <div class="payoff-title" id="payoff-title">Evaluating AI Development Tools</div>
-  <div class="payoff-sub" id="payoff-sub">Benchmarked against Stripe · 8,400 peer evaluations analyzed</div>
-
-  <div class="pcard">
-    <div class="plabel">Top contenders — peer-weighted at your scale</div>
-    <div class="vrow"><div class="vname">GitHub Copilot</div><div class="vbar-wrap"><div class="vbar" id="vb1"></div></div><div class="vscore" id="vs1">—</div></div>
-    <div class="vrow"><div class="vname">Cursor</div><div class="vbar-wrap"><div class="vbar" id="vb2"></div></div><div class="vscore" id="vs2">—</div></div>
-    <div class="vrow"><div class="vname">Tabnine</div><div class="vbar-wrap"><div class="vbar" id="vb3" style="opacity:.65"></div></div><div class="vscore" id="vs3">—</div></div>
-    <div class="vrow"><div class="vname">Cody</div><div class="vbar-wrap"><div class="vbar" id="vb4" style="opacity:.42"></div></div><div class="vscore" id="vs4">—</div></div>
+  <div class="products-head">
+    <div class="eyebrow">Your platform</div>
+    <div class="section-title">Three tools. One system.</div>
+    <div class="section-sub">Here's how technology leaders use Airframe to stay ahead.</div>
   </div>
 
-  <div class="pcard">
-    <div class="plabel">What fintech CTOs evaluate on</div>
-    <div class="crit-grid">
-      <div class="ci">Codebase-aware context</div>
-      <div class="ci">IDE integration quality</div>
-      <div class="ci">Security &amp; compliance</div>
-      <div class="ci">Pricing at scale (100+ seats)</div>
-      <div class="ci">Air-gapped / on-prem option</div>
-      <div class="ci">SSO &amp; team admin</div>
+  <div class="prod-grid">
+
+    <div class="prod-card">
+      <div class="prod-header">
+        <div class="prod-icon discover">
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M12.5 12.5l3 3"/></svg>
+        </div>
+        <div>
+          <div class="prod-label">Market intelligence</div>
+          <div class="prod-name">Discover</div>
+        </div>
+      </div>
+      <div class="prod-body">17,000+ AI tools, filtered to your stack and segment. See what companies like yours are actually adopting — not what vendors are pitching.</div>
+      <button class="prod-cta-link" onclick="alert('Opening Discover…')">Explore the market <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></button>
     </div>
+
+    <div class="prod-card">
+      <div class="prod-header">
+        <div class="prod-icon folio">
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="4" width="14" height="11" rx="1.5"/><path d="M6 4V3a1 1 0 011-1h4a1 1 0 011 1v1"/><path d="M2 8h14"/></svg>
+        </div>
+        <div>
+          <div class="prod-label">Stack management</div>
+          <div class="prod-name">Folio</div>
+        </div>
+      </div>
+      <div class="prod-body">Everything your company runs, owns, and is evaluating. Benchmarked against 140,000+ peer stacks so every comparison starts with your context already loaded.</div>
+      <button class="prod-cta-link" onclick="alert('Opening Folio…')">View your stack <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></button>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-header">
+        <div class="prod-icon studio">
+          <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3" y="2" width="12" height="14" rx="1.5"/><path d="M6 6h6M6 9h6M6 12h4"/></svg>
+        </div>
+        <div>
+          <div class="prod-label">Decision briefs</div>
+          <div class="prod-name">Studio</div>
+        </div>
+      </div>
+      <div class="prod-body">Where AI initiatives get structured, researched, and decided. Every brief opens with your stack and market data already inside. No starting from scratch.</div>
+      <button class="prod-cta-link" onclick="alert('Opening Studio…')">Open Studio <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></button>
+    </div>
+
   </div>
 
-  <div class="insight-card">
-    <svg width="16" height="16" viewBox="0 0 18 18" fill="none" stroke="var(--mint)" stroke-width="1.5" stroke-linecap="round" style="flex-shrink:0;margin-top:1px"><circle cx="9" cy="9" r="7.5"/><path d="M9 5v4l2.5 1.5"/></svg>
-    <div class="insight-text" id="payoff-insight"><strong>78% of Series B+ fintech engineering teams</strong> standardized on two AI coding tools in 2025 — one IDE-native, one enterprise-wide.</div>
-  </div>
-
-  <div class="peer-card">
-    <div class="peer-label" id="peer-label">Adoption at companies like Stripe</div>
-    <div class="prow"><div class="pname">GitHub Copilot</div><div class="ptrack"><div class="pfill" data-w="91%"></div></div><div class="ppct">91%</div></div>
-    <div class="prow"><div class="pname">Cursor</div><div class="ptrack"><div class="pfill" data-w="68%"></div></div><div class="ppct">68%</div></div>
-    <div class="prow"><div class="pname">Tabnine</div><div class="ptrack"><div class="pfill" data-w="34%"></div></div><div class="ppct">34%</div></div>
-  </div>
-
-  <div class="payoff-cta">
-    <button class="btn btn-primary" onclick="alert('Opening in Studio…')">Open full brief in Studio →</button>
+  <div class="products-footer">
+    <button class="btn btn-primary" onclick="alert('Taking you to Airframe…')">Start exploring →</button>
     <div style="text-align:center;margin-top:10px">
-      <span style="font-size:11.5px;color:var(--muted)">Based on 140,000+ company stacks · Updated daily · No vendor funding</span>
+      <span style="font-size:11.5px;color:var(--muted)">17,000+ tools · 140,000+ stacks · No vendor funding</span>
     </div>
   </div>
 
@@ -545,21 +533,14 @@ const state = {
 };
 
 const TOOLS = [
-  { name:'GitHub Copilot', cat:'AI Development', color:'#1B1F24', abbr:'GC', confirmed:true },
-  { name:'Cursor',         cat:'AI IDE',         color:'#7C3AED', abbr:'Cu', confirmed:true },
-  { name:'Datadog',        cat:'Observability',  color:'#774AA4', abbr:'Dd', confirmed:true },
-  { name:'Snowflake',      cat:'Data Platform',  color:'#1EA7D8', abbr:'Sf', confirmed:true },
-  { name:'Linear',         cat:'Project Mgmt',   color:'#5E6AD2', abbr:'Li', confirmed:true },
-  { name:'Notion AI',      cat:'AI Workspace',   color:'#374151', abbr:'No', confirmed:true },
-  { name:'OpenAI API',     cat:'AI Platform',    color:'#10A37F', abbr:'Oa', confirmed:true },
-  { name:'dbt',            cat:'Data Transform', color:'#E03D2F', abbr:'db', confirmed:true },
-];
-
-const INTENT_COPY = [
-  { title:'Evaluating AI Development Tools', sub:'Benchmarked against {co} · 8,400 peer evaluations analyzed', insight:'<strong>78% of Series B+ fintech engineering teams</strong> standardized on two AI coding tools in 2025 — one IDE-native, one enterprise-wide.' },
-  { title:'AI Transformation Roadmap — {co}', sub:'Built from your stack + 140,000+ peer stacks analyzed', insight:'<strong>The top priority for enterprise CTOs in 2026</strong> is rationalizing fragmented AI tooling acquired during the 2023-2024 adoption wave.' },
-  { title:'What Peers Are Running', sub:'Filtered to fintech companies at {co}\'s scale', insight:'<strong>Fintech companies at 1,000–5,000 employees</strong> average 23 active AI tools — 4.2x more than two years ago.' },
-  { title:'AI Tool Rationalization — {co}', sub:'Your stack analyzed against 140,000+ peer stacks', insight:'<strong>The average enterprise has 34% tool overlap</strong> in AI categories — driven by department-level purchasing without central visibility.' },
+  { name:'GitHub Copilot', cat:'AI Development', color:'#1B1F24', abbr:'GC', domain:'github.com',      confirmed:true },
+  { name:'Cursor',         cat:'AI IDE',         color:'#7C3AED', abbr:'Cu', domain:'cursor.com',      confirmed:true },
+  { name:'Datadog',        cat:'Observability',  color:'#774AA4', abbr:'Dd', domain:'datadoghq.com',   confirmed:true },
+  { name:'Snowflake',      cat:'Data Platform',  color:'#1EA7D8', abbr:'Sf', domain:'snowflake.com',   confirmed:true },
+  { name:'Linear',         cat:'Project Mgmt',   color:'#5E6AD2', abbr:'Li', domain:'linear.app',      confirmed:true },
+  { name:'Notion AI',      cat:'AI Workspace',   color:'#374151', abbr:'No', domain:'notion.so',       confirmed:true },
+  { name:'OpenAI API',     cat:'AI Platform',    color:'#10A37F', abbr:'Oa', domain:'openai.com',      confirmed:true },
+  { name:'dbt',            cat:'Data Transform', color:'#E03D2F', abbr:'db', domain:'getdbt.com',      confirmed:true },
 ];
 
 /* ── screen nav ────────────────────────────────── */
@@ -641,6 +622,17 @@ function startScan() {
   }, 1400);
 }
 
+function handleLogoError(img, abbr, color) {
+  const ico = img.parentElement;
+  ico.style.background = color;
+  ico.style.border = 'none';
+  img.style.display = 'none';
+  const span = document.createElement('span');
+  span.style.cssText = 'color:#fff;font-size:11px;font-weight:700;letter-spacing:.01em';
+  span.textContent = abbr;
+  ico.appendChild(span);
+}
+
 function buildToolGrid() {
   const grid = document.getElementById('tool-grid');
   grid.style.display = 'grid';
@@ -651,7 +643,10 @@ function buildToolGrid() {
     card.className = 'tool-card confirmed';
     card.dataset.index = i;
     card.innerHTML = `
-      <div class="tool-ico" style="background:${t.color}">${t.abbr}</div>
+      <div class="tool-ico" style="background:#fff;border:1px solid rgba(0,0,0,.09);padding:4px">
+        <img class="tool-logo" src="https://logo.clearbit.com/${t.domain}" alt="${t.abbr}"
+          onerror="handleLogoError(this,'${t.abbr}','${t.color}')">
+      </div>
       <div class="tool-info">
         <div class="tool-name">${t.name}</div>
         <div class="tool-cat">${t.cat}</div>
@@ -664,7 +659,6 @@ function buildToolGrid() {
     setTimeout(() => card.classList.add('in'), i * 80);
   });
 
-  // show meta + actions after last card
   setTimeout(() => {
     document.getElementById('stack-meta').style.display = 'flex';
     document.getElementById('stack-actions').style.display = 'flex';
@@ -717,44 +711,9 @@ function selectIntent(el, idx) {
   btn.style.cursor = 'pointer';
 }
 
-/* ── S4: payoff ────────────────────────────────── */
+/* ── S4: products ──────────────────────────────── */
 function toS4() {
-  const idx = state.intent >= 0 ? state.intent : 0;
-  const copy = INTENT_COPY[idx];
-  const co = state.company;
-
-  document.getElementById('payoff-title').textContent = copy.title.replace('{co}', co);
-  document.getElementById('payoff-sub').textContent = copy.sub.replace('{co}', co);
-  document.getElementById('payoff-insight').innerHTML = copy.insight;
-  document.getElementById('peer-label').textContent = 'Adoption at companies like ' + co;
-
-  // reset bars
-  ['vb1','vb2','vb3','vb4'].forEach(id => document.getElementById(id).style.width = '0');
-  ['vs1','vs2','vs3','vs4'].forEach(id => document.getElementById(id).textContent = '—');
-  document.querySelectorAll('.pfill').forEach(el => el.style.width = '0');
-
-  advance('s3', 's4', () => setTimeout(animatePayoff, 320));
-}
-
-function animatePayoff() {
-  [[82,'vb1','vs1'],[74,'vb2','vs2'],[46,'vb3','vs3'],[38,'vb4','vs4']].forEach(([s,bid,vid],i) => {
-    setTimeout(() => {
-      document.getElementById(bid).style.width = s + '%';
-      countUp(document.getElementById(vid), s, '', 900);
-    }, i * 100);
-  });
-  document.querySelectorAll('.pfill').forEach((el, i) => {
-    setTimeout(() => el.style.width = el.dataset.w, i * 80 + 200);
-  });
-}
-
-function countUp(el, to, sfx, ms) {
-  const t0 = Date.now();
-  (function tick() {
-    const p = Math.min((Date.now()-t0)/ms, 1);
-    el.textContent = Math.round((1-Math.pow(1-p,3))*to) + sfx;
-    if(p<1) requestAnimationFrame(tick);
-  })();
+  advance('s3', 's4');
 }
 
 show('s1');
