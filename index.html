@@ -311,7 +311,7 @@ body {
 /* Demo frame in hero */
 #hero .demo-outer { width: min(680px, calc(100vw - 64px)); margin: 0 auto; position: relative; }
 #hero .demo-frame-wrap {
-  width: 100%; aspect-ratio: 680/510; position: relative;
+  width: 100%; aspect-ratio: 680/560; position: relative;
   overflow: hidden; border-radius: 6px;
   transform: perspective(1400px) rotateX(2deg);
   transform-origin: 50% 55%;
@@ -331,7 +331,7 @@ body {
   background: linear-gradient(135deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.04) 30%, transparent 54%);
   pointer-events: none; z-index: 10; border-radius: inherit;
 }
-#hero .demo-frame-wrap iframe { pointer-events: none; height: 510px; }
+#hero .demo-frame-wrap iframe { pointer-events: none; height: 560px; }
 
 /* Post-demo CTA overlay */
 .demo-cta {
@@ -438,7 +438,7 @@ h2.editorial.lt { color: var(--text-dark); }
 .pdc-vendor {
   background: #0d1117;
   box-shadow: 0 8px 32px rgba(0,0,0,.38), 0 1px 4px rgba(0,0,0,.22);
-  top: 52px; left: calc(50% - 300px); z-index: 1;
+  top: 32px; left: calc(50% - 300px); z-index: 1;
   transform: rotate(-9deg) translateY(14px);
 }
 .pdc-vendor.pdc-visible { transform: rotate(-9deg) translateY(0); }
@@ -462,7 +462,7 @@ h2.editorial.lt { color: var(--text-dark); }
   background: #fff;
   border: 1px solid rgba(0,0,0,.11);
   box-shadow: 0 8px 32px rgba(0,0,0,.16), 0 1px 4px rgba(0,0,0,.08);
-  top: 24px; left: calc(50% - 155px); z-index: 2;
+  top: 14px; left: calc(50% - 155px); z-index: 2;
   transform: rotate(4deg) translateY(14px);
 }
 .pdc-email.pdc-visible { transform: rotate(4deg) translateY(0); }
