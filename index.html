@@ -1432,10 +1432,6 @@ h2.editorial.lt { color: var(--text-dark); }
   .mid-cta { flex-direction: column; padding: 24px 20px; gap: 14px; text-align: center; }
   .mid-cta-sep { display: none; }
 
-  /* Human / agent toggle — meet 44px tap target */
-  .ha-wrap { margin-top: 36px; }
-  .ha-btn { padding: 8px 16px; font-size: 11px; min-height: 44px; }
-
   /* Problem cards — fan layout doesn't work at mobile widths, hide it */
   #prob-cards-outer { display: none; }
 
@@ -1756,40 +1752,6 @@ h2.editorial.lt { color: var(--text-dark); }
   z-index: 1; pointer-events: none;
 }
 
-/* ── HUMAN / AGENT TOGGLE ─────────────────────────────── */
-.ha-wrap {
-  display: flex; flex-direction: column; align-items: center; gap: 14px;
-  margin-top: 52px;
-}
-.ha-label {
-  font-size: 10px; font-weight: 400; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--text-ldim2);
-}
-.ha-toggle {
-  display: inline-flex; align-items: center;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 100px; padding: 3px; gap: 2px;
-}
-.ha-btn {
-  font-family: inherit; font-size: 12px; font-weight: 400; letter-spacing: .04em;
-  padding: 8px 22px; border-radius: 100px; border: none; cursor: pointer;
-  transition: background .22s, color .22s;
-  background: transparent; color: var(--text-ldim);
-}
-.ha-btn.ha-active {
-  background: rgba(255,255,255,.11);
-  color: var(--text-light);
-}
-.ha-context {
-  font-size: 12px; font-weight: 300; color: var(--text-ldim2);
-  letter-spacing: .01em; line-height: 1.6;
-  max-width: 340px; text-align: center;
-  min-height: 18px;
-  transition: opacity .25s;
-}
-.ha-context a { color: var(--orange); text-decoration: none; }
-.ha-context a:hover { text-decoration: underline; }
 
 /* Studio closing line */
 .studio-closer {
@@ -2093,14 +2055,6 @@ h2.editorial.lt { color: var(--text-dark); }
       <span class="cta-note">No commitment. Selective intake, limited spots each quarter.</span>
     </div>
 
-    <div class="ha-wrap" data-reveal data-delay="6">
-      <span class="ha-label">Built for</span>
-      <div class="ha-toggle" role="group" aria-label="Audience">
-        <button class="ha-btn ha-active" data-ha="human">Human</button>
-        <button class="ha-btn" data-ha="agent">Agent</button>
-      </div>
-      <p class="ha-context" id="ha-ctx">Technology leaders navigating high-stakes AI decisions.</p>
-    </div>
   </div>
 </section>
 
