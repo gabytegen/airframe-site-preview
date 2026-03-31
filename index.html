@@ -311,7 +311,7 @@ body {
 /* Demo frame in hero */
 #hero .demo-outer { width: min(680px, calc(100vw - 64px)); margin: 0 auto; position: relative; }
 #hero .demo-frame-wrap {
-  width: 100%; aspect-ratio: 680/480; position: relative;
+  width: 100%; aspect-ratio: 680/510; position: relative;
   overflow: hidden; border-radius: 6px;
   transform: perspective(1400px) rotateX(2deg);
   transform-origin: 50% 55%;
@@ -331,7 +331,7 @@ body {
   background: linear-gradient(135deg, rgba(255,255,255,.11) 0%, rgba(255,255,255,.04) 30%, transparent 54%);
   pointer-events: none; z-index: 10; border-radius: inherit;
 }
-#hero .demo-frame-wrap iframe { pointer-events: none; }
+#hero .demo-frame-wrap iframe { pointer-events: none; height: 510px; }
 
 /* Post-demo CTA overlay */
 .demo-cta {
@@ -3622,7 +3622,7 @@ let _probCardsStarted = false;
 function startProbCards() {
   if (_probCardsStarted) return;
   _probCardsStarted = true;
-  ['pdc-1', 'pdc-0', 'pdc-2'].forEach((id, i) => {
+  ['pdc-0', 'pdc-1', 'pdc-2'].forEach((id, i) => {
     setTimeout(() => {
       const el = document.getElementById(id);
       if (el) el.classList.add('pdc-visible');
