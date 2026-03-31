@@ -94,10 +94,13 @@ body {
 .stack-footer {
   margin-top: 10px; padding-top: 10px; border-top: 1px solid rgba(0,0,0,.06);
   display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+  opacity: 0; transform: translateY(4px);
+  transition: opacity .45s ease, transform .45s ease;
 }
+.stack-footer.in { opacity: 1; transform: none; }
 .footer-label { font-size: 10px; color: rgba(26,25,8,.48); white-space: nowrap; }
 .footer-track { flex: 1; height: 4px; background: rgba(0,0,0,.07); border-radius: 2px; overflow: hidden; }
-.footer-fill { height: 4px; width: 82%; background: #06E5A0; border-radius: 2px; }
+.footer-fill { height: 4px; width: 0; background: #06E5A0; border-radius: 2px; transition: width 1s cubic-bezier(.16,1,.3,1); }
 .footer-peer { font-size: 10px; color: rgba(26,25,8,.35); white-space: nowrap; }
 
 /* TOOL INTELLIGENCE */
@@ -367,9 +370,9 @@ body {
 
         </div><!-- /cat-grid -->
 
-        <div class="stack-footer">
+        <div class="stack-footer" id="stack-footer">
           <span class="footer-label">Stack health: 82/100</span>
-          <div class="footer-track"><div class="footer-fill"></div></div>
+          <div class="footer-track"><div class="footer-fill" id="footer-fill"></div></div>
           <span class="footer-peer">vs. 79 peer avg.</span>
         </div>
       </div>
@@ -547,6 +550,8 @@ function reset() {
   // Overview
   q('.cat-card', true).forEach(c => { c.classList.remove('in','hov'); });
   q('.health-fill', true).forEach(b => b.style.width = '0');
+  $('stack-footer').classList.remove('in');
+  $('footer-fill').style.width = '0';
   // Views
   $('v-stack').className = 'view';
   $('v-tool').className = 'view offr';
@@ -577,6 +582,12 @@ function run() {
       const b = document.querySelector('#' + id + ' .health-fill');
       b.style.width = b.dataset.w + '%';
     });
+  });
+
+  // 2.0s: stack footer fades in + health bar fills
+  after(2000, () => {
+    $('stack-footer').classList.add('in');
+    after(80, () => { $('footer-fill').style.width = '82%'; });
   });
 
   // 2.2s: cursor TELEPORTS near Development card, then shows
