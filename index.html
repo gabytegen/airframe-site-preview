@@ -997,27 +997,35 @@ h2.editorial.lt { color: var(--text-dark); }
 /* ── FAQ ──────────────────────────────────────────────── */
 #faq { background: var(--light); }
 .faq-inner {
-  width: 100%; max-width: 1280px; margin: 0 auto;
-  padding: 96px 80px;
+  width: 100%; max-width: 860px; margin: 0 auto;
+  padding: 80px 80px;
 }
 .faq-eyebrow {
   font-size: 9px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-  color: var(--text-dim); margin-bottom: 52px;
-}
-.faq-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 0 80px;
+  color: var(--text-dim); margin-bottom: 32px;
 }
 .faq-item {
-  padding: 24px 0; border-top: 1px solid rgba(26,25,8,.08);
+  border-top: 1px solid rgba(26,25,8,.08);
 }
 .faq-item:last-child { border-bottom: 1px solid rgba(26,25,8,.08); }
-.faq-q {
+.faq-item summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 24px;
+  padding: 18px 0; cursor: pointer; list-style: none;
   font-size: 14px; font-weight: 500; color: var(--text-dark);
-  line-height: 1.4; margin-bottom: 10px; letter-spacing: -.01em;
+  line-height: 1.4; letter-spacing: -.01em;
+  user-select: none;
 }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+'; flex-shrink: 0;
+  font-size: 18px; font-weight: 300; color: var(--text-dim);
+  transition: transform .2s;
+}
+.faq-item[open] summary::after { content: '−'; }
 .faq-a {
   font-size: 13.5px; font-weight: 300; color: var(--text-mid);
-  line-height: 1.7;
+  line-height: 1.7; padding-bottom: 18px;
+  max-width: 680px;
 }
 
 /* ── FOOTER ───────────────────────────────────────────── */
@@ -1608,8 +1616,7 @@ h2.editorial.lt { color: var(--text-dark); }
   .cta-excl-sep { display: none; }
 
   /* FAQ */
-  .faq-inner { padding: 72px 20px; }
-  .faq-grid { grid-template-columns: 1fr; }
+  .faq-inner { padding: 60px 20px; }
 
   /* Footer */
   .footer-inner { padding: 48px 20px 32px; }
@@ -2358,55 +2365,46 @@ h2.editorial.lt { color: var(--text-dark); }
 <section id="faq" aria-label="Frequently asked questions">
   <div class="faq-inner">
     <div class="faq-eyebrow">Common questions</div>
-    <div class="faq-grid">
-
-      <div>
-        <div class="faq-item">
-          <div class="faq-q">What is Airframe?</div>
-          <p class="faq-a">Airframe is a transformation intelligence platform for technology leaders. It continuously monitors 17,000+ AI tools, maps real adoption data from 140,000+ company stacks, and structures every technology decision — so CIOs, CTOs, and VPs of Engineering can move with confidence in a market that moves faster than any team can track.</p>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">How is Airframe different from Gartner or Forrester?</div>
-          <p class="faq-a">Analyst reports are published once or twice a year and funded in part by the vendors they evaluate. Airframe is continuously updated, vendor-neutral, and built on real adoption signals from 140,000+ company stacks — not surveys, vendor submissions, or sponsored research.</p>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">Is Airframe vendor-neutral?</div>
-          <p class="faq-a">Yes. Airframe has no commercial relationships with the tools it tracks. Every signal — adoption data, peer benchmarks, and use case coverage — comes from verified company stack data, not advertising or vendor funding.</p>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">What AI tools does Airframe track?</div>
-          <p class="faq-a">Airframe indexes 17,000+ AI and software tools across infrastructure, developer tools, security, productivity, data platforms, and vertical-specific applications. The index is updated continuously as new tools emerge and market positions shift.</p>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">What is transformation intelligence?</div>
-          <p class="faq-a">Transformation intelligence is the continuous synthesis of market data, peer adoption signals, and organizational context into structured decisions. It is the category Airframe defined — distinct from static analyst reports, point-in-time consulting, or vendor-funded research.</p>
-        </div>
-      </div>
-
-      <div>
-        <div class="faq-item">
-          <div class="faq-q">Who is Airframe built for?</div>
-          <p class="faq-a">Airframe is built for technology leaders at mid-market and enterprise organizations: CIOs, CTOs, VPs of Engineering, and IT procurement teams making high-stakes AI investment decisions.</p>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">What is Airframe Discover?</div>
-          <p class="faq-a">Discover is Airframe's market intelligence product. It shows what peer companies actually run — filtered by size, industry, and growth stage — across 140,000+ real company stacks. Every evaluation starts from real adoption data rather than vendor claims or analyst reports.</p>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">What is Airframe Folio?</div>
-          <p class="faq-a">Folio is your organization's complete technology record within Airframe. It captures every tool you run, are evaluating, or have replaced — so every team starts from full context, no evaluation starts from zero, and no license gets purchased twice.</p>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">What is Airframe Studio?</div>
-          <p class="faq-a">Studio is Airframe's decision structuring product. Describe an AI initiative and Studio reads the brief, populates what it already knows about the market and your stack, and produces a structured recommendation: what to buy, what to cut, and what to hold.</p>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q">How does Airframe compare to G2 or Capterra?</div>
-          <p class="faq-a">G2 and Capterra surface individual user reviews. Airframe surfaces organizational adoption intelligence — what companies like yours actually run, not what individual users rate. It is built for technology leaders making organizational decisions, not individual software evaluation.</p>
-        </div>
-      </div>
-
-    </div>
+    <details class="faq-item">
+      <summary>What is Airframe?</summary>
+      <p class="faq-a">Airframe is a transformation intelligence platform for technology leaders. It continuously monitors 17,000+ AI tools, maps real adoption data from 140,000+ company stacks, and structures every technology decision — so CIOs, CTOs, and VPs of Engineering can move with confidence in a market that moves faster than any team can track.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How is Airframe different from Gartner or Forrester?</summary>
+      <p class="faq-a">Analyst reports are published once or twice a year and funded in part by the vendors they evaluate. Airframe is continuously updated, vendor-neutral, and built on real adoption signals from 140,000+ company stacks — not surveys, vendor submissions, or sponsored research.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Is Airframe vendor-neutral?</summary>
+      <p class="faq-a">Yes. Airframe has no commercial relationships with the tools it tracks. Every signal — adoption data, peer benchmarks, and use case coverage — comes from verified company stack data, not advertising or vendor funding.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What AI tools does Airframe track?</summary>
+      <p class="faq-a">Airframe indexes 17,000+ AI and software tools across infrastructure, developer tools, security, productivity, data platforms, and vertical-specific applications. The index is updated continuously as new tools emerge and market positions shift.</p>
+    </details>
+    <details class="faq-item">
+      <summary>Who is Airframe built for?</summary>
+      <p class="faq-a">Airframe is built for technology leaders at mid-market and enterprise organizations: CIOs, CTOs, VPs of Engineering, and IT procurement teams making high-stakes AI investment decisions.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is transformation intelligence?</summary>
+      <p class="faq-a">Transformation intelligence is the continuous synthesis of market data, peer adoption signals, and organizational context into structured decisions. It is the category Airframe defined — distinct from static analyst reports, point-in-time consulting, or vendor-funded research.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is Airframe Discover?</summary>
+      <p class="faq-a">Discover is Airframe's market intelligence product. It shows what peer companies actually run — filtered by size, industry, and growth stage — across 140,000+ real company stacks. Every evaluation starts from real adoption data rather than vendor claims or analyst reports.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is Airframe Folio?</summary>
+      <p class="faq-a">Folio is your organization's complete technology record within Airframe. It captures every tool you run, are evaluating, or have replaced — so every team starts from full context, no evaluation starts from zero, and no license gets purchased twice.</p>
+    </details>
+    <details class="faq-item">
+      <summary>What is Airframe Studio?</summary>
+      <p class="faq-a">Studio is Airframe's decision structuring product. Describe an AI initiative and Studio reads the brief, populates what it already knows about the market and your stack, and produces a structured recommendation: what to buy, what to cut, and what to hold.</p>
+    </details>
+    <details class="faq-item">
+      <summary>How does Airframe compare to G2 or Capterra?</summary>
+      <p class="faq-a">G2 and Capterra surface individual user reviews. Airframe surfaces organizational adoption intelligence — what companies like yours actually run, not what individual users rate. It is built for technology leaders making organizational decisions, not individual software evaluation.</p>
+    </details>
   </div>
 </section>
 
