@@ -1031,22 +1031,15 @@ h2.editorial.lt { color: var(--text-dark); }
 /* ── FOOTER ───────────────────────────────────────────── */
 #footer { background: var(--dark); border-top: 1px solid rgba(255,255,255,.06); }
 .footer-inner { max-width: 1280px; margin: 0 auto; padding: 64px 80px 40px; }
-.footer-grid { display: grid; grid-template-columns: 1.4fr 0.8fr 0.8fr 0.8fr 0.8fr 0.8fr; gap: 40px; margin-bottom: 48px; }
+.footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px; margin-bottom: 48px; }
 .footer-logo { font-size: 17px; font-weight: 500; letter-spacing: -.02em; color: var(--text-light); margin-bottom: 16px; }
-.footer-logo .dot { color: var(--orange); }
-.footer-tag { font-size: 13px; font-weight: 300; color: var(--text-ldim); line-height: 1.6; margin-bottom: 32px; max-width: 220px; }
+.footer-tag { font-size: 13px; font-weight: 300; color: var(--text-ldim); line-height: 1.6; margin-bottom: 32px; max-width: 240px; }
 .footer-social { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-ldim); text-decoration: none; transition: color .2s; }
 .footer-social:hover { color: var(--text-light); }
 .footer-col-h { font-size: 10px; font-weight: 500; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.45); margin-bottom: 20px; }
 .footer-nav { display: flex; flex-direction: column; gap: 12px; }
 .footer-nav a { font-size: 13px; font-weight: 300; color: var(--text-ldim); text-decoration: none; transition: color .2s; }
 .footer-nav a:hover { color: var(--text-light); }
-.footer-nav-group { margin-bottom: 24px; }
-.footer-nav-group:last-child { margin-bottom: 0; }
-.footer-nav-group-h { font-size: 11px; font-weight: 400; color: rgba(255,255,255,.62); margin-bottom: 10px; }
-.footer-nav-sub { display: flex; flex-direction: column; gap: 10px; }
-.footer-nav-sub a { font-size: 12px; font-weight: 300; color: var(--text-ldim); text-decoration: none; transition: color .2s; padding-left: 10px; border-left: 1px solid rgba(255,255,255,.07); }
-.footer-nav-sub a:hover { color: var(--text-light); border-color: rgba(255,255,255,.22); }
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.06); padding-top: 28px; display: flex; align-items: center; justify-content: space-between; }
 .footer-copy { font-size: 11px; color: rgba(255,255,255,.42); }
 .footer-legal { display: flex; gap: 24px; }
@@ -1572,7 +1565,7 @@ h2.editorial.lt { color: var(--text-dark); }
   .cta-inner { padding: 100px 32px; }
 
   .footer-inner { padding: 60px 32px 40px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .footer-grid { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
 
   .studio-body { grid-template-columns: 1fr; }
   .studio-detail { display: none !important; }
@@ -2415,74 +2408,33 @@ h2.editorial.lt { color: var(--text-dark); }
 
       <!-- Brand -->
       <div>
-        <div class="footer-logo" style="display:flex;align-items:center;gap:8px;"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;opacity:.7"><polygon fill="currentColor" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/><polygon fill="currentColor" points="8 4.54 8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54 8 4.54"/><polygon fill="currentColor" points="12 11.46 16 11.46 12 4.54 8 4.54 8 4.54 12 11.46"/></svg>Airframe</div>
-        <p class="footer-tag">Transformation intelligence for the teams building on AI.</p>
+        <div class="footer-logo" style="display:flex;align-items:center;gap:8px;"><svg width="20" height="20" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;opacity:.7"><polygon fill="currentColor" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/><polygon fill="currentColor" points="8 4.54 8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54 8 4.54"/><polygon fill="currentColor" points="12 11.46 16 11.46 12 4.54 8 4.54 8 4.54 12 11.46"/></svg>Airframe</div>
+        <p class="footer-tag">The AI that keeps up with the market so you don't have to.</p>
         <a href="https://www.linkedin.com/company/airframe-ai" target="_blank" rel="noopener" class="footer-social">
           <svg width="16" height="16" viewBox="0 0 20 20" fill="currentColor"><path d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"/></svg>
           LinkedIn
         </a>
       </div>
 
-      <!-- Discover -->
+      <!-- Products -->
       <div>
-        <div class="footer-col-h">Discover</div>
+        <div class="footer-col-h">Platform</div>
         <nav class="footer-nav">
-          <a href="#discover">Peer adoption signals</a>
-          <a href="#discover">Stack benchmarking</a>
-          <a href="#discover">Vendor comparison</a>
-          <a href="#discover">Market trends</a>
+          <a href="#discover">Discover</a>
+          <a href="#folio">Folio</a>
+          <a href="#studio">Studio</a>
+          <a href="#platform">How it works</a>
         </nav>
       </div>
 
-      <!-- Folio -->
-      <div>
-        <div class="footer-col-h">Folio</div>
-        <nav class="footer-nav">
-          <a href="#folio">Stack inventory</a>
-          <a href="#folio">Overlap detection</a>
-          <a href="#folio">License tracking</a>
-          <a href="#folio">Renewal alerts</a>
-        </nav>
-      </div>
-
-      <!-- Studio -->
-      <div>
-        <div class="footer-col-h">Studio</div>
-        <nav class="footer-nav">
-          <a href="#studio">AI project briefs</a>
-          <a href="#studio">Buy vs. build</a>
-          <a href="#studio">Vendor shortlisting</a>
-          <a href="#studio">Stack audit</a>
-        </nav>
-      </div>
-
-      <!-- Solutions -->
-      <div>
-        <div class="footer-col-h">Solutions</div>
-        <nav class="footer-nav">
-          <a href="https://airframe.ai/solutions/cto">For CTOs</a>
-          <a href="https://airframe.ai/solutions/it-procurement">For IT Procurement</a>
-          <a href="https://airframe.ai/solutions/engineering-leaders">For Eng Leaders</a>
-          <a href="https://airframe.ai/solutions/agents">For AI Agents</a>
-          <a href="https://airframe.ai/api">API Access</a>
-        </nav>
-      </div>
-
-      <!-- Company + Resources -->
+      <!-- Company -->
       <div>
         <div class="footer-col-h">Company</div>
-        <nav class="footer-nav" style="margin-bottom:28px">
+        <nav class="footer-nav">
           <a href="https://airframe.ai/company">About</a>
           <a href="https://airframe.ai/careers">Careers</a>
           <a href="https://airframe.ai/articles">Articles</a>
           <a href="#" id="expert-modal-trigger">Expert Network</a>
-        </nav>
-        <div class="footer-col-h">Resources</div>
-        <nav class="footer-nav">
-          <a href="https://help.airframe.ai">Help Center</a>
-          <a href="https://airframe.ai/docs">Docs</a>
-          <a href="https://airframe.ai/changelog">Changelog</a>
-          <a href="https://airframe.ai/status">Status</a>
         </nav>
       </div>
 
