@@ -246,10 +246,11 @@ body::after{
 .iopt-body{flex:1}
 .iopt-text{font-size:13px;font-weight:400;color:var(--t1);margin-bottom:2px}
 .iopt-hint{font-size:11px;font-weight:300;color:var(--t3)}
-.iopt-arr{width:22px;height:22px;border-radius:50%;background:rgba(12,12,20,.04);
+.iopt-arr{width:18px;height:18px;border-radius:3px;border:1.5px solid var(--bdr);
   display:flex;align-items:center;justify-content:center;
-  color:var(--t3);transition:all .16s;flex-shrink:0}
-.iopt:hover .iopt-arr,.iopt.selected .iopt-arr{background:var(--or-bg);color:var(--or)}
+  color:transparent;transition:all .16s;flex-shrink:0;background:transparent}
+.iopt:hover .iopt-arr{border-color:var(--bdrs)}
+.iopt.selected .iopt-arr{background:var(--or);border-color:var(--or);color:#fff}
 .intent-actions{display:flex;flex-direction:column;gap:6px;width:100%;
   opacity:0;animation:up .3s ease forwards .36s}
 
@@ -980,7 +981,7 @@ body::after{
       <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"/><path d="M6 4v2.5l1.5 1"/></svg>
       <span id="intent-ctx-text">For a CTO at Stripe</span>
     </div>
-    <div class="h1">What's your most pressing<br>AI decision right now?</div>
+    <div class="h1">What are your most pressing<br>AI decisions right now?</div>
   </div>
 
   <div class="intent-opts">
@@ -989,28 +990,28 @@ body::after{
         <div class="iopt-text">Evaluating our AI development tools</div>
         <div class="iopt-hint">Copilot, Cursor, or alternatives — what's right for us</div>
       </div>
-      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
+      <div class="iopt-arr"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg></div>
     </div>
     <div class="iopt" onclick="selectIntent(this,1)">
       <div class="iopt-body">
         <div class="iopt-text">Building our AI transformation roadmap</div>
         <div class="iopt-hint">Prioritizing what to build, buy, or cut</div>
       </div>
-      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
+      <div class="iopt-arr"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg></div>
     </div>
     <div class="iopt" onclick="selectIntent(this,2)">
       <div class="iopt-body">
         <div class="iopt-text">Understanding what peers are adopting</div>
         <div class="iopt-hint">What companies at our scale are running</div>
       </div>
-      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
+      <div class="iopt-arr"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg></div>
     </div>
     <div class="iopt" onclick="selectIntent(this,3)">
       <div class="iopt-body">
         <div class="iopt-text">Rationalizing our AI tool spend</div>
         <div class="iopt-hint">Finding overlap, cutting waste, optimizing ROI</div>
       </div>
-      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
+      <div class="iopt-arr"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg></div>
     </div>
   </div>
 
@@ -1059,7 +1060,6 @@ body::after{
   <div class="dest-head">
     <div class="eyebrow">Your workspace</div>
     <div class="h1">Where do you want to go first?</div>
-    <div class="sub">Three products. Start with whichever matters most right now.</div>
   </div>
 
   <div class="dest-grid">
@@ -1100,7 +1100,7 @@ body::after{
 
       <span class="dest-tag folio">Folio</span>
       <div class="dest-name">Build your stack.</div>
-      <div class="dest-body">Add what your team runs. See your AI readiness score. Benchmark against 140,000+ company stacks.</div>
+      <div class="dest-body">Add what your team runs. See your AI readiness score. Benchmark against 140,000+ company software stacks.</div>
       <button class="dest-cta folio">
         Go to Folio <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
@@ -1137,8 +1137,8 @@ body::after{
       </div>
 
       <span class="dest-tag studio">Studio</span>
-      <div class="dest-name">Ask about your next AI decision.</div>
-      <div class="dest-body">Evaluating a tool? Mapping a roadmap? Start a conversation. Studio knows your stack and your market.</div>
+      <div class="dest-name">Make your next AI decision.</div>
+      <div class="dest-body">Start a conversation grounded in your software stack and 140,000+ peer companies. No starting from scratch.</div>
       <button class="dest-cta studio">
         Open Studio <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
@@ -1174,14 +1174,14 @@ body::after{
 
       <span class="dest-tag discover">Discover</span>
       <div class="dest-name">What are your peers running?</div>
-      <div class="dest-body">Search 17,000+ AI tools across 140,000+ company stacks. Find what's being adopted at your scale, right now.</div>
+      <div class="dest-body">Search 17,000+ AI tools across 140,000+ company software stacks. Find what's being adopted at your scale, right now.</div>
       <button class="dest-cta disabled">Coming soon</button>
     </div>
 
   </div>
 
   <div class="dest-footer">
-    <div class="dest-trust">140,000+ stacks mapped · No vendor funding</div>
+    <div class="dest-trust">17,000+ tools · 140,000+ software stacks · Airframe receives no funding from software vendors</div>
   </div>
 
 </div></div>
@@ -1511,10 +1511,12 @@ function toS3(){
 }
 
 function selectIntent(el,idx){
-  document.querySelectorAll('.iopt').forEach(o=>o.classList.remove('selected'));
-  el.classList.add('selected'); state.intent=idx;
+  el.classList.toggle('selected');
+  const anySelected=document.querySelectorAll('.iopt.selected').length>0;
   const btn=document.getElementById('intent-btn');
-  btn.disabled=false; btn.style.opacity='1'; btn.style.cursor='pointer';
+  btn.disabled=!anySelected;
+  btn.style.opacity=anySelected?'1':'.3';
+  btn.style.cursor=anySelected?'pointer':'not-allowed';
 }
 
 /* ── company search ──────────────────── */
