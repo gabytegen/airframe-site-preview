@@ -537,13 +537,13 @@ body::after{
 .dest-trust{font-size:10.5px;font-weight:300;color:var(--t3);letter-spacing:.02em}
 
 /* coming soon card */
-.dest-card.coming-soon{cursor:default;opacity:.58}
+.dest-card.coming-soon{cursor:default;opacity:.55;position:relative}
 .dest-card.coming-soon:hover{transform:none;box-shadow:var(--sh2)}
-.cs-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:500;
-  letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px;
-  background:rgba(12,12,20,.06);color:var(--t3);border:1px solid var(--bdr);
-  position:absolute;top:8px;right:8px}
-.dest-cta.disabled{color:var(--t3);pointer-events:none;opacity:.5}
+.cs-badge{position:absolute;top:14px;right:16px;
+  font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;
+  background:var(--bg);color:var(--t3);border:1px solid var(--bdr)}
+.dest-cta.disabled{color:var(--t3);pointer-events:none}
 
 
 /* ══════════════════
@@ -1100,57 +1100,14 @@ body::after{
 
       <span class="dest-tag folio">Folio</span>
       <div class="dest-name">Build your stack.</div>
-      <div class="dest-body">Add what your team runs. Track what's under evaluation. Benchmark against 140,000+ company stacks.</div>
+      <div class="dest-body">Add what your team runs. See your AI readiness score. Benchmark against 140,000+ company stacks.</div>
       <button class="dest-cta folio">
         Go to Folio <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
     </div>
 
-    <!-- DISCOVER — coming soon -->
-    <div class="dest-card discover coming-soon">
-      <!-- mini mockup: search results -->
-      <div class="dest-mockup">
-        <div class="mock-bar">
-          <div class="mock-dot" style="background:#E05252"></div>
-          <div class="mock-dot" style="background:#E0A050"></div>
-          <div class="mock-dot" style="background:#50C850"></div>
-          <div style="flex:1;height:9px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
-        </div>
-        <div style="padding:7px 10px;display:flex;flex-direction:column;gap:5px">
-          <div style="display:flex;align-items:center;gap:6px;padding:4px 8px;background:rgba(12,12,20,.03);border:1px solid var(--bdr);border-radius:3px">
-            <svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><circle cx="5" cy="5" r="3.5"/><path d="M8 8l2 2"/></svg>
-            <div class="mock-line" style="flex:1;width:auto;background:rgba(12,12,20,.07)"></div>
-          </div>
-          <div class="mock-result" style="padding:0;gap:6px">
-            <div class="mock-logo" style="background:rgba(241,80,37,.25)"></div>
-            <div class="mock-lines" style="flex:1">
-              <div class="mock-line" style="width:70%"></div>
-              <div class="mock-line" style="width:45%"></div>
-            </div>
-            <div class="mock-pct">+310%</div>
-          </div>
-          <div class="mock-result" style="padding:0;gap:6px">
-            <div class="mock-logo" style="background:rgba(16,163,127,.3)"></div>
-            <div class="mock-lines" style="flex:1">
-              <div class="mock-line" style="width:55%"></div>
-              <div class="mock-line" style="width:38%"></div>
-            </div>
-            <div class="mock-pct">+180%</div>
-          </div>
-        </div>
-      </div>
-
-      <span class="dest-tag discover" style="position:relative">Discover <span class="cs-badge" style="position:static;margin-left:6px;vertical-align:middle">Coming soon</span></span>
-      <div class="dest-name">What are your peers running?</div>
-      <div class="dest-body">Search 17,000+ AI tools across 140,000+ company stacks. Find what's being adopted at your scale, right now.</div>
-      <button class="dest-cta disabled">
-        Coming soon
-      </button>
-    </div>
-
-    <!-- HOME / CHAT -->
-    <div class="dest-card home" onclick="goToApp('home')">
-      <!-- mini mockup -->
+    <!-- STUDIO -->
+    <div class="dest-card studio" onclick="goToApp('studio')">
       <div class="dest-mockup">
         <div class="mock-bar">
           <div class="mock-dot" style="background:#E05252"></div>
@@ -1159,20 +1116,17 @@ body::after{
           <div style="flex:1;height:9px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
         </div>
         <div style="padding:10px 11px;display:flex;flex-direction:column;gap:5px">
-          <!-- outgoing message -->
           <div style="display:flex;justify-content:flex-end">
             <div style="background:var(--t1);border-radius:6px 6px 2px 6px;padding:5px 9px;max-width:75%">
               <div class="mock-line" style="width:100%;background:rgba(255,255,255,.35)"></div>
             </div>
           </div>
-          <!-- incoming reply -->
           <div style="display:flex;justify-content:flex-start">
             <div style="background:var(--mn-bg);border:1px solid var(--mn-bdr);border-radius:6px 6px 6px 2px;padding:5px 9px;max-width:85%">
               <div class="mock-line" style="width:100%;background:rgba(6,229,160,.35)"></div>
               <div class="mock-line" style="width:75%;background:rgba(6,229,160,.2);margin-top:3px"></div>
             </div>
           </div>
-          <!-- input bar -->
           <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;background:rgba(12,12,20,.04);border-radius:4px;border:1px solid var(--bdr);margin-top:2px">
             <div class="mock-line" style="flex:1;width:auto;background:rgba(12,12,20,.06)"></div>
             <div style="width:14px;height:14px;border-radius:50%;background:var(--mn);flex-shrink:0;display:flex;align-items:center;justify-content:center">
@@ -1188,6 +1142,40 @@ body::after{
       <button class="dest-cta studio">
         Open Studio <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
+    </div>
+
+    <!-- DISCOVER — coming soon -->
+    <div class="dest-card discover coming-soon">
+      <div class="cs-badge">Coming soon</div>
+      <div class="dest-mockup">
+        <div class="mock-bar">
+          <div class="mock-dot" style="background:#E05252"></div>
+          <div class="mock-dot" style="background:#E0A050"></div>
+          <div class="mock-dot" style="background:#50C850"></div>
+          <div style="flex:1;height:9px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
+        </div>
+        <div style="padding:7px 10px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;align-items:center;gap:6px;padding:4px 8px;background:rgba(12,12,20,.03);border:1px solid var(--bdr);border-radius:3px">
+            <svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><circle cx="5" cy="5" r="3.5"/><path d="M8 8l2 2"/></svg>
+            <div class="mock-line" style="flex:1;width:auto;background:rgba(12,12,20,.07)"></div>
+          </div>
+          <div class="mock-result" style="padding:0;gap:6px">
+            <div class="mock-logo" style="background:rgba(241,80,37,.25)"></div>
+            <div class="mock-lines" style="flex:1"><div class="mock-line" style="width:70%"></div><div class="mock-line" style="width:45%"></div></div>
+            <div class="mock-pct">+310%</div>
+          </div>
+          <div class="mock-result" style="padding:0;gap:6px">
+            <div class="mock-logo" style="background:rgba(16,163,127,.3)"></div>
+            <div class="mock-lines" style="flex:1"><div class="mock-line" style="width:55%"></div><div class="mock-line" style="width:38%"></div></div>
+            <div class="mock-pct">+180%</div>
+          </div>
+        </div>
+      </div>
+
+      <span class="dest-tag discover">Discover</span>
+      <div class="dest-name">What are your peers running?</div>
+      <div class="dest-body">Search 17,000+ AI tools across 140,000+ company stacks. Find what's being adopted at your scale, right now.</div>
+      <button class="dest-cta disabled">Coming soon</button>
     </div>
 
   </div>
