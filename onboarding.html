@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airframe — Welcome</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F8F9FC; --card:#FFFFFF;
+  --t1:#0C0C14; --t2:#3D3D48; --t3:#5C5C68;
+  --bdr:rgba(12,12,20,.09); --bdrs:rgba(12,12,20,.18);
+  --or:#F15025;
+  --or-bg:rgba(241,80,37,.05); --or-bdr:rgba(241,80,37,.3);
+  --mn:#06E5A0; --mn-t:#069D70;
+  --mn-bg:rgba(6,229,160,.07); --mn-bdr:rgba(6,229,160,.25);
+  --btn:#0C0C14; --btn-h:#1A1A24;
+  --btn-s:0 1px 4px rgba(12,12,20,.22),0 1px 2px rgba(12,12,20,.1);
+  --btn-sh:0 4px 14px rgba(12,12,20,.26),0 1px 3px rgba(12,12,20,.12);
+  --sh:0 1px 3px rgba(12,12,20,.07),0 1px 2px rgba(12,12,20,.04);
+  --sh2:0 4px 18px rgba(12,12,20,.09),0 1px 4px rgba(12,12,20,.05);
+  --sh3:0 8px 36px rgba(12,12,20,.11),0 2px 7px rgba(12,12,20,.06);
+  --r-btn:3px; --r-card:4px; --r-lg:6px;
+}
+html,body{height:100%;margin:0}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;
+  background:var(--bg);color:var(--t1);overflow:hidden;
+  font-size:14px;line-height:1.6;font-weight:300;
+}
+
+/* ── dot grid bg ─────────────────── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(12,12,20,.055) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 65% 35%, rgba(7,8,20,.042) 0%, transparent 60%);
+}
+
+/* ── step indicator ──────────────── */
+.steps{position:fixed;top:22px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:6px;z-index:200;pointer-events:none}
+.sdot{height:4px;width:4px;border-radius:2px;background:rgba(12,12,20,.14);
+  transition:all .45s cubic-bezier(.34,1.56,.64,1)}
+.sdot.active{width:20px;background:var(--or)}
+.sdot.done{background:var(--mn-t);opacity:.7}
+
+/* ── screens ─────────────────────── */
+.screen{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:60px 24px 40px;overflow-y:auto;
+  opacity:0;pointer-events:none;
+  transition:opacity .26s ease,transform .26s ease;transform:translateY(7px)}
+.screen.on{opacity:1;pointer-events:all;transform:translateY(0)}
+.screen.out{opacity:0;transform:scale(.97) translateY(-6px)}
+#s2,#s4{justify-content:flex-start;padding-top:60px}
+.sw{width:100%;display:flex;flex-direction:column;align-items:stretch;margin:0 auto}
+
+/* ── keyframes ───────────────────── */
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{from{opacity:0;transform:scale(.84) translateY(7px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.18}}
+@keyframes check{0%{stroke-dashoffset:16}100%{stroke-dashoffset:0}}
+@keyframes pulse-ring{0%,100%{transform:scale(1);opacity:.18}50%{transform:scale(1.06);opacity:.3}}
+
+/* ── shared ──────────────────────── */
+.logo-wrap{text-align:center;margin-bottom:36px;opacity:0;animation:up .38s ease forwards .04s}
+.logo-mark{display:inline-flex;align-items:center;gap:7px;
+  font-size:15px;font-weight:500;letter-spacing:-.025em;color:var(--t1)}
+.logo-mark .dot{color:var(--or)}
+.topbar{display:flex;align-items:center;width:100%;margin-bottom:22px;
+  opacity:0;animation:up .24s ease forwards .04s}
+.back{font-size:12px;color:var(--t3);cursor:pointer;background:none;border:none;
+  font-family:inherit;font-weight:300;padding:0;transition:color .15s;
+  display:flex;align-items:center;gap:4px;letter-spacing:.01em}
+.back:hover{color:var(--t1)}
+
+/* product badge (matches site .product-tag) */
+.ptag{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;border-radius:3px;padding:4px 11px;margin-bottom:4px}
+.ptag-or{color:var(--or);border:1px solid rgba(241,80,37,.28)}
+.ptag-gr{color:rgba(12,12,20,.42);border:1px solid rgba(12,12,20,.16)}
+.ptag-mn{color:var(--mn-t);border:1px solid rgba(6,229,160,.22)}
+
+/* eyebrow (matches site .eyebrow) */
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--or);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--or)}
+
+/* live badge */
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:500;
+  padding:3px 9px;border-radius:var(--r-btn);
+  background:var(--mn-bg);color:var(--mn-t);border:1px solid var(--mn-bdr);letter-spacing:.01em}
+.badge .dot{width:4px;height:4px;border-radius:50%;background:var(--mn);animation:blink 2s ease infinite}
+
+.h1{font-size:26px;font-weight:300;letter-spacing:-.04em;color:var(--t1);line-height:1.15}
+.sub{font-size:14px;font-weight:300;color:var(--t2);margin-top:8px;line-height:1.65}
+
+/* ── buttons ─────────────────────── */
+.btn{border:none;border-radius:var(--r-btn);font-size:13px;font-weight:400;
+  font-family:inherit;cursor:pointer;letter-spacing:.02em;
+  transition:background .15s,box-shadow .15s,transform .13s cubic-bezier(.34,1.56,.64,1);
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%}
+.btn-p{background:var(--btn);color:var(--bg);padding:13px 24px;box-shadow:var(--btn-s)}
+.btn-p:hover{background:var(--btn-h);box-shadow:var(--btn-sh);transform:translateY(-1px)}
+.btn-p:active{transform:scale(.98) translateY(0);box-shadow:none;transition-duration:.07s}
+.btn-p.done{background:#156B46}
+.btn-g{background:none;color:var(--t3);padding:10px 0;font-size:12px;font-weight:300}
+.btn-g:hover{color:var(--t2)}
+
+
+/* ══════════════════
+   S1 — IDENTITY
+══════════════════ */
+.id-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-lg);
+  padding:30px 24px 24px;box-shadow:var(--sh3);
+  opacity:0;animation:up .42s ease forwards .08s}
+
+.av-wrap{position:relative;width:56px;margin:0 auto 6px;
+  display:flex;align-items:center;justify-content:center}
+.av-r1{position:absolute;width:72px;height:72px;border-radius:50%;
+  border:1px solid rgba(241,80,37,.18);
+  animation:pulse-ring 2.8s ease-in-out infinite;top:-8px;left:-8px}
+.av-r2{position:absolute;width:90px;height:90px;border-radius:50%;
+  border:1px solid rgba(241,80,37,.07);
+  animation:pulse-ring 2.8s ease-in-out .9s infinite;top:-17px;left:-17px}
+.avatar{width:56px;height:56px;border-radius:50%;background:var(--or);
+  display:flex;align-items:center;justify-content:center;
+  font-size:17px;font-weight:500;color:#fff;position:relative;z-index:1;letter-spacing:-.01em}
+
+.id-name{font-size:26px;font-weight:300;letter-spacing:-.04em;
+  text-align:center;margin-top:18px;margin-bottom:4px;color:var(--t1)}
+.id-greeting{font-size:13px;font-weight:300;color:var(--t2);text-align:center;margin-bottom:24px;line-height:1.55}
+
+.id-fields{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.id-field{display:flex;align-items:center;justify-content:space-between;
+  padding:11px 13px;background:rgba(12,12,20,.022);border:1px solid var(--bdr);
+  border-radius:var(--r-card);transition:all .15s;cursor:pointer}
+.id-field:hover{border-color:var(--bdrs)}
+.id-field.editing{border-color:rgba(241,80,37,.35);
+  box-shadow:0 0 0 2.5px rgba(241,80,37,.07)}
+.ifl{display:flex;align-items:center;gap:10px}
+.id-ico{width:26px;height:26px;border-radius:var(--r-card);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.id-ico.co{background:var(--or-bg);color:var(--or)}
+.id-ico.ro{background:rgba(12,12,20,.05);color:var(--t2)}
+.id-lbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--t3);margin-bottom:1px;font-weight:500}
+.id-val{font-size:13px;font-weight:400;color:var(--t1);line-height:1}
+.id-inp{background:none;border:none;outline:none;font-family:inherit;
+  font-size:13px;font-weight:400;color:var(--t1);width:160px}
+.id-edit{font-size:10px;color:var(--t3);transition:color .15s;flex-shrink:0;
+  font-weight:400;letter-spacing:.03em}
+.id-field:hover .id-edit{color:var(--or)}
+.id-src{font-size:10px;font-weight:300;color:var(--t3);text-align:center;margin-bottom:18px;
+  display:flex;align-items:center;justify-content:center;gap:5px;
+  opacity:0;animation:up .3s ease forwards .22s}
+.id-actions{display:flex;flex-direction:column;gap:6px;
+  opacity:0;animation:up .3s ease forwards .28s}
+
+
+/* ══════════════════
+   S2 — BUILD STACK
+══════════════════ */
+.stack-head{width:100%;margin-bottom:16px;opacity:0;animation:up .3s ease forwards .08s}
+
+/* search */
+.stack-search{display:flex;align-items:center;gap:10px;
+  background:var(--card);border:1px solid var(--bdr);
+  border-radius:var(--r-card);padding:0 14px;margin-bottom:12px;
+  transition:border-color .15s;box-shadow:var(--sh)}
+.stack-search:focus-within{border-color:var(--bdrs)}
+.search-ico{color:var(--t3);flex-shrink:0;display:flex}
+.search-inp{flex:1;background:none;border:none;outline:none;
+  font-family:inherit;font-size:13px;font-weight:300;color:var(--t1);
+  padding:12px 0;line-height:1}
+.search-inp::placeholder{color:var(--t3)}
+
+/* suggest label */
+.suggest-lbl{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--t3);margin-bottom:8px;padding-left:1px}
+
+/* tool grid */
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px}
+.tool-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-card);
+  padding:10px 11px;cursor:pointer;display:flex;align-items:center;gap:9px;
+  transition:all .18s cubic-bezier(.34,1.56,.64,1);
+  opacity:0;animation:pop .3s ease forwards;box-shadow:var(--sh)}
+.tool-card:hover{border-color:var(--bdrs);transform:translateY(-1px);box-shadow:var(--sh2)}
+.tool-card.selected{border-color:var(--mn-bdr);background:rgba(6,229,160,.04);box-shadow:var(--sh)}
+.tool-card.hidden{display:none}
+
+/* logo tile */
+.tool-ico{width:28px;height:28px;border-radius:var(--r-card);
+  flex-shrink:0;position:relative;overflow:hidden}
+.ico-fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:8px;font-weight:600;color:#fff;letter-spacing:-.01em;border-radius:var(--r-card)}
+.ico-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  opacity:0;transition:opacity .24s;border-radius:var(--r-card);padding:4px;background:#fff}
+.ico-img.loaded{opacity:1}
+
+.tool-info{flex:1;min-width:0}
+.tool-name{font-size:11.5px;font-weight:400;color:var(--t1);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.tool-cat{font-size:9.5px;font-weight:300;color:var(--t3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tool-toggle{width:17px;height:17px;border-radius:50%;border:1px solid var(--bdr);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;color:transparent;transition:all .18s}
+.tool-card.selected .tool-toggle{background:var(--mn);border-color:var(--mn);color:#fff}
+
+/* empty state */
+.empty-msg{text-align:center;padding:18px 0;font-size:12px;font-weight:300;color:var(--t3);
+  display:none}
+.empty-msg.show{display:block}
+
+/* stack footer */
+.stack-footer{display:flex;flex-direction:column;gap:6px;width:100%;
+  opacity:0;animation:up .28s ease forwards .3s}
+.stack-count-lbl{font-size:11px;font-weight:300;color:var(--t3);text-align:center;
+  min-height:17px;transition:color .18s}
+.stack-count-lbl.has-tools{color:var(--mn-t);font-weight:400}
+
+
+/* ══════════════════
+   S3 — INTENT
+══════════════════ */
+.intent-head{width:100%;margin-bottom:20px;opacity:0;animation:up .3s ease forwards .08s}
+.intent-ctx{font-size:11px;font-weight:300;color:var(--t3);margin-bottom:8px;
+  display:flex;align-items:center;gap:5px}
+.intent-opts{display:flex;flex-direction:column;gap:6px;width:100%;margin-bottom:18px}
+.iopt{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-card);
+  padding:13px 15px;cursor:pointer;box-shadow:var(--sh);
+  transition:all .2s cubic-bezier(.34,1.56,.64,1);
+  display:flex;align-items:center;justify-content:space-between;
+  opacity:0;animation:up .3s ease forwards}
+.iopt:nth-child(1){animation-delay:.10s}
+.iopt:nth-child(2){animation-delay:.17s}
+.iopt:nth-child(3){animation-delay:.24s}
+.iopt:nth-child(4){animation-delay:.31s}
+.iopt:hover{border-color:var(--bdrs);transform:translateX(2px)}
+.iopt.selected{border-color:rgba(241,80,37,.32);background:rgba(241,80,37,.04);
+  box-shadow:0 0 0 2.5px rgba(241,80,37,.06)}
+.iopt-body{flex:1}
+.iopt-text{font-size:13px;font-weight:400;color:var(--t1);margin-bottom:2px}
+.iopt-hint{font-size:11px;font-weight:300;color:var(--t3)}
+.iopt-arr{width:18px;height:18px;border-radius:3px;border:1.5px solid var(--bdr);
+  display:flex;align-items:center;justify-content:center;
+  color:transparent;transition:all .16s;flex-shrink:0;background:transparent}
+.iopt:hover .iopt-arr{border-color:var(--bdrs)}
+.iopt.selected .iopt-arr{background:var(--or);border-color:var(--or);color:#fff}
+.intent-actions{display:flex;flex-direction:column;gap:6px;width:100%;
+  opacity:0;animation:up .3s ease forwards .36s}
+
+
+/* ══════════════════
+   S4 — PRODUCTS
+══════════════════ */
+.s4-head{width:100%;margin-bottom:28px;opacity:0;animation:up .34s ease forwards .08s}
+.s4-head .h1{font-size:clamp(26px,3vw,38px);font-weight:300;letter-spacing:-.04em}
+.s4-head .sub{font-size:15px;margin-top:10px;font-weight:300;line-height:1.6}
+
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  width:100%;margin-bottom:20px}
+
+.prod-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-lg);
+  padding:28px 24px 26px;display:flex;flex-direction:column;align-items:flex-start;
+  box-shadow:var(--sh2);opacity:0;
+  animation:pop .42s cubic-bezier(.34,1.56,.64,1) forwards;
+  transition:box-shadow .22s,transform .2s}
+.prod-card:hover{box-shadow:var(--sh3);transform:translateY(-3px)}
+.prod-card:nth-child(1){animation-delay:.14s}
+.prod-card:nth-child(2){animation-delay:.24s}
+.prod-card:nth-child(3){animation-delay:.34s}
+
+/* mini mockup area */
+.prod-mockup{width:100%;border-radius:var(--r-card);overflow:hidden;
+  border:1px solid var(--bdr);margin-bottom:22px;height:100px;
+  background:rgba(12,12,20,.025);position:relative}
+.mock-bar{height:22px;display:flex;align-items:center;padding:0 10px;gap:5px;
+  border-bottom:1px solid var(--bdr)}
+.mock-dot{width:6px;height:6px;border-radius:50%}
+.mock-content{padding:9px 10px;display:flex;flex-direction:column;gap:5px}
+.mock-row{height:7px;border-radius:2px;background:rgba(12,12,20,.07)}
+.mock-row.w60{width:60%}
+.mock-row.w80{width:80%}
+.mock-row.w45{width:45%}
+.mock-row.accent{background:var(--or);opacity:.35;width:38%}
+.mock-row.accent-mn{background:var(--mn);opacity:.5;width:50%}
+.mock-tabs{display:flex;gap:4px;padding:5px 10px;border-bottom:1px solid var(--bdr)}
+.mock-tab{font-size:8px;padding:2px 7px;border-radius:2px;color:rgba(12,12,20,.38);
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.02em}
+.mock-tab.active{background:var(--or-bg);color:var(--or);border:1px solid rgba(241,80,37,.2)}
+.mock-tab.active-vi{background:rgba(12,12,20,.04);color:rgba(12,12,20,.55);border:1px solid rgba(12,12,20,.12)}
+.mock-tab.active-mn{background:var(--mn-bg);color:var(--mn-t);border:1px solid var(--mn-bdr)}
+.mock-result{display:flex;align-items:center;gap:6px;padding:4px 10px}
+.mock-logo{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.mock-lines{flex:1;display:flex;flex-direction:column;gap:2px}
+.mock-line{height:5px;border-radius:2px;background:rgba(12,12,20,.09)}
+.mock-pct{font-size:7.5px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:500;color:var(--mn-t);letter-spacing:-.01em}
+.mock-score{font-size:18px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:300;color:var(--t1);letter-spacing:-.04em;line-height:1}
+.mock-score-sub{font-size:7px;font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--t3);margin-top:1px;letter-spacing:.06em;text-transform:uppercase}
+
+.prod-name{font-size:22px;font-weight:300;color:var(--t1);letter-spacing:-.04em;
+  margin-bottom:3px;margin-top:2px}
+.prod-tag{font-size:9.5px;color:var(--t3);text-transform:uppercase;
+  letter-spacing:.1em;margin-bottom:12px;font-weight:500}
+.prod-body{font-size:13.5px;font-weight:300;color:var(--t2);line-height:1.68;
+  flex:1;margin-bottom:18px}
+.prod-stat{font-size:14px;font-weight:500;letter-spacing:-.01em;margin-bottom:14px}
+.prod-stat.disc{color:var(--or)}
+.prod-stat.fol{color:rgba(12,12,20,.5)}
+.prod-stat.stu{color:var(--mn-t)}
+.prod-link{font-size:13px;font-weight:400;display:inline-flex;
+  align-items:center;gap:4px;cursor:pointer;background:none;border:none;
+  font-family:inherit;padding:0;transition:opacity .13s,gap .15s;letter-spacing:.01em}
+.prod-link:hover{opacity:.6;gap:7px}
+.prod-link.disc{color:var(--or)}
+.prod-link.fol{color:rgba(12,12,20,.48)}
+.prod-link.stu{color:var(--mn-t)}
+
+.s4-footer{opacity:0;animation:up .3s ease forwards .48s}
+.trust-line{text-align:center;margin-top:11px;
+  font-size:10.5px;font-weight:300;color:var(--t3);letter-spacing:.02em}
+
+/* ══════════════════
+   S1 intel preview
+══════════════════ */
+.intel-wrap{margin-bottom:16px;opacity:0;animation:up .4s ease forwards .9s}
+.intel-card{background:rgba(12,12,20,.02);border:1px solid var(--bdr);
+  border-radius:var(--r-card);padding:13px 15px;position:relative;overflow:hidden}
+.intel-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+  background:linear-gradient(90deg,rgba(6,229,160,.6) 0%,transparent 65%)}
+.intel-head{display:flex;align-items:center;gap:6px;margin-bottom:11px;
+  font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.intel-pip{width:5px;height:5px;border-radius:50%;background:var(--mn);flex-shrink:0;
+  box-shadow:0 0 6px rgba(6,229,160,.55);animation:blink 2s ease infinite}
+.intel-rows{display:flex;flex-direction:column;gap:8px}
+.intel-row{display:flex;align-items:baseline;gap:10px}
+.intel-num{font-size:20px;font-weight:300;letter-spacing:-.04em;color:var(--t1);
+  min-width:46px;line-height:1}
+.intel-num.or{color:var(--or)}
+.intel-lbl{font-size:11.5px;font-weight:300;color:var(--t2);line-height:1.45}
+
+/* ══════════════════
+   S2 extras
+══════════════════ */
+.cat-filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;
+  opacity:0;animation:up .26s ease forwards .14s}
+.cat-pill{font-size:10.5px;font-weight:400;padding:5px 11px;border-radius:var(--r-btn);
+  border:1px solid var(--bdr);background:var(--card);color:var(--t2);cursor:pointer;
+  transition:all .15s;box-shadow:var(--sh);white-space:nowrap}
+.cat-pill:hover{border-color:var(--bdrs);color:var(--t1)}
+.cat-pill.active{background:var(--t1);color:var(--bg);border-color:var(--t1)}
+
+.stack-built{display:flex;align-items:center;gap:8px;padding:9px 13px;
+  background:var(--card);border:1px solid var(--mn-bdr);border-radius:var(--r-card);
+  margin-bottom:10px;box-shadow:var(--sh);
+  opacity:0;transform:translateY(6px);pointer-events:none;
+  transition:opacity .28s ease,transform .28s cubic-bezier(.34,1.56,.64,1)}
+.stack-built.show{opacity:1;transform:none;pointer-events:all}
+.stack-built-lbl{font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mn-t);flex-shrink:0}
+.sbl-logos{display:flex;gap:4px;flex:1;flex-wrap:wrap;align-items:center}
+.sbl-logo{width:22px;height:22px;border-radius:3px;position:relative;overflow:hidden;
+  flex-shrink:0;border:1px solid var(--bdr)}
+.sbl-fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:6px;font-weight:600;color:#fff}
+.sbl-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  opacity:0;transition:opacity .18s;padding:3px;background:#fff}
+.sbl-img.loaded{opacity:1}
+
+/* ══════════════════
+   S3 extras
+══════════════════ */
+.iopt-product{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;flex-shrink:0;align-self:flex-start}
+.iopt-product.disc{color:var(--or);border:1px solid rgba(241,80,37,.25);background:var(--or-bg)}
+.iopt-product.stu{color:var(--mn-t);border:1px solid var(--mn-bdr);background:var(--mn-bg)}
+.iopt-product.fol{color:rgba(12,12,20,.45);border:1px solid rgba(12,12,20,.15);background:rgba(12,12,20,.025)}
+.iopt-preview{font-size:11.5px;font-weight:300;color:var(--mn-t);margin-top:9px;
+  padding-top:9px;border-top:1px solid var(--mn-bdr);line-height:1.5;
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .25s ease,opacity .22s ease,margin .22s ease,padding .22s ease}
+.iopt.selected .iopt-preview{max-height:60px;opacity:1}
+
+
+/* ══════════════════
+   S0 — AUTH
+══════════════════ */
+.auth-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-lg);
+  padding:30px 24px 24px;box-shadow:var(--sh3);
+  opacity:0;animation:up .42s ease forwards .08s}
+.auth-eyebrow{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--t3);text-align:center;margin-bottom:18px}
+.auth-title{font-size:22px;font-weight:300;letter-spacing:-.04em;text-align:center;
+  color:var(--t1);margin-bottom:6px}
+.auth-sub{font-size:13px;font-weight:300;color:var(--t2);text-align:center;
+  margin-bottom:24px;line-height:1.6}
+.auth-providers{display:flex;flex-direction:column;gap:7px;margin-bottom:18px}
+.auth-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 15px;
+  background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-card);
+  cursor:pointer;transition:all .15s;font-family:inherit;width:100%;text-align:left}
+.auth-btn:hover{border-color:var(--bdrs);background:rgba(12,12,20,.018);transform:translateY(-1px);box-shadow:var(--sh)}
+.auth-btn-ico{width:22px;height:22px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.auth-btn-label{font-size:13px;font-weight:400;color:var(--t1);letter-spacing:.01em}
+.auth-divider{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.auth-divider-line{flex:1;height:1px;background:var(--bdr)}
+.auth-divider-text{font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3)}
+/* email area states */
+.auth-email-area{position:relative}
+.auth-email-btn{display:flex;align-items:center;justify-content:center;gap:10px;padding:11px 15px;
+  background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-card);
+  cursor:pointer;transition:all .15s;font-family:inherit;width:100%;text-align:left}
+.auth-email-btn:hover{border-color:var(--bdrs);background:rgba(12,12,20,.018)}
+.auth-email-input-wrap{display:none;flex-direction:column;gap:7px}
+.auth-email-input-wrap.show{display:flex}
+.auth-email-btn.hidden{display:none}
+.auth-email-inp{width:100%;padding:11px 13px;border:1px solid var(--bdr);
+  border-radius:var(--r-card);font-family:inherit;font-size:13px;font-weight:300;
+  color:var(--t1);background:var(--card);outline:none;transition:border-color .15s}
+.auth-email-inp:focus{border-color:rgba(241,80,37,.38);box-shadow:0 0 0 2.5px rgba(241,80,37,.07)}
+.auth-email-inp::placeholder{color:var(--t3)}
+.auth-email-submit{display:flex;align-items:center;justify-content:center;gap:6px;
+  padding:11px 15px;background:var(--btn);color:var(--bg);border:none;
+  border-radius:var(--r-card);font-family:inherit;font-size:13px;font-weight:400;
+  cursor:pointer;width:100%;transition:background .15s,box-shadow .15s,transform .13s}
+.auth-email-submit:hover{background:var(--btn-h);box-shadow:var(--btn-sh);transform:translateY(-1px)}
+.auth-email-success{display:none;text-align:center;padding:16px 12px;
+  border:1px solid var(--mn-bdr);border-radius:var(--r-card);background:var(--mn-bg)}
+.auth-email-success.show{display:block}
+.auth-email-success-ico{width:32px;height:32px;border-radius:50%;background:rgba(6,229,160,.15);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 10px}
+.auth-email-success-title{font-size:13px;font-weight:400;color:var(--t1);margin-bottom:4px}
+.auth-email-success-sub{font-size:11.5px;font-weight:300;color:var(--t3);line-height:1.5}
+.auth-footer{font-size:10px;font-weight:300;color:var(--t3);text-align:center;
+  margin-top:18px;line-height:1.7}
+.auth-footer a{color:var(--t3);text-decoration:underline;text-decoration-color:rgba(12,12,20,.2)}
+
+
+/* ══════════════════
+   S1b — DEPARTMENT
+══════════════════ */
+.dept-head{width:100%;margin-bottom:20px;opacity:0;animation:up .3s ease forwards .08s}
+.dept-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px;
+  width:100%;margin-bottom:18px}
+.dept-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-card);
+  padding:14px 15px;cursor:pointer;display:flex;align-items:center;gap:11px;
+  transition:all .18s cubic-bezier(.34,1.56,.64,1);box-shadow:var(--sh);
+  opacity:0;animation:pop .32s ease forwards}
+.dept-card:nth-child(1){animation-delay:.08s}
+.dept-card:nth-child(2){animation-delay:.12s}
+.dept-card:nth-child(3){animation-delay:.16s}
+.dept-card:nth-child(4){animation-delay:.20s}
+.dept-card:nth-child(5){animation-delay:.24s}
+.dept-card:nth-child(6){animation-delay:.28s}
+.dept-card:hover{border-color:var(--bdrs);transform:translateY(-1px);box-shadow:var(--sh2)}
+.dept-card.selected{border-color:var(--mn-bdr);background:rgba(6,229,160,.04);box-shadow:var(--sh)}
+.dept-ico{width:28px;height:28px;border-radius:var(--r-card);
+  background:rgba(12,12,20,.04);display:flex;align-items:center;justify-content:center;
+  color:var(--t2);flex-shrink:0;transition:all .18s}
+.dept-card.selected .dept-ico{background:var(--mn-bg);color:var(--mn-t)}
+.dept-label{font-size:13px;font-weight:400;color:var(--t1);line-height:1}
+.dept-sub{font-size:10.5px;font-weight:300;color:var(--t3);margin-top:2px}
+.dept-actions{display:flex;flex-direction:column;gap:6px;width:100%;
+  opacity:0;animation:up .3s ease forwards .36s}
+
+
+/* ══════════════════
+   S-TRANS — WORKSPACE SETUP
+══════════════════ */
+#s-trans{z-index:10}
+.trans-inner{display:flex;flex-direction:column;align-items:center;gap:0;text-align:center}
+.trans-logo{opacity:0;animation:up .5s ease forwards .1s;margin-bottom:32px}
+.trans-logo-mark{display:inline-flex;align-items:center;gap:7px;
+  font-size:15px;font-weight:500;letter-spacing:-.025em;color:var(--t1)}
+.trans-logo-mark .dot{color:var(--or)}
+.trans-text{font-size:14px;font-weight:300;color:var(--t2);letter-spacing:.01em;
+  opacity:0;animation:up .4s ease forwards .4s;margin-bottom:28px}
+.trans-dots{display:flex;gap:6px;opacity:0;animation:up .4s ease forwards .6s}
+.trans-dot{width:5px;height:5px;border-radius:50%;background:var(--bdr);animation:trans-blink 1.2s ease infinite}
+.trans-dot:nth-child(2){animation-delay:.2s}
+.trans-dot:nth-child(3){animation-delay:.4s}
+@keyframes trans-blink{0%,100%{background:var(--bdr)}50%{background:var(--or)}}
+
+
+/* ══════════════════
+   S4 — DESTINATIONS (v1.1)
+══════════════════ */
+.dest-head{width:100%;margin-bottom:28px;opacity:0;animation:up .34s ease forwards .08s}
+.dest-head .h1{font-size:clamp(24px,3vw,34px);font-weight:300;letter-spacing:-.04em}
+.dest-head .sub{font-size:14px;margin-top:8px;font-weight:300;line-height:1.65}
+
+.dest-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  width:100%;margin-bottom:20px}
+
+.dest-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-lg);
+  padding:24px 22px 22px;display:flex;flex-direction:column;align-items:flex-start;
+  box-shadow:var(--sh2);opacity:0;cursor:pointer;
+  animation:pop .42s cubic-bezier(.34,1.56,.64,1) forwards;
+  transition:box-shadow .22s,transform .2s,border-color .18s}
+.dest-card:hover{box-shadow:var(--sh3);transform:translateY(-3px)}
+.dest-card:nth-child(1){animation-delay:.14s}
+.dest-card:nth-child(2){animation-delay:.24s}
+.dest-card:nth-child(3){animation-delay:.34s}
+.dest-card.folio:hover{border-color:rgba(12,12,20,.16)}
+.dest-card.discover:hover{border-color:rgba(241,80,37,.2)}
+.dest-card.studio:hover{border-color:var(--mn-bdr)}
+
+.dest-mockup{width:100%;border-radius:var(--r-card);overflow:hidden;
+  border:1px solid var(--bdr);margin-bottom:20px;height:96px;
+  background:rgba(12,12,20,.022);position:relative}
+
+.dest-tag{font-size:9.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:8px;padding:3px 9px;border-radius:2px;display:inline-block}
+.dest-tag.folio{color:rgba(12,12,20,.48);border:1px solid rgba(12,12,20,.15);background:rgba(12,12,20,.03)}
+.dest-tag.discover{color:var(--or);border:1px solid rgba(241,80,37,.25);background:var(--or-bg)}
+.dest-tag.studio{color:var(--mn-t);border:1px solid var(--mn-bdr);background:var(--mn-bg)}
+
+.dest-name{font-size:20px;font-weight:300;color:var(--t1);letter-spacing:-.04em;
+  margin-bottom:6px}
+.dest-body{font-size:13px;font-weight:300;color:var(--t2);line-height:1.65;
+  flex:1;margin-bottom:16px}
+.dest-cta{font-size:13px;font-weight:400;display:inline-flex;
+  align-items:center;gap:4px;background:none;border:none;padding:0;
+  font-family:inherit;cursor:pointer;transition:opacity .13s,gap .15s;letter-spacing:.01em}
+.dest-cta:hover{opacity:.6;gap:7px}
+.dest-cta.folio{color:rgba(12,12,20,.55)}
+.dest-cta.discover{color:var(--or)}
+.dest-cta.studio{color:var(--mn-t)}
+
+.dest-footer{opacity:0;animation:up .3s ease forwards .48s;text-align:center}
+.dest-trust{font-size:10.5px;font-weight:300;color:var(--t3);letter-spacing:.02em}
+
+/* coming soon card */
+.dest-card.coming-soon{cursor:default;opacity:.55;position:relative}
+.dest-card.coming-soon:hover{transform:none;box-shadow:var(--sh2)}
+.cs-badge{position:absolute;top:14px;right:16px;
+  font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  padding:3px 8px;border-radius:2px;
+  background:var(--bg);color:var(--t3);border:1px solid var(--bdr)}
+.dest-cta.disabled{color:var(--t3);pointer-events:none}
+
+
+/* ══════════════════
+   COMPANY SEARCH DROPDOWN
+══════════════════ */
+.co-search-wrap{position:relative}
+.co-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:50;
+  background:var(--card);border:1px solid var(--bdrs);border-radius:var(--r-card);
+  box-shadow:var(--sh3);overflow:hidden;
+  opacity:0;transform:translateY(-4px);pointer-events:none;
+  transition:opacity .16s ease,transform .16s ease}
+.co-dropdown.show{opacity:1;transform:none;pointer-events:all}
+.co-result{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;
+  transition:background .1s}
+.co-result:hover{background:rgba(12,12,20,.04)}
+.co-result-ico{width:22px;height:22px;border-radius:3px;background:rgba(12,12,20,.06);
+  flex-shrink:0;position:relative;overflow:hidden;border:1px solid var(--bdr)}
+.co-result-img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;padding:3px;background:#fff;opacity:0;transition:opacity .18s}
+.co-result-img.loaded{opacity:1}
+.co-result-name{font-size:13px;font-weight:400;color:var(--t1)}
+.co-result-sub{font-size:10.5px;font-weight:300;color:var(--t3);margin-top:1px}
+.co-divider{height:1px;background:var(--bdr);margin:3px 0}
+.co-create{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;
+  transition:background .1s}
+.co-create:hover{background:rgba(241,80,37,.04)}
+.co-create-ico{width:22px;height:22px;border-radius:3px;
+  background:var(--or-bg);border:1px solid rgba(241,80,37,.2);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--or)}
+.co-create-label{font-size:13px;font-weight:400;color:var(--or)}
+.co-create-sub{font-size:10.5px;font-weight:300;color:var(--t3);margin-top:1px}
+.co-no-results{padding:12px;text-align:center;font-size:12px;font-weight:300;color:var(--t3)}
+
+
+/* ══════════════════
+   IMPORT MODAL
+══════════════════ */
+.modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(12,12,20,.28);
+  backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .22s ease}
+.modal-overlay.show{opacity:1;pointer-events:all}
+.modal-sheet{position:absolute;bottom:0;left:0;right:0;
+  background:var(--card);border-radius:var(--r-lg) var(--r-lg) 0 0;
+  padding:0 0 32px;box-shadow:0 -8px 40px rgba(12,12,20,.14);
+  transform:translateY(100%);transition:transform .28s cubic-bezier(.34,1.06,.64,1)}
+.modal-overlay.show .modal-sheet{transform:translateY(0)}
+.modal-handle{width:36px;height:4px;border-radius:2px;background:var(--bdr);
+  margin:12px auto 20px}
+.modal-head{padding:0 22px 16px;border-bottom:1px solid var(--bdr);margin-bottom:8px}
+.modal-title{font-size:16px;font-weight:400;letter-spacing:-.03em;color:var(--t1);margin-bottom:3px}
+.modal-sub{font-size:12px;font-weight:300;color:var(--t3);line-height:1.5}
+.modal-close{position:absolute;top:20px;right:20px;width:28px;height:28px;
+  border-radius:50%;background:rgba(12,12,20,.06);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--t2);
+  transition:background .14s}
+.modal-close:hover{background:rgba(12,12,20,.1)}
+.modal-options{display:flex;flex-direction:column;gap:6px;padding:0 22px}
+.modal-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;
+  background:rgba(12,12,20,.02);border:1px solid var(--bdr);border-radius:var(--r-card);
+  cursor:pointer;transition:all .15s}
+.modal-opt:hover{border-color:var(--bdrs);background:rgba(12,12,20,.04);transform:translateX(2px)}
+.modal-opt-ico{width:36px;height:36px;border-radius:var(--r-card);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.modal-opt-ico.csv{background:rgba(6,229,160,.08);color:var(--mn-t)}
+.modal-opt-ico.sso{background:rgba(241,80,37,.06);color:var(--or)}
+.modal-opt-ico.paste{background:rgba(12,12,20,.05);color:var(--t2)}
+.modal-opt-title{font-size:13px;font-weight:400;color:var(--t1);margin-bottom:2px}
+.modal-opt-desc{font-size:11px;font-weight:300;color:var(--t3);line-height:1.4}
+.modal-paste-area{display:none;padding:0 22px;margin-top:8px}
+.modal-paste-area.show{display:block}
+.modal-paste-inp{width:100%;height:90px;padding:10px 12px;resize:none;
+  border:1px solid var(--bdr);border-radius:var(--r-card);font-family:inherit;
+  font-size:12px;font-weight:300;color:var(--t1);background:rgba(12,12,20,.02);
+  outline:none;transition:border-color .15s;line-height:1.6}
+.modal-paste-inp:focus{border-color:rgba(241,80,37,.35);
+  box-shadow:0 0 0 2.5px rgba(241,80,37,.07)}
+.modal-paste-inp::placeholder{color:var(--t3)}
+.modal-paste-btn{display:flex;align-items:center;justify-content:center;gap:6px;
+  width:100%;padding:11px;margin-top:7px;
+  background:var(--btn);color:var(--bg);border:none;border-radius:var(--r-card);
+  font-family:inherit;font-size:13px;font-weight:400;cursor:pointer;
+  transition:background .15s,transform .13s}
+.modal-paste-btn:hover{background:var(--btn-h);transform:translateY(-1px)}
+</style>
+</head>
+<body>
+
+<div class="steps" id="steps-bar">
+  <div class="sdot active" id="d1"></div>
+  <div class="sdot" id="d2"></div>
+  <div class="sdot" id="d3"></div>
+  <div class="sdot" id="d4"></div>
+  <div class="sdot" id="d5"></div>
+</div>
+
+
+<!-- ══ S0: AUTH ══════════════════════════════ -->
+<div id="s0" class="screen">
+<div class="sw" style="max-width:360px">
+
+  <div class="logo-wrap">
+    <div class="logo-mark">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <polygon fill="currentColor" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/>
+        <polygon fill="currentColor" points="8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54"/>
+        <polygon fill="currentColor" points="12 11.46 16 11.46 12 4.54 8 4.54 12 11.46"/>
+      </svg>
+      <span>Airframe</span>
+    </div>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-eyebrow">Transformation intelligence</div>
+    <div class="auth-title">Sign in to Airframe</div>
+    <div class="auth-sub">The AI that keeps up with the market<br>so you don't have to.</div>
+
+    <div class="auth-providers">
+
+      <!-- LinkedIn -->
+      <button class="auth-btn" onclick="authWith('linkedin')">
+        <div class="auth-btn-ico">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <rect width="24" height="24" rx="4" fill="#0A66C2"/>
+            <path d="M7 10h2v7H7v-7zm1-3a1.2 1.2 0 110 2.4A1.2 1.2 0 018 7zm4 3h2v1h.03C14.4 10.4 15.2 10 16.1 10c2.2 0 2.6 1.4 2.6 3.3V17h-2v-3.2c0-.8 0-1.8-1.1-1.8s-1.3.9-1.3 1.7V17h-2v-7z" fill="#fff"/>
+          </svg>
+        </div>
+        <div class="auth-btn-label">Continue with LinkedIn</div>
+      </button>
+
+      <!-- Google -->
+      <button class="auth-btn" onclick="authWith('google')">
+        <div class="auth-btn-ico">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M22 12.23c0-.72-.06-1.41-.18-2.07H12v3.92h5.6a4.76 4.76 0 01-2.07 3.13v2.6h3.35c1.96-1.8 3.12-4.46 3.12-7.58z" fill="#4285F4"/>
+            <path d="M12 23c2.8 0 5.15-.93 6.87-2.52l-3.35-2.6c-.93.62-2.12.99-3.52.99-2.7 0-4.99-1.82-5.81-4.28H2.74v2.69A10.99 10.99 0 0012 23z" fill="#34A853"/>
+            <path d="M6.19 14.59A6.6 6.6 0 015.85 12.5c0-.73.13-1.44.34-2.09V7.72H2.74A10.99 10.99 0 002 12c0 1.77.42 3.45 1.17 4.94l3.02-2.35z" fill="#FBBC05"/>
+            <path d="M12 5.63c1.52 0 2.88.52 3.95 1.55l2.97-2.97A10.9 10.9 0 0012 1 10.99 10.99 0 002.74 7.72l3.45 2.69C6.99 7.97 9.28 5.63 12 5.63z" fill="#EA4335"/>
+          </svg>
+        </div>
+        <div class="auth-btn-label">Continue with Google</div>
+      </button>
+
+      <!-- Microsoft -->
+      <button class="auth-btn" onclick="authWith('microsoft')">
+        <div class="auth-btn-ico">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="2" width="9.3" height="9.3" fill="#F25022"/>
+            <rect x="12.7" y="2" width="9.3" height="9.3" fill="#7FBA00"/>
+            <rect x="2" y="12.7" width="9.3" height="9.3" fill="#00A4EF"/>
+            <rect x="12.7" y="12.7" width="9.3" height="9.3" fill="#FFB900"/>
+          </svg>
+        </div>
+        <div class="auth-btn-label">Continue with Microsoft</div>
+      </button>
+
+    </div>
+
+    <div class="auth-divider">
+      <div class="auth-divider-line"></div>
+      <div class="auth-divider-text">or</div>
+      <div class="auth-divider-line"></div>
+    </div>
+
+    <!-- Email area -->
+    <div class="auth-email-area">
+      <!-- State 0: email button -->
+      <button class="auth-email-btn" id="auth-email-btn" onclick="showEmailInput()">
+        <div class="auth-btn-ico">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="var(--t2)" stroke-width="1.5" stroke-linecap="round">
+            <rect x="2" y="4" width="16" height="12" rx="2"/>
+            <path d="M2 7l8 5 8-5"/>
+          </svg>
+        </div>
+        <div class="auth-btn-label">Continue with email</div>
+      </button>
+
+      <!-- State 1: email input -->
+      <div class="auth-email-input-wrap" id="auth-email-wrap">
+        <input class="auth-email-inp" id="auth-email-inp" type="email"
+          placeholder="you@company.com" autocomplete="email"
+          onkeydown="if(event.key==='Enter') sendMagicLink()"/>
+        <button class="auth-email-submit" onclick="sendMagicLink()">
+          Send magic link
+          <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+        </button>
+      </div>
+
+      <!-- State 2: success -->
+      <div class="auth-email-success" id="auth-email-success">
+        <div class="auth-email-success-ico">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="var(--mn-t)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 10 8 14 16 6"/>
+          </svg>
+        </div>
+        <div class="auth-email-success-title">Check your inbox</div>
+        <div class="auth-email-success-sub" id="auth-email-success-sub">We sent a magic link to your email.</div>
+      </div>
+    </div>
+
+    <div class="auth-footer">
+      By signing in you agree to our <a href="#">Terms of Service</a><br>and <a href="#">Privacy Policy</a>.
+    </div>
+  </div>
+
+</div></div>
+
+
+<!-- ══ S1: IDENTITY ════════════════════════ -->
+<div id="s1" class="screen">
+<div class="sw" style="max-width:380px">
+
+  <div class="logo-wrap">
+    <div class="logo-mark">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+        <polygon fill="currentColor" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/>
+        <polygon fill="currentColor" points="8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54"/>
+        <polygon fill="currentColor" points="12 11.46 16 11.46 12 4.54 8 4.54 12 11.46"/>
+      </svg>
+      <span>Airframe</span>
+    </div>
+  </div>
+
+  <div class="id-card">
+    <div style="text-align:center">
+      <div class="av-wrap">
+        <div class="av-r1"></div>
+        <div class="av-r2"></div>
+        <div class="avatar" id="avatar-el" style="position:relative;overflow:hidden">
+          <span id="avatar-initials">SH</span>
+        </div>
+      </div>
+      <div class="id-name">Welcome, Sarah.</div>
+      <div class="id-greeting">We pulled your details from LinkedIn.<br>Everything look right?</div>
+    </div>
+
+    <div class="id-fields">
+      <div class="co-search-wrap">
+        <div class="id-field" onclick="editField('company')" id="field-company">
+          <div class="ifl">
+            <div class="id-ico co" id="co-logo" style="overflow:hidden;padding:0;background:var(--or-bg)">
+              <svg id="co-logo-fallback" width="12" height="12" viewBox="0 0 18 18" fill="none" stroke="var(--or)" stroke-width="1.7" stroke-linecap="round" style="position:absolute"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M5 7V5a4 4 0 018 0v2"/></svg>
+            </div>
+            <div>
+              <div class="id-lbl">Company</div>
+              <div class="id-val" id="company-val">Stripe</div>
+            </div>
+          </div>
+          <div class="id-edit">Edit</div>
+        </div>
+        <div class="co-dropdown" id="co-dropdown"></div>
+      </div>
+
+    </div>
+
+    <div class="id-src">
+      <svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".38"><path d="M9 2C4.58 2 1 5.58 1 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 3v4l3 3"/></svg>
+      Pulled from your LinkedIn and email
+    </div>
+
+    <div class="id-actions">
+      <button class="btn btn-p" id="confirm-btn" onclick="confirmIdentity()">That's right →</button>
+    </div>
+  </div>
+
+</div></div>
+
+
+<!-- ══ S1b: DEPARTMENT ══════════════════════ -->
+<div id="s1b" class="screen">
+<div class="sw" style="max-width:400px">
+
+  <div class="topbar">
+    <button class="back" onclick="goBack('s1b','s1')">
+      <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+      Back
+    </button>
+  </div>
+
+  <div class="dept-head">
+    <div class="eyebrow">Your role</div>
+    <div class="h1">What's your department?</div>
+    <div class="sub" style="margin-top:6px">Airframe tailors market intelligence to how you work.</div>
+  </div>
+
+  <div class="dept-grid">
+
+    <div class="dept-card" onclick="selectDept('Engineering',this)">
+      <div class="dept-ico">
+        <!-- terminal: < / > -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 2 9 4 12"/><polyline points="14 6 16 9 14 12"/><line x1="11" y1="4.5" x2="7" y2="13.5"/></svg>
+      </div>
+      <div>
+        <div class="dept-label">Engineering</div>
+        <div class="dept-sub">Dev, DevOps, Infra</div>
+      </div>
+    </div>
+
+    <div class="dept-card" onclick="selectDept('IT',this)">
+      <div class="dept-ico">
+        <!-- server rack: two stacked rectangles with status dots -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="3" width="14" height="5" rx="1"/><rect x="2" y="10" width="14" height="5" rx="1"/><circle cx="13.5" cy="5.5" r="1" fill="currentColor" stroke="none"/><circle cx="13.5" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg>
+      </div>
+      <div>
+        <div class="dept-label">IT</div>
+        <div class="dept-sub">Systems, Security, Ops</div>
+      </div>
+    </div>
+
+    <div class="dept-card" onclick="selectDept('Product',this)">
+      <div class="dept-ico">
+        <!-- roadmap: three rows of varying-width bars -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="2" y1="5" x2="11" y2="5"/><line x1="2" y1="9" x2="14" y2="9"/><line x1="2" y1="13" x2="8" y2="13"/></svg>
+      </div>
+      <div>
+        <div class="dept-label">Product</div>
+        <div class="dept-sub">PM, Design, Strategy</div>
+      </div>
+    </div>
+
+    <div class="dept-card" onclick="selectDept('Finance',this)">
+      <div class="dept-ico">
+        <!-- trending up: arrow chart -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 13 6.5 8 10 10.5 16 4"/><polyline points="12 4 16 4 16 8"/></svg>
+      </div>
+      <div>
+        <div class="dept-label">Finance</div>
+        <div class="dept-sub">Procurement, FP&amp;A</div>
+      </div>
+    </div>
+
+    <div class="dept-card" onclick="selectDept('Operations',this)">
+      <div class="dept-ico">
+        <!-- sliders: three lines with offset handles -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="2" y1="5" x2="16" y2="5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13" x2="16" y2="13"/><circle cx="6" cy="5" r="2" fill="var(--card)"/><circle cx="11" cy="9" r="2" fill="var(--card)"/><circle cx="7" cy="13" r="2" fill="var(--card)"/></svg>
+      </div>
+      <div>
+        <div class="dept-label">Operations</div>
+        <div class="dept-sub">BizOps, Enablement</div>
+      </div>
+    </div>
+
+    <div class="dept-card" onclick="selectDept('Other',this)">
+      <div class="dept-ico">
+        <!-- briefcase: leadership / exec -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="7" width="14" height="9" rx="1.5"/><path d="M6 7V5.5a3 3 0 016 0V7"/><line x1="2" y1="11" x2="16" y2="11"/></svg>
+      </div>
+      <div>
+        <div class="dept-label">Other</div>
+        <div class="dept-sub">Executive, GTM, Legal</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="dept-actions">
+    <button class="btn btn-p" id="dept-btn" onclick="toDeptNext()" disabled style="opacity:.3;cursor:not-allowed">
+      Continue →
+    </button>
+    <button class="btn btn-g" onclick="advance('s1b','s2',buildSuggestions)">Skip</button>
+  </div>
+
+</div></div>
+
+
+<!-- ══ S2: BUILD STACK ══════════════════════ -->
+<div id="s2" class="screen">
+<div class="sw" style="max-width:540px">
+
+  <div class="topbar">
+    <button class="back" onclick="goBack('s2','s1b')">
+      <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+      Back
+    </button>
+  </div>
+
+  <div class="stack-head">
+    <div class="eyebrow">Your stack</div>
+    <div class="h1">What tools does your team use?</div>
+    <div class="sub" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <span>Add what you know. You can update this anytime in Folio.</span>
+      <button onclick="showImportModal()" style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:400;color:var(--or);background:var(--or-bg);border:1px solid rgba(241,80,37,.22);border-radius:var(--r-btn);padding:5px 11px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .15s;flex-shrink:0">
+        <svg width="10" height="10" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M7 1v8M4 6l3 3 3-3M1 10v1a2 2 0 002 2h8a2 2 0 002-2v-1"/></svg>
+        Import tools
+      </button>
+    </div>
+  </div>
+
+  <div class="stack-search">
+    <div class="search-ico">
+      <svg width="13" height="13" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M12.5 12.5l3 3"/></svg>
+    </div>
+    <input class="search-inp" id="search-inp" placeholder="Search 17,000+ tools…"
+      autocomplete="off" oninput="filterTools(this.value)" />
+  </div>
+
+  <div class="cat-filters" id="cat-filters">
+    <div class="cat-pill active" onclick="filterCat('all',this)">All</div>
+    <div class="cat-pill" onclick="filterCat('ai',this)">AI / ML</div>
+    <div class="cat-pill" onclick="filterCat('dev',this)">Dev Tools</div>
+    <div class="cat-pill" onclick="filterCat('data',this)">Data</div>
+    <div class="cat-pill" onclick="filterCat('productivity',this)">Productivity</div>
+  </div>
+
+  <div class="suggest-lbl" id="suggest-lbl">Popular picks</div>
+  <div class="tool-grid" id="tool-grid"></div>
+  <div class="empty-msg" id="empty-msg">No tools found. Try a different name.</div>
+
+  <div class="stack-built" id="stack-built">
+    <div class="stack-built-lbl">Stack</div>
+    <div class="sbl-logos" id="sbl-logos"></div>
+  </div>
+
+  <div class="stack-footer">
+    <div class="stack-count-lbl" id="stack-count-lbl">Select the tools your team uses</div>
+    <button class="btn btn-p" id="continue-btn" onclick="toS3()">Continue →</button>
+    <button class="btn btn-g" onclick="toS3()">Skip — I'll add tools later</button>
+  </div>
+
+</div></div>
+
+
+<!-- ══ S3: INTENT ════════════════════════════ -->
+<div id="s3" class="screen">
+<div class="sw" style="max-width:460px">
+
+  <div class="topbar">
+    <button class="back" onclick="goBack('s3','s2')">
+      <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+      Back
+    </button>
+  </div>
+
+  <div class="intent-head">
+    <div class="intent-ctx">
+      <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"/><path d="M6 4v2.5l1.5 1"/></svg>
+      <span id="intent-ctx-text">For a CTO at Stripe</span>
+    </div>
+    <div class="h1">What are your most pressing<br>AI decisions right now?</div>
+  </div>
+
+  <div class="intent-opts">
+    <div class="iopt" onclick="selectIntent(this,0)">
+      <div class="iopt-body">
+        <div class="iopt-text">Evaluating our AI development tools</div>
+        <div class="iopt-hint">Copilot, Cursor, or alternatives — what's right for us</div>
+      </div>
+      <div class="iopt-arr"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg></div>
+    </div>
+    <div class="iopt" onclick="selectIntent(this,1)">
+      <div class="iopt-body">
+        <div class="iopt-text">Building our AI transformation roadmap</div>
+        <div class="iopt-hint">Prioritizing what to build, buy, or cut</div>
+      </div>
+      <div class="iopt-arr"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg></div>
+    </div>
+    <div class="iopt" onclick="selectIntent(this,2)">
+      <div class="iopt-body">
+        <div class="iopt-text">Understanding what peers are adopting</div>
+        <div class="iopt-hint">What companies at our scale are running</div>
+      </div>
+      <div class="iopt-arr"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg></div>
+    </div>
+    <div class="iopt" onclick="selectIntent(this,3)">
+      <div class="iopt-body">
+        <div class="iopt-text">Rationalizing our AI tool spend</div>
+        <div class="iopt-hint">Finding overlap, cutting waste, optimizing ROI</div>
+      </div>
+      <div class="iopt-arr"><svg width="9" height="9" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg></div>
+    </div>
+  </div>
+
+  <div class="intent-actions">
+    <button class="btn btn-p" id="intent-btn" onclick="toS4()" disabled style="opacity:.3;cursor:not-allowed">
+      Continue →
+    </button>
+    <button class="btn btn-g" onclick="toS4()">Skip for now</button>
+  </div>
+
+</div></div>
+
+
+<!-- ══ S-TRANS: WORKSPACE SETUP ═══════════ -->
+<div id="s-trans" class="screen">
+  <div class="trans-inner">
+    <div class="trans-logo">
+      <div class="trans-logo-mark">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <polygon fill="currentColor" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/>
+          <polygon fill="currentColor" points="8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54"/>
+          <polygon fill="currentColor" points="12 11.46 16 11.46 12 4.54 8 4.54 12 11.46"/>
+        </svg>
+        <span>Airframe</span>
+      </div>
+    </div>
+    <div class="trans-text">Setting up your workspace</div>
+    <div class="trans-dots">
+      <div class="trans-dot"></div>
+      <div class="trans-dot"></div>
+      <div class="trans-dot"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ S4: DESTINATIONS (v1.1) ════════════ -->
+<div id="s4" class="screen">
+<div class="sw" style="max-width:860px">
+
+  <div class="topbar">
+    <div style="flex:1"></div>
+    <span class="badge"><span class="dot" style="animation:none;background:var(--mn)"></span>You're in</span>
+  </div>
+
+  <div class="dest-head">
+    <div class="eyebrow">Your workspace</div>
+    <div class="h1">Where do you want to go first?</div>
+  </div>
+
+  <div class="dest-grid">
+
+    <!-- FOLIO -->
+    <div class="dest-card folio" onclick="goToApp('folio')">
+      <!-- mini mockup -->
+      <div class="dest-mockup">
+        <div class="mock-bar">
+          <div class="mock-dot" style="background:#E05252"></div>
+          <div class="mock-dot" style="background:#E0A050"></div>
+          <div class="mock-dot" style="background:#50C850"></div>
+          <div style="flex:1;height:9px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:42% 58%;height:74px">
+          <div style="border-right:1px solid var(--bdr);padding:8px 10px">
+            <div style="font-size:7.5px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:5px">AI SCORE</div>
+            <div class="mock-score">71<span style="font-size:9px;color:var(--t3)">/100</span></div>
+            <div class="mock-score-sub">68th percentile</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:7px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:3px">YOUR STACK</div>
+            <div class="mock-result" style="padding:0;gap:5px">
+              <div id="folio-mock-l1" class="mock-logo" style="background:rgba(36,41,47,.35)"></div>
+              <div class="mock-line" style="flex:1;width:auto"></div>
+            </div>
+            <div class="mock-result" style="padding:0;gap:5px">
+              <div id="folio-mock-l2" class="mock-logo" style="background:rgba(107,68,216,.4)"></div>
+              <div class="mock-line" style="flex:1;width:auto"></div>
+            </div>
+            <div class="mock-result" style="padding:0;gap:5px">
+              <div id="folio-mock-l3" class="mock-logo" style="background:rgba(16,163,127,.4)"></div>
+              <div class="mock-line" style="flex:1;width:auto"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="dest-tag folio">Folio</span>
+      <div class="dest-name">Build your stack.</div>
+      <div class="dest-body">Add what your team runs. See your AI readiness score. Benchmark against 140,000+ company software stacks.</div>
+      <button class="dest-cta folio">
+        Go to Folio <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
+      </button>
+    </div>
+
+    <!-- STUDIO -->
+    <div class="dest-card studio" onclick="goToApp('studio')">
+      <div class="dest-mockup">
+        <div class="mock-bar">
+          <div class="mock-dot" style="background:#E05252"></div>
+          <div class="mock-dot" style="background:#E0A050"></div>
+          <div class="mock-dot" style="background:#50C850"></div>
+          <div style="flex:1;height:9px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
+        </div>
+        <div style="padding:10px 11px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;justify-content:flex-end">
+            <div style="background:var(--t1);border-radius:6px 6px 2px 6px;padding:5px 9px;max-width:75%">
+              <div class="mock-line" style="width:100%;background:rgba(255,255,255,.35)"></div>
+            </div>
+          </div>
+          <div style="display:flex;justify-content:flex-start">
+            <div style="background:var(--mn-bg);border:1px solid var(--mn-bdr);border-radius:6px 6px 6px 2px;padding:5px 9px;max-width:85%">
+              <div class="mock-line" style="width:100%;background:rgba(6,229,160,.35)"></div>
+              <div class="mock-line" style="width:75%;background:rgba(6,229,160,.2);margin-top:3px"></div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;padding:4px 7px;background:rgba(12,12,20,.04);border-radius:4px;border:1px solid var(--bdr);margin-top:2px">
+            <div class="mock-line" style="flex:1;width:auto;background:rgba(12,12,20,.06)"></div>
+            <div style="width:14px;height:14px;border-radius:50%;background:var(--mn);flex-shrink:0;display:flex;align-items:center;justify-content:center">
+              <svg width="7" height="7" viewBox="0 0 10 10" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M2 8L8 5 2 2v2.5l4 .5-4 .5V8z"/></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <span class="dest-tag studio">Studio</span>
+      <div class="dest-name">Make your next AI decision.</div>
+      <div class="dest-body">Start a conversation grounded in your software stack and 140,000+ peer companies. No starting from scratch.</div>
+      <button class="dest-cta studio">
+        Open Studio <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
+      </button>
+    </div>
+
+    <!-- DISCOVER — coming soon -->
+    <div class="dest-card discover coming-soon">
+      <div class="cs-badge">Coming soon</div>
+      <div class="dest-mockup">
+        <div class="mock-bar">
+          <div class="mock-dot" style="background:#E05252"></div>
+          <div class="mock-dot" style="background:#E0A050"></div>
+          <div class="mock-dot" style="background:#50C850"></div>
+          <div style="flex:1;height:9px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
+        </div>
+        <div style="padding:7px 10px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;align-items:center;gap:6px;padding:4px 8px;background:rgba(12,12,20,.03);border:1px solid var(--bdr);border-radius:3px">
+            <svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><circle cx="5" cy="5" r="3.5"/><path d="M8 8l2 2"/></svg>
+            <div class="mock-line" style="flex:1;width:auto;background:rgba(12,12,20,.07)"></div>
+          </div>
+          <div class="mock-result" style="padding:0;gap:6px">
+            <div class="mock-logo" style="background:rgba(241,80,37,.25)"></div>
+            <div class="mock-lines" style="flex:1"><div class="mock-line" style="width:70%"></div><div class="mock-line" style="width:45%"></div></div>
+            <div class="mock-pct">+310%</div>
+          </div>
+          <div class="mock-result" style="padding:0;gap:6px">
+            <div class="mock-logo" style="background:rgba(16,163,127,.3)"></div>
+            <div class="mock-lines" style="flex:1"><div class="mock-line" style="width:55%"></div><div class="mock-line" style="width:38%"></div></div>
+            <div class="mock-pct">+180%</div>
+          </div>
+        </div>
+      </div>
+
+      <span class="dest-tag discover">Discover</span>
+      <div class="dest-name">What are your peers running?</div>
+      <div class="dest-body">Search 17,000+ AI tools across 140,000+ company software stacks. Find what's being adopted at your scale, right now.</div>
+      <button class="dest-cta disabled">Coming soon</button>
+    </div>
+
+  </div>
+
+  <div class="dest-footer">
+    <div class="dest-trust">17,000+ tools · 140,000+ software stacks · Airframe receives no funding from software vendors</div>
+  </div>
+
+</div></div>
+
+
+<!-- ══ IMPORT MODAL ════════════════════════ -->
+<div class="modal-overlay" id="import-modal" onclick="closeImportModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeImportModal()">
+      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+    </button>
+    <div class="modal-head">
+      <div class="modal-title">Import your stack</div>
+      <div class="modal-sub">Don't have tools top of mind? Import from your existing sources.</div>
+    </div>
+    <div class="modal-options">
+
+      <div class="modal-opt" onclick="showPasteArea()">
+        <div class="modal-opt-ico paste">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="2" width="10" height="16" rx="1.5"/><line x1="8" y1="6" x2="12" y2="6"/><line x1="8" y1="9" x2="12" y2="9"/><line x1="8" y1="12" x2="10" y2="12"/></svg>
+        </div>
+        <div>
+          <div class="modal-opt-title">Paste a list</div>
+          <div class="modal-opt-desc">Drop in tool names, one per line</div>
+        </div>
+      </div>
+
+      <div class="modal-opt">
+        <div class="modal-opt-ico csv">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 2h8l4 4v12a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/><path d="M12 2v4h4"/><path d="M7 11h6M7 14h4"/></svg>
+        </div>
+        <div>
+          <div class="modal-opt-title">Upload CSV</div>
+          <div class="modal-opt-desc">Export from your IT inventory or a spreadsheet</div>
+        </div>
+      </div>
+
+      <div class="modal-opt">
+        <div class="modal-opt-ico sso">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/><path d="M6 10h-.5M14.5 10H14"/></svg>
+        </div>
+        <div>
+          <div class="modal-opt-title">Connect SSO</div>
+          <div class="modal-opt-desc">Pull provisioned apps from Okta or Azure AD</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-paste-area" id="modal-paste-area">
+      <textarea class="modal-paste-inp" placeholder="GitHub Copilot&#10;Datadog&#10;Snowflake&#10;Linear&#10;…"></textarea>
+      <button class="modal-paste-btn" onclick="importFromPaste()">
+        Add to stack
+        <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+const state = {
+  name:'Sarah', initials:'SH',
+  company:'Stripe', dept:'', intent: -1
+};
+
+const TOOLS = [
+  {name:'GitHub Copilot', cat:'AI Development', color:'#24292F', abbr:'GC', domain:'github.com',    selected:false},
+  {name:'Cursor',         cat:'AI IDE',         color:'#6B44D8', abbr:'Cu', domain:'cursor.com',    selected:false},
+  {name:'Datadog',        cat:'Observability',  color:'#774AA4', abbr:'Dd', domain:'datadoghq.com', selected:false},
+  {name:'Snowflake',      cat:'Data Platform',  color:'#29B5E8', abbr:'SF', domain:'snowflake.com', selected:false},
+  {name:'Linear',         cat:'Project Mgmt',   color:'#5E6AD2', abbr:'Li', domain:'linear.app',    selected:false},
+  {name:'Notion',         cat:'AI Workspace',   color:'#191919', abbr:'No', domain:'notion.so',     selected:false},
+  {name:'OpenAI',         cat:'AI Platform',    color:'#10A37F', abbr:'OA', domain:'openai.com',    selected:false},
+  {name:'dbt',            cat:'Data Transform', color:'#E03D2F', abbr:'db', domain:'getdbt.com',    selected:false},
+  {name:'Slack',          cat:'Communication',  color:'#4A154B', abbr:'Sl', domain:'slack.com',     selected:false},
+  {name:'Vercel',         cat:'Deployment',     color:'#000000', abbr:'Ve', domain:'vercel.com',    selected:false},
+  {name:'Figma',          cat:'Design',         color:'#F24E1E', abbr:'Fi', domain:'figma.com',     selected:false},
+  {name:'Jira',           cat:'Project Mgmt',   color:'#0052CC', abbr:'Ji', domain:'atlassian.com', selected:false},
+];
+
+/* ── nav ─────────────────────────────── */
+function show(id){ document.getElementById(id).classList.add('on'); updateSteps(id); }
+function hide(id,cb){ const el=document.getElementById(id); el.classList.add('out'); setTimeout(()=>{ el.classList.remove('on','out'); if(cb) cb(); }, 260); }
+function goBack(f,t){ hide(f, ()=>show(t)); }
+function advance(f,t,cb){ hide(f, ()=>{ show(t); if(cb) cb(); }); }
+
+function updateSteps(id){
+  const bar=document.getElementById('steps-bar');
+  if(id==='s0'||id==='s-trans'){ bar.style.opacity='0'; bar.style.pointerEvents='none'; return; }
+  bar.style.opacity='1'; bar.style.pointerEvents='none';
+  const map={s1:0,s1b:1,s2:2,s3:3,s4:4};
+  const active=map[id]??0;
+  ['d1','d2','d3','d4','d5'].forEach((d,i)=>{
+    const el=document.getElementById(d);
+    el.classList.remove('active','done');
+    if(i<active) el.classList.add('done');
+    else if(i===active) el.classList.add('active');
+  });
+}
+
+/* ── S0: auth ───────────────────────── */
+function authWith(provider){
+  // prototype: any provider goes to S1 with profile pre-loaded
+  advance('s0','s1', ()=>{
+    loadCompanyLogo(state.company);
+    loadProfilePhoto();
+  });
+}
+
+function showEmailInput(){
+  document.getElementById('auth-email-btn').classList.add('hidden');
+  document.getElementById('auth-email-wrap').classList.add('show');
+  setTimeout(()=>document.getElementById('auth-email-inp').focus(), 50);
+}
+
+function sendMagicLink(){
+  const email=document.getElementById('auth-email-inp').value.trim();
+  const sub=document.getElementById('auth-email-success-sub');
+  sub.textContent=email ? 'We sent a magic link to '+email+'.' : 'We sent a magic link to your email.';
+  document.getElementById('auth-email-wrap').classList.remove('show');
+  document.getElementById('auth-email-success').classList.add('show');
+}
+
+/* ── profile photo ───────────────────── */
+function loadProfilePhoto(){
+  const avatar=document.getElementById('avatar-el');
+  if(!avatar) return;
+  const img=document.createElement('img');
+  img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;opacity:0;transition:opacity .3s;z-index:2';
+  img.onload=()=>{
+    img.style.opacity='1';
+    const initials=document.getElementById('avatar-initials');
+    if(initials) initials.style.opacity='0';
+  };
+  img.onerror=()=>img.remove();
+  img.src='https://i.pravatar.cc/112?img=47';
+  avatar.appendChild(img);
+}
+
+/* ── company logo ────────────────────── */
+function loadCompanyLogo(name){
+  const wrap=document.getElementById('co-logo');
+  if(!wrap) return;
+  const domain=name.toLowerCase().replace(/[^a-z0-9]/g,'')+'.com';
+  wrap.style.position='relative';
+  const old=wrap.querySelector('img.co-logo-img');
+  if(old) old.remove();
+  const fb=document.getElementById('co-logo-fallback');
+  if(fb){ fb.style.opacity='1'; }
+  wrap.style.background='var(--or-bg)';
+
+  const img=document.createElement('img');
+  img.className='co-logo-img';
+  img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:4px;opacity:0;transition:opacity .22s;z-index:2;background:#fff;border-radius:var(--r-card)';
+  img.onload=()=>{ img.style.opacity='1'; if(fb) fb.style.opacity='0'; wrap.style.background='transparent'; };
+  img.onerror=()=>{
+    if(!img.dataset.fallback){
+      img.dataset.fallback='1';
+      img.src='https://www.google.com/s2/favicons?domain='+domain+'&sz=64';
+    } else {
+      img.remove(); if(fb) fb.style.opacity='1'; wrap.style.background='var(--or-bg)';
+    }
+  };
+  img.src='https://logo.clearbit.com/'+domain+'?size=80';
+  wrap.appendChild(img);
+}
+
+/* ── S1 ──────────────────────────────── */
+function editField(key){
+  const valEl=document.getElementById(key+'-val');
+  const fieldEl=document.getElementById('field-'+key);
+  if(fieldEl.classList.contains('editing')) return;
+  fieldEl.classList.add('editing');
+  const prev=valEl.textContent;
+  const inp=document.createElement('input');
+  inp.className='id-inp'; inp.value=prev;
+  valEl.replaceWith(inp); inp.focus(); inp.select();
+  function save(){
+    const v=inp.value.trim()||prev; state[key]=v;
+    const span=document.createElement('div');
+    span.className='id-val'; span.id=key+'-val'; span.textContent=v;
+    inp.replaceWith(span); fieldEl.classList.remove('editing');
+  }
+  inp.addEventListener('blur', save);
+  inp.addEventListener('keydown', e=>{ if(e.key==='Enter') inp.blur(); });
+  if(key==='company'){
+    const dd=document.getElementById('co-dropdown');
+    renderCoDropdown(prev);
+    dd.classList.add('show');
+    inp.addEventListener('input', ()=>renderCoDropdown(inp.value));
+    inp.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCoDropdown(); });
+  }
+}
+
+function confirmIdentity(){
+  const btn=document.getElementById('confirm-btn');
+  btn.innerHTML='<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 8.5 6.5 12 13 4" stroke-dasharray="16" stroke-dashoffset="16" style="animation:check .2s ease forwards .04s"></polyline></svg> Confirmed';
+  btn.classList.add('done');
+  setTimeout(()=> advance('s1','s1b'), 680);
+}
+
+/* ── S2: build stack ─────────────────── */
+function buildSuggestions(){
+  const grid=document.getElementById('tool-grid');
+  grid.innerHTML='';
+  TOOLS.forEach((t,i)=>{
+    const card=document.createElement('div');
+    card.className='tool-card';
+    card.dataset.index=i;
+    card.dataset.name=t.name.toLowerCase();
+    card.dataset.cat=t.cat.toLowerCase();
+    card.style.animationDelay=(i*50)+'ms';
+
+    const ico=document.createElement('div'); ico.className='tool-ico';
+    const fb=document.createElement('div'); fb.className='ico-fb';
+    fb.style.background=t.color; fb.textContent=t.abbr; ico.appendChild(fb);
+    const img=document.createElement('img'); img.className='ico-img'; img.alt='';
+    img.onload=()=>img.classList.add('loaded');
+    img.src='https://www.google.com/s2/favicons?domain='+t.domain+'&sz=64';
+    ico.appendChild(img);
+
+    const info=document.createElement('div'); info.className='tool-info';
+    info.innerHTML='<div class="tool-name">'+t.name+'</div><div class="tool-cat">'+t.cat+'</div>';
+
+    const toggle=document.createElement('div'); toggle.className='tool-toggle';
+    toggle.innerHTML='<svg width="8" height="8" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1.5 5.5 4 8 8.5 2"/></svg>';
+
+    card.appendChild(ico); card.appendChild(info); card.appendChild(toggle);
+    card.onclick=()=>toggleTool(i, card);
+    grid.appendChild(card);
+  });
+}
+
+function toggleTool(i, card){
+  TOOLS[i].selected=!TOOLS[i].selected;
+  card.classList.toggle('selected', TOOLS[i].selected);
+  updateStackCount();
+  updateStackBuilt();
+}
+
+function updateStackBuilt(){
+  const selected=TOOLS.filter(t=>t.selected);
+  const strip=document.getElementById('stack-built');
+  const logos=document.getElementById('sbl-logos');
+  if(selected.length===0){ strip.classList.remove('show'); return; }
+  strip.classList.add('show');
+  logos.innerHTML='';
+  selected.forEach(t=>{
+    const wrap=document.createElement('div'); wrap.className='sbl-logo';
+    const fb=document.createElement('div'); fb.className='sbl-fb';
+    fb.style.background=t.color; fb.textContent=t.abbr; wrap.appendChild(fb);
+    const img=document.createElement('img'); img.className='sbl-img'; img.alt='';
+    img.onload=()=>img.classList.add('loaded');
+    img.src='https://www.google.com/s2/favicons?domain='+t.domain+'&sz=32';
+    wrap.appendChild(img); logos.appendChild(wrap);
+  });
+}
+
+const CAT_MAP={
+  'ai':   ['ai development','ai ide','ai platform','ai workspace'],
+  'dev':  ['ai development','ai ide','deployment','design'],
+  'data': ['data platform','data transform','observability'],
+  'productivity': ['project mgmt','communication','ai workspace']
+};
+
+function filterCat(cat, pill){
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  pill.classList.add('active');
+  const cards=document.getElementById('tool-grid').querySelectorAll('.tool-card');
+  cards.forEach(card=>{
+    if(cat==='all'){ card.classList.remove('hidden'); return; }
+    const cats=CAT_MAP[cat]||[];
+    const match=cats.some(c=>card.dataset.cat.includes(c));
+    card.classList.toggle('hidden',!match);
+  });
+  document.getElementById('suggest-lbl').textContent=cat==='all'?'Popular picks':'Results';
+  document.getElementById('search-inp').value='';
+}
+
+function updateStackCount(){
+  const n=TOOLS.filter(t=>t.selected).length;
+  const lbl=document.getElementById('stack-count-lbl');
+  const btn=document.getElementById('continue-btn');
+  if(n===0){
+    lbl.textContent='Select the tools your team uses';
+    lbl.classList.remove('has-tools');
+    btn.textContent='Continue →';
+  } else {
+    lbl.textContent=n+' tool'+(n===1?'':'s')+' added';
+    lbl.classList.add('has-tools');
+    btn.textContent='Continue with '+n+' tool'+(n===1?'':'s')+' →';
+  }
+}
+
+function filterTools(q){
+  const query=q.toLowerCase().trim();
+  const grid=document.getElementById('tool-grid');
+  const cards=grid.querySelectorAll('.tool-card');
+  let visible=0;
+  cards.forEach(card=>{
+    const match=!query||card.dataset.name.includes(query)||card.dataset.cat.includes(query);
+    card.classList.toggle('hidden',!match);
+    if(match) visible++;
+  });
+  document.getElementById('suggest-lbl').textContent=query?'Results':'Popular picks';
+  document.getElementById('empty-msg').classList.toggle('show', visible===0 && query.length>0);
+}
+
+/* ── S1b: department ─────────────────── */
+function selectDept(dept, el){
+  document.querySelectorAll('.dept-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected'); state.dept=dept;
+  const btn=document.getElementById('dept-btn');
+  btn.disabled=false; btn.style.opacity='1'; btn.style.cursor='pointer';
+}
+function toDeptNext(){ advance('s1b','s2',buildSuggestions); }
+
+/* ── S3 ──────────────────────────────── */
+function toS3(){
+  const co=state.company;
+  const dept=state.dept||'your team';
+  document.getElementById('intent-ctx-text').textContent='For '+dept+' at '+co;
+  advance('s2','s3');
+}
+
+function selectIntent(el,idx){
+  el.classList.toggle('selected');
+  const anySelected=document.querySelectorAll('.iopt.selected').length>0;
+  const btn=document.getElementById('intent-btn');
+  btn.disabled=!anySelected;
+  btn.style.opacity=anySelected?'1':'.3';
+  btn.style.cursor=anySelected?'pointer':'not-allowed';
+}
+
+/* ── company search ──────────────────── */
+const CO_DATA = [
+  {name:'Stripe',      domain:'stripe.com'},
+  {name:'Salesforce',  domain:'salesforce.com'},
+  {name:'Netflix',     domain:'netflix.com'},
+  {name:'Shopify',     domain:'shopify.com'},
+  {name:'Airbnb',      domain:'airbnb.com'},
+  {name:'Notion',      domain:'notion.so'},
+  {name:'Linear',      domain:'linear.app'},
+  {name:'Figma',       domain:'figma.com'},
+  {name:'Vercel',      domain:'vercel.com'},
+  {name:'GitHub',      domain:'github.com'},
+  {name:'Atlassian',   domain:'atlassian.com'},
+  {name:'Datadog',     domain:'datadoghq.com'},
+];
+
+function renderCoDropdown(query){
+  const dd=document.getElementById('co-dropdown');
+  const q=query.toLowerCase().trim();
+  const results=q ? CO_DATA.filter(c=>c.name.toLowerCase().includes(q)) : CO_DATA.slice(0,6);
+  dd.innerHTML='';
+  if(results.length){
+    results.forEach(co=>{
+      const row=document.createElement('div'); row.className='co-result';
+      const ico=document.createElement('div'); ico.className='co-result-ico';
+      const img=document.createElement('img'); img.className='co-result-img';
+      img.onload=()=>img.classList.add('loaded');
+      img.src='https://www.google.com/s2/favicons?domain='+co.domain+'&sz=32';
+      ico.appendChild(img);
+      const txt=document.createElement('div');
+      txt.innerHTML='<div class="co-result-name">'+co.name+'</div>';
+      row.appendChild(ico); row.appendChild(txt);
+      row.onclick=(e)=>{ e.stopPropagation(); pickCompany(co.name); };
+      dd.appendChild(row);
+    });
+    dd.appendChild(Object.assign(document.createElement('div'),{className:'co-divider'}));
+  } else {
+    dd.appendChild(Object.assign(document.createElement('div'),{className:'co-no-results',textContent:'No results found'}));
+  }
+  const createLabel=query||state.company;
+  const createRow=document.createElement('div'); createRow.className='co-create';
+  createRow.innerHTML='<div class="co-create-ico"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div><div><div class="co-create-label">Create "'+createLabel+'"</div><div class="co-create-sub">Add a new organization</div></div>';
+  createRow.onclick=(e)=>{ e.stopPropagation(); pickCompany(createLabel, true); };
+  dd.appendChild(createRow);
+}
+
+function pickCompany(name, isNew){
+  state.company=name;
+  document.getElementById('company-val').textContent=name;
+  closeCoDropdown();
+  loadCompanyLogo(name);
+  const field=document.getElementById('field-company');
+  field.classList.remove('editing');
+  // restore edit button if it was replaced
+  const inp=field.querySelector('.id-inp');
+  if(inp){
+    const span=document.createElement('div');
+    span.className='id-val'; span.id='company-val'; span.textContent=name;
+    inp.replaceWith(span);
+  }
+}
+
+function closeCoDropdown(){
+  const dd=document.getElementById('co-dropdown');
+  dd.classList.remove('show');
+}
+
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.co-search-wrap')) closeCoDropdown();
+});
+
+/* ── import modal ────────────────────── */
+function showImportModal(){
+  document.getElementById('import-modal').classList.add('show');
+}
+function closeImportModal(e){
+  if(e && e.target!==document.getElementById('import-modal')) return;
+  document.getElementById('import-modal').classList.remove('show');
+  document.getElementById('modal-paste-area').classList.remove('show');
+}
+function showPasteArea(){
+  document.getElementById('modal-paste-area').classList.add('show');
+}
+function importFromPaste(){
+  const text=document.querySelector('.modal-paste-inp').value;
+  if(!text.trim()) return;
+  const names=text.split('\n').map(s=>s.trim()).filter(Boolean);
+  names.forEach(name=>{
+    // try to match against TOOLS list, otherwise add as unknown
+    const match=TOOLS.findIndex(t=>t.name.toLowerCase()===name.toLowerCase());
+    if(match>=0 && !TOOLS[match].selected){
+      TOOLS[match].selected=true;
+      const card=document.querySelector('[data-index="'+match+'"]');
+      if(card) card.classList.add('selected');
+    }
+  });
+  updateStackCount(); updateStackBuilt();
+  closeImportModal();
+}
+
+/* ── transition → S4 ────────────────── */
+function toS4(){
+  advance('s3','s-trans', ()=>{
+    setTimeout(()=> advance('s-trans','s4'), 2000);
+  });
+}
+
+/* ── S4: destination nav ─────────────── */
+function goToApp(dest){
+  // prototype: destinations are non-functional
+}
+
+show('s0');
+</script>
+</body>
+</html>
