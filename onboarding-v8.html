@@ -419,7 +419,9 @@ body::after{
       <div class="av-wrap">
         <div class="av-r1"></div>
         <div class="av-r2"></div>
-        <div class="avatar">SH</div>
+        <div class="avatar" id="avatar-el" style="position:relative;overflow:hidden">
+          <span id="avatar-initials">SH</span>
+        </div>
       </div>
       <div class="id-name">Welcome, Sarah.</div>
       <div class="id-greeting">We pulled this from LinkedIn.<br>Everything look right?</div>
@@ -779,20 +781,47 @@ function updateSteps(id){
   });
 }
 
+/* ── profile photo ───────────────────── */
+function loadProfilePhoto(){
+  const avatar=document.getElementById('avatar-el');
+  if(!avatar) return;
+  const img=document.createElement('img');
+  img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;opacity:0;transition:opacity .3s;z-index:2';
+  img.onload=()=>{
+    img.style.opacity='1';
+    const initials=document.getElementById('avatar-initials');
+    if(initials) initials.style.opacity='0';
+  };
+  img.onerror=()=>img.remove();
+  img.src='https://i.pravatar.cc/112?img=47';
+  avatar.appendChild(img);
+}
+
 /* ── company logo ────────────────────── */
 function loadCompanyLogo(name){
   const wrap=document.getElementById('co-logo');
   if(!wrap) return;
-  const domain=name.toLowerCase().replace(/\s+/g,'')+'.com';
-  // remove any existing img
-  const old=wrap.querySelector('img');
+  const domain=name.toLowerCase().replace(/[^a-z0-9]/g,'')+'.com';
+  wrap.style.position='relative';
+  const old=wrap.querySelector('img.co-logo-img');
   if(old) old.remove();
   const fb=document.getElementById('co-logo-fallback');
+  if(fb){ fb.style.opacity='1'; }
+  wrap.style.background='var(--or-bg)';
+
   const img=document.createElement('img');
-  img.style.cssText='width:100%;height:100%;object-fit:contain;padding:3px;opacity:0;transition:opacity .2s;position:relative;z-index:1;background:#fff;border-radius:var(--r-card)';
-  img.onload=()=>{ img.style.opacity='1'; if(fb) fb.style.opacity='0'; wrap.style.background='#fff'; };
-  img.onerror=()=>{ img.remove(); if(fb) fb.style.opacity='1'; wrap.style.background='var(--or-bg)'; };
-  img.src='https://logo.clearbit.com/'+domain;
+  img.className='co-logo-img';
+  img.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:contain;padding:4px;opacity:0;transition:opacity .22s;z-index:2;background:#fff;border-radius:var(--r-card)';
+  img.onload=()=>{ img.style.opacity='1'; if(fb) fb.style.opacity='0'; wrap.style.background='transparent'; };
+  img.onerror=()=>{
+    if(!img.dataset.fallback){
+      img.dataset.fallback='1';
+      img.src='https://www.google.com/s2/favicons?domain='+domain+'&sz=64';
+    } else {
+      img.remove(); if(fb) fb.style.opacity='1'; wrap.style.background='var(--or-bg)';
+    }
+  };
+  img.src='https://logo.clearbit.com/'+domain+'?size=80';
   wrap.appendChild(img);
 }
 
@@ -955,6 +984,7 @@ function toS4(){ advance('s3','s4'); }
 
 show('s1');
 loadCompanyLogo(state.company);
+loadProfilePhoto();
 </script>
 </body>
 </html>
