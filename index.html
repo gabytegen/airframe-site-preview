@@ -2064,6 +2064,33 @@ h2.editorial.lt { color: var(--text-dark); }
   .hvc-peer-pct { font-size: 18px !important; }
 }
 
+/* Term tooltip */
+.term-tip { position: relative; cursor: default; border-bottom: 1px dashed currentColor; display: inline; }
+.term-tip .term-def {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(7,8,16,.97);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 4px;
+  padding: 9px 13px;
+  font-size: 11px;
+  color: rgba(255,255,255,.7);
+  width: 248px;
+  text-align: center;
+  white-space: normal;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 100;
+  line-height: 1.55;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 400;
+}
+.term-tip:hover .term-def { opacity: 1; }
+
 </style>
 </head>
 <body>
@@ -2100,7 +2127,7 @@ h2.editorial.lt { color: var(--text-dark); }
 
     <div class="hero-eyebrow">
       <span class="hero-eyebrow-dot"></span>
-      Transformation intelligence
+      <span class="term-tip">Transformation intelligence<span class="term-def">Continuous market data, peer adoption signals, and your stack context — structured into decisions. Updated daily, not annually.</span></span>
       <span class="hero-eyebrow-dot"></span>
     </div>
 
@@ -2223,7 +2250,7 @@ h2.editorial.lt { color: var(--text-dark); }
   <div class="plat-inner">
     <div>
       <div class="eyebrow" data-reveal>Independent intelligence</div>
-      <h2 class="editorial dk" data-reveal data-delay="1">The intelligence layer for AI transformation.</h2>
+      <h2 class="editorial dk" data-reveal data-delay="1">Not what vendors say. What companies actually run.</h2>
       <p class="body-copy dk" data-reveal data-delay="2">Not a consultant with a retainer. Not an analyst report funded by the vendors you're evaluating. Airframe continuously indexes the market, maps real company stacks, and tells you what's actually working.</p>
       <div class="plat-pillars" data-reveal data-delay="3">
         <span class="pillar">Competitive intelligence</span>
@@ -3115,16 +3142,20 @@ const DISC = [
     { name: 'ChatGPT',        meta: 'Generative AI · Coding',    val: '38%', pct: 38,                  domain: 'openai.com',              tag: 'AI Native'    },
     { name: 'Tabnine',        meta: 'AI coding · Privacy-first', val: '14%', pct: 14,                  domain: 'tabnine.com',             tag: 'AI Augmented' },
   ]},
-  // ── AI Coding · Score (scorecard layout) ───────────────
-  { query: 'AI coding assistants', count: '94 results', tab: 'Score', rows: [
-    { name: 'GitHub Copilot', val: '94', domain: 'github.com', peer: true,
-      subs: [{lbl:'Integrations',v:96},{lbl:'Ease of use',v:92},{lbl:'Value',v:88}] },
-    { name: 'Cursor',         val: '87', domain: 'cursor.com',
-      subs: [{lbl:'Integrations',v:82},{lbl:'Ease of use',v:95},{lbl:'Value',v:90}] },
-    { name: 'ChatGPT',        val: '82', domain: 'openai.com',
-      subs: [{lbl:'Integrations',v:78},{lbl:'Ease of use',v:88},{lbl:'Value',v:85}] },
-    { name: 'Tabnine',        val: '71', domain: 'tabnine.com',
-      subs: [{lbl:'Integrations',v:72},{lbl:'Ease of use',v:68},{lbl:'Value',v:80}] },
+  // ── AI Coding · Feedback ────────────────────────────────
+  { query: 'AI coding assistants', count: '94 results', tab: 'Feedback', rows: [
+    { name: 'GitHub Copilot', domain: 'github.com', peer: true,
+      quote: '"PR cycle down 23% in 90 days across 800 engineers."',
+      co: 'Series D · Enterprise SaaS · 1,200 employees' },
+    { name: 'Cursor',         domain: 'cursor.com',
+      quote: '"Switched from Copilot. Better context on large codebases."',
+      co: 'Growth · B2B SaaS · 180 engineers' },
+    { name: 'ChatGPT',        domain: 'openai.com',
+      quote: '"Used for generation, not IDE plugin. Flexible, less structured."',
+      co: 'Series B · Fintech · 65 engineers' },
+    { name: 'Tabnine',        domain: 'tabnine.com',
+      quote: '"On-prem option. Compliance approved it same week."',
+      co: 'Enterprise · Regulated industry · 400 engineers' },
   ]},
   // ── AI Coding · Growth (trend bars layout) ─────────────
   { query: 'AI coding assistants', count: '94 results', tab: 'Growth', rows: [
@@ -3144,16 +3175,20 @@ const DISC = [
     { name: 'Databricks', meta: 'Lakehouse · Open source', val: '44%', pct: 44,                  domain: 'databricks.com',              tag: 'AI Native'    },
     { name: 'Redshift',   meta: 'Data warehouse · AWS',    val: '31%', pct: 31,                  domain: 'aws.amazon.com',              tag: 'Legacy'       },
   ]},
-  // ── Cloud DW · Score ───────────────────────────────────
-  { query: 'Cloud data warehouse', count: '67 results', tab: 'Score', rows: [
-    { name: 'Databricks', val: '91', domain: 'databricks.com', peer: true,
-      subs: [{lbl:'Performance',v:95},{lbl:'Integration',v:94},{lbl:'Value',v:78}] },
-    { name: 'Snowflake',  val: '88', domain: 'snowflake.com',
-      subs: [{lbl:'Performance',v:88},{lbl:'Integration',v:90},{lbl:'Value',v:82}] },
-    { name: 'BigQuery',   val: '84', domain: 'cloud.google.com',
-      subs: [{lbl:'Performance',v:85},{lbl:'Integration',v:88},{lbl:'Value',v:80}] },
-    { name: 'Redshift',   val: '71', domain: 'aws.amazon.com',
-      subs: [{lbl:'Performance',v:75},{lbl:'Integration',v:72},{lbl:'Value',v:76}] },
+  // ── Cloud DW · Feedback ─────────────────────────────────
+  { query: 'Cloud data warehouse', count: '67 results', tab: 'Feedback', rows: [
+    { name: 'Databricks', domain: 'databricks.com', peer: true,
+      quote: '"ML teams won\'t go back to Snowflake. Lakehouse is the default."',
+      co: 'Series C · Data Platform · 300 engineers' },
+    { name: 'Snowflake',  domain: 'snowflake.com',
+      quote: '"Strong for BI. Costs escalate fast at scale."',
+      co: 'Growth · Enterprise SaaS · 600 employees' },
+    { name: 'BigQuery',   domain: 'cloud.google.com',
+      quote: '"Zero ops overhead. Makes sense if you\'re already in GCP."',
+      co: 'Seed · B2B SaaS · 40 engineers' },
+    { name: 'Redshift',   domain: 'aws.amazon.com',
+      quote: '"Legacy at this point. Migration is the question, not whether to."',
+      co: 'Series A · Fintech · 90 engineers' },
   ]},
   // ── Cloud DW · Growth ──────────────────────────────────
   { query: 'Cloud data warehouse', count: '67 results', tab: 'Growth', rows: [
@@ -3173,16 +3208,20 @@ const DISC = [
     { name: 'Monday CRM', meta: 'CRM · Flexible',   val: '18%', pct: 18,                  domain: 'monday.com',                 tag: 'AI Augmented' },
     { name: 'Pipedrive',  meta: 'CRM · Sales-led',  val: '11%', pct: 11,                  domain: 'pipedrive.com',              tag: 'Legacy'       },
   ]},
-  // ── CRM · Score ────────────────────────────────────────
-  { query: 'CRM for mid-market B2B', count: '112 results', tab: 'Score', rows: [
-    { name: 'HubSpot',    val: '89', domain: 'hubspot.com',    peer: true,
-      subs: [{lbl:'Integration',v:88},{lbl:'Ease of use',v:92},{lbl:'Value',v:90}] },
-    { name: 'Salesforce', val: '86', domain: 'salesforce.com',
-      subs: [{lbl:'Integration',v:95},{lbl:'Ease of use',v:72},{lbl:'Value',v:68}] },
-    { name: 'Monday CRM', val: '77', domain: 'monday.com',
-      subs: [{lbl:'Integration',v:75},{lbl:'Ease of use',v:82},{lbl:'Value',v:85}] },
-    { name: 'Pipedrive',  val: '73', domain: 'pipedrive.com',
-      subs: [{lbl:'Integration',v:70},{lbl:'Ease of use',v:78},{lbl:'Value',v:80}] },
+  // ── CRM · Feedback ──────────────────────────────────────
+  { query: 'CRM for mid-market B2B', count: '112 results', tab: 'Feedback', rows: [
+    { name: 'HubSpot',    domain: 'hubspot.com',    peer: true,
+      quote: '"Replaced Salesforce. Sales team live in a week."',
+      co: 'Series B · B2B SaaS · 150 employees' },
+    { name: 'Salesforce', domain: 'salesforce.com',
+      quote: '"Most complete, highest friction. Worth it above $100M ARR."',
+      co: 'Growth · Enterprise · 800 employees' },
+    { name: 'Monday CRM', domain: 'monday.com',
+      quote: '"Good for small teams. Outgrow it fast."',
+      co: 'Seed · B2B · 30 employees' },
+    { name: 'Pipedrive',  domain: 'pipedrive.com',
+      quote: '"Pipeline view is best-in-class. Everything else is dated."',
+      co: 'Seed · Sales-led · 25 employees' },
   ]},
   // ── CRM · Growth ───────────────────────────────────────
   { query: 'CRM for mid-market B2B', count: '112 results', tab: 'Growth', rows: [
@@ -3194,6 +3233,39 @@ const DISC = [
       trend: [.44,.47,.50,.54,.57,.61,.65,.70] },
     { name: 'Salesforce', meta: 'CRM · Enterprise', val: '+12%', domain: 'salesforce.com',
       trend: [.60,.62,.63,.65,.66,.68,.70,.72] },
+  ]},
+  // ── AP/AR automation · Peer adoption ───────────────────
+  { query: 'AI for AP/AR automation', count: '34 results', tab: 'Peer adoption', rows: [
+    { name: 'Vic.ai',   meta: 'AP automation · AI-native',      val: '44%', pct: 44, sub: '↑ 67%/yr', domain: 'vic.ai',      peer: true, tag: 'AI Native'    },
+    { name: 'Stampli',  meta: 'AP automation · Collaborative',  val: '31%', pct: 31,                  domain: 'stampli.com',             tag: 'AI Native'    },
+    { name: 'Tipalti',  meta: 'Payables · Enterprise',          val: '28%', pct: 28,                  domain: 'tipalti.com',             tag: 'AI Augmented' },
+    { name: 'Bill.com', meta: 'Payments · Mid-market',          val: '19%', pct: 19,                  domain: 'bill.com',                tag: 'AI Augmented' },
+  ]},
+  // ── AP/AR automation · Feedback ────────────────────────
+  { query: 'AI for AP/AR automation', count: '34 results', tab: 'Feedback', rows: [
+    { name: 'Vic.ai',   domain: 'vic.ai',      peer: true,
+      quote: '"Monthly close went from 8 days to 3. AP team is 1 person now."',
+      co: 'Series C · FinServ · 400 employees' },
+    { name: 'Stampli',  domain: 'stampli.com',
+      quote: '"Best for collaborative AP. Multiple approvers, no friction."',
+      co: 'Growth · B2B SaaS · 250 employees' },
+    { name: 'Tipalti',  domain: 'tipalti.com',
+      quote: '"High-volume, multi-entity. Built for complexity at scale."',
+      co: 'Series D · Marketplace · 600 employees' },
+    { name: 'Bill.com', domain: 'bill.com',
+      quote: '"Easy to start. Hits a ceiling at enterprise-level workflow."',
+      co: 'Seed · Fintech · 80 employees' },
+  ]},
+  // ── AP/AR automation · Growth ───────────────────────────
+  { query: 'AI for AP/AR automation', count: '34 results', tab: 'Growth', rows: [
+    { name: 'Vic.ai',   meta: 'AP automation · AI-native',   val: '+89%', domain: 'vic.ai',      peer: true,
+      trend: [.18,.24,.32,.42,.54,.66,.80,.96] },
+    { name: 'Stampli',  meta: 'AP automation · Collaborative', val: '+67%', domain: 'stampli.com',
+      trend: [.22,.28,.36,.46,.56,.66,.76,.88] },
+    { name: 'Tipalti',  meta: 'Payables · Enterprise',       val: '+34%', domain: 'tipalti.com',
+      trend: [.44,.48,.52,.57,.62,.67,.72,.78] },
+    { name: 'Bill.com', meta: 'Payments · Mid-market',       val: '+12%', domain: 'bill.com',
+      trend: [.60,.62,.64,.66,.68,.70,.72,.74] },
   ]},
 ];
 
@@ -3209,7 +3281,7 @@ function discHeader(s) {
       <span style="font-size:9.5px;color:rgba(26,25,8,.42);white-space:nowrap;font-weight:500">${s.count}</span>
     </div>
     <div style="padding:5px 14px;border-bottom:1px solid rgba(0,0,0,.07);display:flex;gap:2px;background:#F5F5F5">
-      ${['Peer adoption','Score','Growth'].map(t => `<span style="font-size:10px;padding:4px 10px;cursor:default;${s.tab===t?'background:#fff;border-radius:4px;color:rgba(26,25,8,.82);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)':'color:rgba(26,25,8,.42)'}">${t}</span>`).join('')}
+      ${['Peer adoption','Feedback','Growth'].map(t => `<span style="font-size:10px;padding:4px 10px;cursor:default;${s.tab===t?'background:#fff;border-radius:4px;color:rgba(26,25,8,.82);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.08)':'color:rgba(26,25,8,.42)'}">${t}</span>`).join('')}
     </div>`;
 }
 
@@ -3236,29 +3308,18 @@ function renderDiscAdoption(s) {
     </div>`).join('');
 }
 
-function renderDiscScore(s) {
+function renderDiscFeedback(s) {
   return discHeader(s) + s.rows.map((r, i) => `
-    <div style="height:64px;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:0 14px;${i<3?'border-bottom:1px solid rgba(26,25,8,.05)':''}background:#fff">
+    <div style="height:66px;box-sizing:border-box;display:flex;align-items:center;gap:10px;padding:0 14px;${i<3?'border-bottom:1px solid rgba(26,25,8,.05)':''}background:#fff">
       <span style="font-size:9px;color:rgba(26,25,8,.2);width:14px;text-align:right;flex-shrink:0">#${i+1}</span>
       ${logoBox(r.domain, 28, 19, 5)}
-      <div style="flex:1;min-width:0">
-        <div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">
-          <span style="font-size:12px;font-weight:500;color:rgba(26,25,8,.82)">${r.name}</span>
-          ${r.peer ? '<span style="font-size:8.5px;padding:1px 6px;background:rgba(6,157,112,.1);color:#069D70;border-radius:2px;font-weight:500">Top score</span>' : ''}
+      <div style="flex:1;min-width:0;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:5px;margin-bottom:3px">
+          <span style="font-size:11.5px;font-weight:600;color:rgba(26,25,8,.82);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.name}</span>
+          ${r.peer ? '<span style="font-size:8px;padding:1px 5px;background:rgba(6,157,112,.1);color:#069D70;border-radius:2px;font-weight:500;flex-shrink:0">Peer</span>' : ''}
         </div>
-        <div style="display:flex;flex-direction:column;gap:1.5px">
-          ${r.subs.map(sub => `<div style="display:flex;align-items:center;gap:5px">
-            <span style="font-size:8px;color:rgba(26,25,8,.3);width:54px;flex-shrink:0">${sub.lbl}</span>
-            <div style="width:60px;height:3px;background:rgba(26,25,8,.08);border-radius:2px;overflow:hidden;flex-shrink:0">
-              <div class="disc-bar-anim" data-w="${sub.v}" style="height:100%;border-radius:2px;width:0%;background:${r.peer?'#06E5A0':'rgba(241,80,37,.55)'}"></div>
-            </div>
-            <span style="font-size:8px;color:rgba(26,25,8,.35)">${sub.v}</span>
-          </div>`).join('')}
-        </div>
-      </div>
-      <div style="text-align:right;flex-shrink:0;padding-left:6px">
-        <div style="font-size:22px;font-weight:200;color:${r.peer?'#069D70':'rgba(26,25,8,.6)'};letter-spacing:-.04em;line-height:1">${r.val}</div>
-        <div style="font-size:8px;color:rgba(26,25,8,.28)">/100</div>
+        <div style="font-size:9px;color:rgba(26,25,8,.65);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px">${r.quote}</div>
+        <div style="font-size:8.5px;color:rgba(26,25,8,.3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${r.co}</div>
       </div>
     </div>`).join('');
 }
@@ -3293,7 +3354,7 @@ function renderDiscGrowth(s) {
 
 function renderDisc(s) {
   let body;
-  if (s.tab === 'Score')       body = renderDiscScore(s);
+  if (s.tab === 'Feedback')    body = renderDiscFeedback(s);
   else if (s.tab === 'Growth') body = renderDiscGrowth(s);
   else                         body = renderDiscAdoption(s);
   return `<div class="disc-sidebar">${discSidebar(s.query)}</div><div style="flex:1;min-width:0;overflow:hidden;display:flex;flex-direction:column">${body}</div>`;
