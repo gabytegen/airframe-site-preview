@@ -326,6 +326,67 @@ body::after{
 .s4-footer{opacity:0;animation:up .3s ease forwards .48s}
 .trust-line{text-align:center;margin-top:11px;
   font-size:10.5px;font-weight:300;color:var(--t3);letter-spacing:.02em}
+
+/* ══════════════════
+   S1 intel preview
+══════════════════ */
+.intel-wrap{margin-bottom:16px;opacity:0;animation:up .4s ease forwards .9s}
+.intel-card{background:rgba(26,25,8,.02);border:1px solid var(--bdr);
+  border-radius:var(--r-card);padding:13px 15px;position:relative;overflow:hidden}
+.intel-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
+  background:linear-gradient(90deg,rgba(6,229,160,.6) 0%,transparent 65%)}
+.intel-head{display:flex;align-items:center;gap:6px;margin-bottom:11px;
+  font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
+.intel-pip{width:5px;height:5px;border-radius:50%;background:var(--mn);flex-shrink:0;
+  box-shadow:0 0 6px rgba(6,229,160,.55);animation:blink 2s ease infinite}
+.intel-rows{display:flex;flex-direction:column;gap:8px}
+.intel-row{display:flex;align-items:baseline;gap:10px}
+.intel-num{font-size:20px;font-weight:300;letter-spacing:-.04em;color:var(--t1);
+  min-width:46px;line-height:1}
+.intel-num.or{color:var(--or)}
+.intel-lbl{font-size:11.5px;font-weight:300;color:var(--t2);line-height:1.45}
+
+/* ══════════════════
+   S2 extras
+══════════════════ */
+.cat-filters{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:12px;
+  opacity:0;animation:up .26s ease forwards .14s}
+.cat-pill{font-size:10.5px;font-weight:400;padding:5px 11px;border-radius:var(--r-btn);
+  border:1px solid var(--bdr);background:var(--card);color:var(--t2);cursor:pointer;
+  transition:all .15s;box-shadow:var(--sh);white-space:nowrap}
+.cat-pill:hover{border-color:var(--bdrs);color:var(--t1)}
+.cat-pill.active{background:var(--t1);color:var(--bg);border-color:var(--t1)}
+
+.stack-built{display:flex;align-items:center;gap:8px;padding:9px 13px;
+  background:var(--card);border:1px solid var(--mn-bdr);border-radius:var(--r-card);
+  margin-bottom:10px;box-shadow:var(--sh);
+  opacity:0;transform:translateY(6px);pointer-events:none;
+  transition:opacity .28s ease,transform .28s cubic-bezier(.34,1.56,.64,1)}
+.stack-built.show{opacity:1;transform:none;pointer-events:all}
+.stack-built-lbl{font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--mn-t);flex-shrink:0}
+.sbl-logos{display:flex;gap:4px;flex:1;flex-wrap:wrap;align-items:center}
+.sbl-logo{width:22px;height:22px;border-radius:3px;position:relative;overflow:hidden;
+  flex-shrink:0;border:1px solid var(--bdr)}
+.sbl-fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-size:6px;font-weight:600;color:#fff}
+.sbl-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  opacity:0;transition:opacity .18s;padding:3px;background:#fff}
+.sbl-img.loaded{opacity:1}
+
+/* ══════════════════
+   S3 extras
+══════════════════ */
+.iopt-product{font-size:9px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;
+  padding:2px 7px;border-radius:2px;flex-shrink:0;align-self:flex-start}
+.iopt-product.disc{color:var(--or);border:1px solid rgba(241,80,37,.25);background:var(--or-bg)}
+.iopt-product.stu{color:var(--mn-t);border:1px solid var(--mn-bdr);background:var(--mn-bg)}
+.iopt-product.fol{color:rgba(26,25,8,.45);border:1px solid rgba(26,25,8,.15);background:rgba(26,25,8,.025)}
+.iopt-preview{font-size:11.5px;font-weight:300;color:var(--mn-t);margin-top:9px;
+  padding-top:9px;border-top:1px solid var(--mn-bdr);line-height:1.5;
+  max-height:0;overflow:hidden;opacity:0;
+  transition:max-height .25s ease,opacity .22s ease,margin .22s ease,padding .22s ease}
+.iopt.selected .iopt-preview{max-height:60px;opacity:1}
 </style>
 </head>
 <body>
@@ -397,6 +458,31 @@ body::after{
       Pulled from your LinkedIn and email
     </div>
 
+    <div class="intel-wrap">
+      <div class="intel-card">
+        <div class="intel-head">
+          <div class="intel-pip"></div>
+          <span id="intel-co-name">STRIPE</span>
+          <span style="opacity:.35">·</span>
+          <span>Live intelligence</span>
+        </div>
+        <div class="intel-rows">
+          <div class="intel-row">
+            <div class="intel-num">87</div>
+            <div class="intel-lbl">AI tools indexed in your segment</div>
+          </div>
+          <div class="intel-row">
+            <div class="intel-num or">2</div>
+            <div class="intel-lbl">critical gaps vs. Series E peers</div>
+          </div>
+          <div class="intel-row">
+            <div class="intel-num">2,841</div>
+            <div class="intel-lbl">fintech stacks to benchmark against</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="id-actions">
       <button class="btn btn-p" id="confirm-btn" onclick="confirmIdentity()">That's right →</button>
     </div>
@@ -430,9 +516,22 @@ body::after{
       autocomplete="off" oninput="filterTools(this.value)" />
   </div>
 
+  <div class="cat-filters" id="cat-filters">
+    <div class="cat-pill active" onclick="filterCat('all',this)">All</div>
+    <div class="cat-pill" onclick="filterCat('ai',this)">AI / ML</div>
+    <div class="cat-pill" onclick="filterCat('dev',this)">Dev Tools</div>
+    <div class="cat-pill" onclick="filterCat('data',this)">Data</div>
+    <div class="cat-pill" onclick="filterCat('productivity',this)">Productivity</div>
+  </div>
+
   <div class="suggest-lbl" id="suggest-lbl">Popular picks</div>
   <div class="tool-grid" id="tool-grid"></div>
   <div class="empty-msg" id="empty-msg">No tools found. Try a different name.</div>
+
+  <div class="stack-built" id="stack-built">
+    <div class="stack-built-lbl">Stack</div>
+    <div class="sbl-logos" id="sbl-logos"></div>
+  </div>
 
   <div class="stack-footer">
     <div class="stack-count-lbl" id="stack-count-lbl">Select the tools your team uses</div>
@@ -467,29 +566,41 @@ body::after{
       <div class="iopt-body">
         <div class="iopt-text">Evaluating our AI development tools</div>
         <div class="iopt-hint">Copilot, Cursor, or alternatives — what's right for us</div>
+        <div class="iopt-preview">87 AI development tools indexed in fintech, filtered to your scale and segment.</div>
       </div>
-      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+        <span class="iopt-product disc">Discover</span>
+      </div>
     </div>
     <div class="iopt" onclick="selectIntent(this,1)">
       <div class="iopt-body">
         <div class="iopt-text">Building our AI transformation roadmap</div>
         <div class="iopt-hint">Prioritizing what to build, buy, or cut</div>
+        <div class="iopt-preview">We'll open Studio with 3 decision templates pre-loaded for transformation planning.</div>
       </div>
-      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+        <span class="iopt-product stu">Studio</span>
+      </div>
     </div>
     <div class="iopt" onclick="selectIntent(this,2)">
       <div class="iopt-body">
         <div class="iopt-text">Understanding what peers are adopting</div>
         <div class="iopt-hint">What companies at our scale are running</div>
+        <div class="iopt-preview">2,841 fintech stacks mapped. See what Series E companies your size actually run.</div>
       </div>
-      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+        <span class="iopt-product disc">Discover</span>
+      </div>
     </div>
     <div class="iopt" onclick="selectIntent(this,3)">
       <div class="iopt-body">
         <div class="iopt-text">Rationalizing our AI tool spend</div>
         <div class="iopt-hint">Finding overlap, cutting waste, optimizing ROI</div>
+        <div class="iopt-preview">Folio maps what you own, what overlaps, and what to cut — against peer benchmarks.</div>
       </div>
-      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0">
+        <span class="iopt-product fol">Folio</span>
+      </div>
     </div>
   </div>
 
@@ -729,6 +840,9 @@ function confirmIdentity(){
   const btn=document.getElementById('confirm-btn');
   btn.innerHTML='<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 8.5 6.5 12 13 4" stroke-dasharray="16" stroke-dashoffset="16" style="animation:check .2s ease forwards .04s"></polyline></svg> Confirmed';
   btn.classList.add('done');
+  // update intel card with actual company
+  const intelCo=document.getElementById('intel-co-name');
+  if(intelCo) intelCo.textContent=state.company.toUpperCase();
   setTimeout(()=> advance('s1','s2', buildSuggestions), 680);
 }
 
@@ -768,6 +882,46 @@ function toggleTool(i, card){
   TOOLS[i].selected=!TOOLS[i].selected;
   card.classList.toggle('selected', TOOLS[i].selected);
   updateStackCount();
+  updateStackBuilt();
+}
+
+function updateStackBuilt(){
+  const selected=TOOLS.filter(t=>t.selected);
+  const strip=document.getElementById('stack-built');
+  const logos=document.getElementById('sbl-logos');
+  if(selected.length===0){ strip.classList.remove('show'); return; }
+  strip.classList.add('show');
+  logos.innerHTML='';
+  selected.forEach(t=>{
+    const wrap=document.createElement('div'); wrap.className='sbl-logo';
+    const fb=document.createElement('div'); fb.className='sbl-fb';
+    fb.style.background=t.color; fb.textContent=t.abbr; wrap.appendChild(fb);
+    const img=document.createElement('img'); img.className='sbl-img'; img.alt='';
+    img.onload=()=>img.classList.add('loaded');
+    img.src='https://www.google.com/s2/favicons?domain='+t.domain+'&sz=32';
+    wrap.appendChild(img); logos.appendChild(wrap);
+  });
+}
+
+const CAT_MAP={
+  'ai':   ['ai development','ai ide','ai platform','ai workspace'],
+  'dev':  ['ai development','ai ide','deployment','design'],
+  'data': ['data platform','data transform','observability'],
+  'productivity': ['project mgmt','communication','ai workspace']
+};
+
+function filterCat(cat, pill){
+  document.querySelectorAll('.cat-pill').forEach(p=>p.classList.remove('active'));
+  pill.classList.add('active');
+  const cards=document.getElementById('tool-grid').querySelectorAll('.tool-card');
+  cards.forEach(card=>{
+    if(cat==='all'){ card.classList.remove('hidden'); return; }
+    const cats=CAT_MAP[cat]||[];
+    const match=cats.some(c=>card.dataset.cat.includes(c));
+    card.classList.toggle('hidden',!match);
+  });
+  document.getElementById('suggest-lbl').textContent=cat==='all'?'Popular picks':'Results';
+  document.getElementById('search-inp').value='';
 }
 
 function updateStackCount(){
