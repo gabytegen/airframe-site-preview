@@ -4,93 +4,111 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Airframe — Welcome</title>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F8F9FC; --card:#FFFFFF; --hover:#F0F1F6;
-  --t1:#0C0C10; --t2:#3D3D48; --t3:#5C5C68;
-  --bdr:#E8EAED; --bdrs:#D2D6DC;
-  --or:#F15025; --or-bg:rgba(241,80,37,.06); --or-bdr:rgba(241,80,37,.22);
-  --mn:#06E5A0; --mn-t:#069D70; --mn-bg:rgba(6,229,160,.08); --mn-bdr:rgba(6,229,160,.25);
-  --vi:#5B4DB5; --vi-bg:rgba(91,77,181,.07);
-  --btn:#0C0C14; --btn-h:#222228;
-  --btn-s:0 2px 8px rgba(0,0,0,.18),0 1px 2px rgba(0,0,0,.08);
-  --btn-sh:0 4px 16px rgba(0,0,0,.24),0 1px 2px rgba(0,0,0,.1);
-  --sh:0 1px 3px rgba(0,0,0,.05),0 1px 2px rgba(0,0,0,.03);
-  --sh2:0 4px 16px rgba(0,0,0,.07),0 1px 3px rgba(0,0,0,.04);
-  --sh3:0 8px 32px rgba(0,0,0,.09),0 2px 6px rgba(0,0,0,.05);
-  --r-btn:3px; --r-card:6px; --r-lg:8px; --r-pill:6px;
+  --bg:#F6F2F0; --card:#FFFFFF;
+  --t1:#1A1908; --t2:#5C5B52; --t3:#9A9889;
+  --bdr:rgba(26,25,8,.09); --bdrs:rgba(26,25,8,.18);
+  --or:#F15025;
+  --or-bg:rgba(241,80,37,.05); --or-bdr:rgba(241,80,37,.3);
+  --mn:#06E5A0; --mn-t:#069D70;
+  --mn-bg:rgba(6,229,160,.07); --mn-bdr:rgba(6,229,160,.25);
+  --btn:#1A1908; --btn-h:#2E2D1C;
+  --btn-s:0 1px 4px rgba(26,25,8,.22),0 1px 2px rgba(26,25,8,.1);
+  --btn-sh:0 4px 14px rgba(26,25,8,.26),0 1px 3px rgba(26,25,8,.12);
+  --sh:0 1px 3px rgba(26,25,8,.07),0 1px 2px rgba(26,25,8,.04);
+  --sh2:0 4px 18px rgba(26,25,8,.09),0 1px 4px rgba(26,25,8,.05);
+  --sh3:0 8px 36px rgba(26,25,8,.11),0 2px 7px rgba(26,25,8,.06);
+  --r-btn:3px; --r-card:4px; --r-lg:6px;
 }
 html,body{height:100%;margin:0}
-body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;
-  background:var(--bg);color:var(--t1);overflow:hidden;font-size:14px;line-height:24px}
+body{
+  font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialiased;
+  background:var(--bg);color:var(--t1);overflow:hidden;
+  font-size:14px;line-height:1.6;font-weight:300;
+}
 
-/* ── step indicator ─── */
-.steps{position:fixed;top:20px;left:50%;transform:translateX(-50%);
-  display:flex;align-items:center;gap:5px;z-index:200;pointer-events:none}
-.sdot{height:5px;width:5px;border-radius:3px;background:rgba(0,0,0,.1);
-  transition:all .48s cubic-bezier(.34,1.56,.64,1)}
-.sdot.active{width:22px;background:var(--or)}
-.sdot.done{background:var(--mn)}
+/* ── dot grid bg ─────────────────── */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(26,25,8,.055) 1px, transparent 1px);
+  background-size:28px 28px;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 60% 40%, rgba(241,80,37,.055) 0%, transparent 58%);
+}
 
-/* ── bg ─────────────── */
-.bg-g1{position:fixed;pointer-events:none;z-index:0;width:700px;height:700px;
-  border-radius:50%;background:radial-gradient(circle,rgba(241,80,37,.022) 0%,transparent 60%);
-  top:50%;left:50%;transform:translate(-50%,-50%);animation:ga 16s ease-in-out infinite}
-.bg-g2{position:fixed;pointer-events:none;z-index:0;width:540px;height:540px;
-  border-radius:50%;background:radial-gradient(circle,rgba(6,229,160,.028) 0%,transparent 60%);
-  bottom:-100px;right:-80px;animation:gb 20s ease-in-out infinite}
-@keyframes ga{0%,100%{opacity:.6;transform:translate(-50%,-50%)}50%{opacity:1;transform:translate(-47%,-52%) scale(1.07)}}
-@keyframes gb{0%,100%{transform:scale(1)}50%{transform:scale(1.11) translate(-10px,-8px)}}
+/* ── step indicator ──────────────── */
+.steps{position:fixed;top:22px;left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:6px;z-index:200;pointer-events:none}
+.sdot{height:4px;width:4px;border-radius:2px;background:rgba(26,25,8,.14);
+  transition:all .45s cubic-bezier(.34,1.56,.64,1)}
+.sdot.active{width:20px;background:var(--or)}
+.sdot.done{background:var(--mn-t);opacity:.7}
 
-/* ── screens ─────────── */
+/* ── screens ─────────────────────── */
 .screen{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;padding:56px 20px 36px;overflow-y:auto;
+  align-items:center;justify-content:center;padding:60px 24px 40px;overflow-y:auto;
   opacity:0;pointer-events:none;
-  transition:opacity .28s ease,transform .28s ease;transform:translateY(8px)}
+  transition:opacity .26s ease,transform .26s ease;transform:translateY(7px)}
 .screen.on{opacity:1;pointer-events:all;transform:translateY(0)}
-.screen.out{opacity:0;transform:scale(.965) translateY(-8px)}
-#s2,#s4{justify-content:flex-start;padding-top:56px}
+.screen.out{opacity:0;transform:scale(.97) translateY(-6px)}
+#s2,#s4{justify-content:flex-start;padding-top:60px}
 .sw{width:100%;display:flex;flex-direction:column;align-items:stretch;margin:0 auto}
 
-/* ── keyframes ───────── */
-@keyframes up{from{opacity:0;transform:translateY(11px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pop{from{opacity:0;transform:scale(.82) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
+/* ── keyframes ───────────────────── */
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pop{from{opacity:0;transform:scale(.84) translateY(7px)}to{opacity:1;transform:scale(1) translateY(0)}}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.18}}
 @keyframes check{0%{stroke-dashoffset:16}100%{stroke-dashoffset:0}}
-@keyframes pulse-ring{0%,100%{transform:scale(1);opacity:.22}50%{transform:scale(1.05);opacity:.38}}
+@keyframes pulse-ring{0%,100%{transform:scale(1);opacity:.18}50%{transform:scale(1.06);opacity:.3}}
 
-/* ── shared ──────────── */
-.logo-wrap{text-align:center;margin-bottom:32px;opacity:0;animation:up .4s ease forwards .04s}
-.logo-mark{display:inline-flex;align-items:center;gap:7px;font-size:15px;font-weight:700;
-  letter-spacing:-.03em;color:var(--t1)}
-.topbar{display:flex;align-items:center;width:100%;margin-bottom:20px;
-  opacity:0;animation:up .26s ease forwards .04s}
+/* ── shared ──────────────────────── */
+.logo-wrap{text-align:center;margin-bottom:36px;opacity:0;animation:up .38s ease forwards .04s}
+.logo-mark{display:inline-flex;align-items:center;gap:7px;
+  font-size:15px;font-weight:500;letter-spacing:-.025em;color:var(--t1)}
+.logo-mark .dot{color:var(--or)}
+.topbar{display:flex;align-items:center;width:100%;margin-bottom:22px;
+  opacity:0;animation:up .24s ease forwards .04s}
 .back{font-size:12px;color:var(--t3);cursor:pointer;background:none;border:none;
-  font-family:inherit;padding:0;transition:color .16s;display:flex;align-items:center;gap:4px}
+  font-family:inherit;font-weight:300;padding:0;transition:color .15s;
+  display:flex;align-items:center;gap:4px;letter-spacing:.01em}
 .back:hover{color:var(--t1)}
-.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;
-  padding:3px 9px;border-radius:var(--r-pill);
+
+/* product badge (matches site .product-tag) */
+.ptag{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;border-radius:3px;padding:4px 11px;margin-bottom:4px}
+.ptag-or{color:var(--or);border:1px solid rgba(241,80,37,.28)}
+.ptag-gr{color:rgba(26,25,8,.42);border:1px solid rgba(26,25,8,.16)}
+.ptag-mn{color:var(--mn-t);border:1px solid rgba(6,229,160,.22)}
+
+/* eyebrow (matches site .eyebrow) */
+.eyebrow{font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--or);margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--or)}
+
+/* live badge */
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:500;
+  padding:3px 9px;border-radius:var(--r-btn);
   background:var(--mn-bg);color:var(--mn-t);border:1px solid var(--mn-bdr);letter-spacing:.01em}
 .badge .dot{width:4px;height:4px;border-radius:50%;background:var(--mn);animation:blink 2s ease infinite}
-.eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--mn-t);
-  margin-bottom:8px;display:flex;align-items:center;gap:8px}
-.eyebrow::before{content:'';width:11px;height:1px;background:var(--mn)}
-.h1{font-size:24px;font-weight:600;letter-spacing:-.035em;color:var(--t1);line-height:1.2}
-.sub{font-size:13px;color:var(--t2);margin-top:6px;line-height:1.6}
 
-/* ── buttons ─────────── */
-.btn{border:none;border-radius:var(--r-btn);font-size:13.5px;font-weight:500;
-  font-family:inherit;cursor:pointer;
-  transition:background .16s,box-shadow .16s,transform .14s cubic-bezier(.34,1.56,.64,1);
-  letter-spacing:-.01em;display:inline-flex;align-items:center;
-  justify-content:center;gap:6px;width:100%}
-.btn-p{background:var(--btn);color:#fff;padding:12px 24px;box-shadow:var(--btn-s)}
+.h1{font-size:26px;font-weight:300;letter-spacing:-.04em;color:var(--t1);line-height:1.15}
+.sub{font-size:14px;font-weight:300;color:var(--t2);margin-top:8px;line-height:1.65}
+
+/* ── buttons ─────────────────────── */
+.btn{border:none;border-radius:var(--r-btn);font-size:13px;font-weight:400;
+  font-family:inherit;cursor:pointer;letter-spacing:.02em;
+  transition:background .15s,box-shadow .15s,transform .13s cubic-bezier(.34,1.56,.64,1);
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%}
+.btn-p{background:var(--btn);color:var(--bg);padding:13px 24px;box-shadow:var(--btn-s)}
 .btn-p:hover{background:var(--btn-h);box-shadow:var(--btn-sh);transform:translateY(-1px)}
-.btn-p:active{transform:scale(.98) translateY(0);box-shadow:none;transition-duration:.08s}
-.btn-p.done{background:#1A9E68;box-shadow:0 2px 10px rgba(6,229,160,.18)}
-.btn-g{background:none;color:var(--t3);padding:10px 0;font-size:12px}
+.btn-p:active{transform:scale(.98) translateY(0);box-shadow:none;transition-duration:.07s}
+.btn-p.done{background:#156B46}
+.btn-g{background:none;color:var(--t3);padding:10px 0;font-size:12px;font-weight:300}
 .btn-g:hover{color:var(--t2)}
 
 
@@ -98,194 +116,216 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
    S1 — IDENTITY
 ══════════════════ */
 .id-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-lg);
-  padding:28px 22px 22px;box-shadow:var(--sh3);
-  opacity:0;animation:up .44s ease forwards .08s}
+  padding:30px 24px 24px;box-shadow:var(--sh3);
+  opacity:0;animation:up .42s ease forwards .08s}
 
-.av-wrap{position:relative;width:56px;margin:0 auto 4px;
+.av-wrap{position:relative;width:56px;margin:0 auto 6px;
   display:flex;align-items:center;justify-content:center}
-.av-r1{position:absolute;width:70px;height:70px;border-radius:50%;
-  border:1.5px solid rgba(241,80,37,.2);
-  animation:pulse-ring 2.6s ease-in-out infinite;top:-7px;left:-7px}
-.av-r2{position:absolute;width:86px;height:86px;border-radius:50%;
-  border:1px solid rgba(241,80,37,.09);
-  animation:pulse-ring 2.6s ease-in-out .8s infinite;top:-15px;left:-15px}
+.av-r1{position:absolute;width:72px;height:72px;border-radius:50%;
+  border:1px solid rgba(241,80,37,.18);
+  animation:pulse-ring 2.8s ease-in-out infinite;top:-8px;left:-8px}
+.av-r2{position:absolute;width:90px;height:90px;border-radius:50%;
+  border:1px solid rgba(241,80,37,.07);
+  animation:pulse-ring 2.8s ease-in-out .9s infinite;top:-17px;left:-17px}
 .avatar{width:56px;height:56px;border-radius:50%;background:var(--or);
   display:flex;align-items:center;justify-content:center;
-  font-size:18px;font-weight:700;color:#fff;position:relative;z-index:1}
+  font-size:17px;font-weight:500;color:#fff;position:relative;z-index:1;letter-spacing:-.01em}
 
-.id-name{font-size:26px;font-weight:600;letter-spacing:-.04em;
-  text-align:center;margin-top:16px;margin-bottom:3px;color:var(--t1)}
-.id-greeting{font-size:13px;color:var(--t2);text-align:center;margin-bottom:22px;line-height:1.5}
+.id-name{font-size:26px;font-weight:300;letter-spacing:-.04em;
+  text-align:center;margin-top:18px;margin-bottom:4px;color:var(--t1)}
+.id-greeting{font-size:13px;font-weight:300;color:var(--t2);text-align:center;margin-bottom:24px;line-height:1.55}
 
-.id-fields{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.id-fields{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
 .id-field{display:flex;align-items:center;justify-content:space-between;
-  padding:10px 12px;background:rgba(0,0,0,.016);border:1px solid var(--bdr);
-  border-radius:var(--r-card);transition:all .16s;cursor:pointer}
-.id-field:hover{border-color:var(--bdrs);background:rgba(0,0,0,.028)}
-.id-field.editing{border-color:var(--or-bdr);box-shadow:0 0 0 2.5px rgba(241,80,37,.08);background:var(--card)}
-.ifl{display:flex;align-items:center;gap:9px}
+  padding:11px 13px;background:rgba(26,25,8,.022);border:1px solid var(--bdr);
+  border-radius:var(--r-card);transition:all .15s;cursor:pointer}
+.id-field:hover{border-color:var(--bdrs)}
+.id-field.editing{border-color:rgba(241,80,37,.35);
+  box-shadow:0 0 0 2.5px rgba(241,80,37,.07)}
+.ifl{display:flex;align-items:center;gap:10px}
 .id-ico{width:26px;height:26px;border-radius:var(--r-card);
   display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .id-ico.co{background:var(--or-bg);color:var(--or)}
-.id-ico.ro{background:var(--vi-bg);color:var(--vi)}
-.id-lbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--t3);margin-bottom:1px}
-.id-val{font-size:13px;font-weight:500;color:var(--t1);line-height:1}
+.id-ico.ro{background:rgba(26,25,8,.05);color:var(--t2)}
+.id-lbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;
+  color:var(--t3);margin-bottom:1px;font-weight:500}
+.id-val{font-size:13px;font-weight:400;color:var(--t1);line-height:1}
 .id-inp{background:none;border:none;outline:none;font-family:inherit;
-  font-size:13px;font-weight:500;color:var(--t1);width:160px}
-.id-edit{font-size:10.5px;color:var(--t3);transition:color .16s;flex-shrink:0}
+  font-size:13px;font-weight:400;color:var(--t1);width:160px}
+.id-edit{font-size:10px;color:var(--t3);transition:color .15s;flex-shrink:0;
+  font-weight:400;letter-spacing:.03em}
 .id-field:hover .id-edit{color:var(--or)}
-.id-src{font-size:10.5px;color:var(--t3);text-align:center;margin-bottom:16px;
+.id-src{font-size:10px;font-weight:300;color:var(--t3);text-align:center;margin-bottom:18px;
   display:flex;align-items:center;justify-content:center;gap:5px;
-  opacity:0;animation:up .34s ease forwards .22s}
+  opacity:0;animation:up .3s ease forwards .22s}
 .id-actions{display:flex;flex-direction:column;gap:6px;
-  opacity:0;animation:up .34s ease forwards .28s}
+  opacity:0;animation:up .3s ease forwards .28s}
 
 
 /* ══════════════════
    S2 — BUILD STACK
 ══════════════════ */
-.stack-head{width:100%;margin-bottom:14px;opacity:0;animation:up .32s ease forwards .08s}
+.stack-head{width:100%;margin-bottom:16px;opacity:0;animation:up .3s ease forwards .08s}
 
 /* search */
-.stack-search{position:relative;width:100%;margin-bottom:14px;
-  opacity:0;animation:up .32s ease forwards .14s}
-.search-ico{position:absolute;left:11px;top:50%;transform:translateY(-50%);
-  color:var(--t3);pointer-events:none}
-.search-inp{width:100%;background:var(--card);border:1.5px solid var(--bdr);
-  border-radius:var(--r-card);padding:9px 12px 9px 34px;
-  font-size:13px;font-family:inherit;color:var(--t1);outline:none;
-  transition:border-color .18s,box-shadow .18s}
-.search-inp:focus{border-color:var(--or-bdr);box-shadow:0 0 0 2.5px rgba(241,80,37,.08)}
+.stack-search{display:flex;align-items:center;gap:10px;
+  background:var(--card);border:1px solid var(--bdr);
+  border-radius:var(--r-card);padding:0 14px;margin-bottom:12px;
+  transition:border-color .15s;box-shadow:var(--sh)}
+.stack-search:focus-within{border-color:var(--bdrs)}
+.search-ico{color:var(--t3);flex-shrink:0;display:flex}
+.search-inp{flex:1;background:none;border:none;outline:none;
+  font-family:inherit;font-size:13px;font-weight:300;color:var(--t1);
+  padding:12px 0;line-height:1}
 .search-inp::placeholder{color:var(--t3)}
 
-/* suggestions section */
-.suggest-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.09em;
-  color:var(--t3);font-weight:500;margin-bottom:8px;
-  opacity:0;animation:up .3s ease forwards .18s}
+/* suggest label */
+.suggest-lbl{font-size:10px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--t3);margin-bottom:8px;padding-left:1px}
 
-/* tool suggestion grid */
-.tool-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;
-  margin-bottom:14px}
-.tool-card{background:var(--card);border:1px solid var(--bdr);
-  border-radius:var(--r-card);padding:9px 11px;cursor:pointer;
-  transition:all .2s cubic-bezier(.34,1.56,.64,1);
-  display:flex;align-items:center;gap:9px;
-  opacity:0;animation:pop .28s cubic-bezier(.34,1.56,.64,1) forwards}
-.tool-card:hover{border-color:var(--bdrs);box-shadow:var(--sh2);
-  transform:translateY(-1px) scale(1.009)}
-.tool-card.selected{border-color:var(--mn-bdr);background:rgba(6,229,160,.04)}
-.tool-card.selected:hover{border-color:rgba(6,229,160,.42)}
+/* tool grid */
+.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px}
+.tool-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-card);
+  padding:10px 11px;cursor:pointer;display:flex;align-items:center;gap:9px;
+  transition:all .18s cubic-bezier(.34,1.56,.64,1);
+  opacity:0;animation:pop .3s ease forwards;box-shadow:var(--sh)}
+.tool-card:hover{border-color:var(--bdrs);transform:translateY(-1px);box-shadow:var(--sh2)}
+.tool-card.selected{border-color:var(--mn-bdr);background:rgba(6,229,160,.04);box-shadow:var(--sh)}
 .tool-card.hidden{display:none}
 
-/* layered logo tile */
-.tool-ico{width:28px;height:28px;border-radius:var(--r-card);flex-shrink:0;
-  position:relative;overflow:hidden;background:#fff;border:1px solid var(--bdr)}
+/* logo tile */
+.tool-ico{width:28px;height:28px;border-radius:var(--r-card);
+  flex-shrink:0;position:relative;overflow:hidden}
 .ico-fb{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-  font-size:10px;font-weight:700;color:#fff;letter-spacing:.01em;z-index:0}
-.ico-img{position:absolute;inset:0;width:100%;height:100%;
-  object-fit:contain;padding:4px;z-index:1;background:#fff;
-  opacity:0;transition:opacity .25s}
+  font-size:8px;font-weight:600;color:#fff;letter-spacing:-.01em;border-radius:var(--r-card)}
+.ico-img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+  opacity:0;transition:opacity .24s;border-radius:var(--r-card);padding:4px;background:#fff}
 .ico-img.loaded{opacity:1}
 
 .tool-info{flex:1;min-width:0}
-.tool-name{font-size:11.5px;font-weight:500;color:var(--t1);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-  line-height:1.2;margin-bottom:1.5px}
-.tool-cat{font-size:10px;color:var(--t3)}
-
-/* toggle indicator */
-.tool-toggle{width:18px;height:18px;border-radius:50%;flex-shrink:0;
+.tool-name{font-size:11.5px;font-weight:400;color:var(--t1);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.tool-cat{font-size:9.5px;font-weight:300;color:var(--t3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tool-toggle{width:17px;height:17px;border-radius:50%;border:1px solid var(--bdr);
   display:flex;align-items:center;justify-content:center;
-  border:1.5px solid var(--bdr);transition:all .18s;background:transparent;color:transparent}
+  flex-shrink:0;color:transparent;transition:all .18s}
 .tool-card.selected .tool-toggle{background:var(--mn);border-color:var(--mn);color:#fff}
 
 /* empty state */
-.empty-msg{text-align:center;padding:18px 0;font-size:12.5px;color:var(--t3);
+.empty-msg{text-align:center;padding:18px 0;font-size:12px;font-weight:300;color:var(--t3);
   display:none}
 .empty-msg.show{display:block}
 
 /* stack footer */
 .stack-footer{display:flex;flex-direction:column;gap:6px;width:100%;
-  opacity:0;animation:up .3s ease forwards .3s}
-.stack-count-lbl{font-size:11.5px;color:var(--t3);text-align:center;
-  min-height:18px;transition:color .2s}
-.stack-count-lbl.has-tools{color:var(--mn-t);font-weight:500}
+  opacity:0;animation:up .28s ease forwards .3s}
+.stack-count-lbl{font-size:11px;font-weight:300;color:var(--t3);text-align:center;
+  min-height:17px;transition:color .18s}
+.stack-count-lbl.has-tools{color:var(--mn-t);font-weight:400}
 
 
 /* ══════════════════
    S3 — INTENT
 ══════════════════ */
-.intent-head{width:100%;margin-bottom:18px;opacity:0;animation:up .32s ease forwards .08s}
-.intent-ctx{font-size:11px;color:var(--t3);margin-bottom:8px;
+.intent-head{width:100%;margin-bottom:20px;opacity:0;animation:up .3s ease forwards .08s}
+.intent-ctx{font-size:11px;font-weight:300;color:var(--t3);margin-bottom:8px;
   display:flex;align-items:center;gap:5px}
-.intent-opts{display:flex;flex-direction:column;gap:6px;width:100%;margin-bottom:16px}
+.intent-opts{display:flex;flex-direction:column;gap:6px;width:100%;margin-bottom:18px}
 .iopt{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-card);
-  padding:12px 14px;cursor:pointer;
+  padding:13px 15px;cursor:pointer;box-shadow:var(--sh);
   transition:all .2s cubic-bezier(.34,1.56,.64,1);
   display:flex;align-items:center;justify-content:space-between;
-  opacity:0;animation:up .32s ease forwards}
+  opacity:0;animation:up .3s ease forwards}
 .iopt:nth-child(1){animation-delay:.10s}
 .iopt:nth-child(2){animation-delay:.17s}
 .iopt:nth-child(3){animation-delay:.24s}
 .iopt:nth-child(4){animation-delay:.31s}
-.iopt:hover{border-color:var(--or-bdr);transform:translateX(3px)}
-.iopt.selected{border-color:var(--or);background:var(--or-bg);
-  box-shadow:0 0 0 2.5px rgba(241,80,37,.07)}
+.iopt:hover{border-color:var(--bdrs);transform:translateX(2px)}
+.iopt.selected{border-color:rgba(241,80,37,.32);background:rgba(241,80,37,.04);
+  box-shadow:0 0 0 2.5px rgba(241,80,37,.06)}
 .iopt-body{flex:1}
-.iopt-text{font-size:13px;font-weight:500;color:var(--t1);margin-bottom:2px}
-.iopt-hint{font-size:11px;color:var(--t3)}
-.iopt-arr{width:24px;height:24px;border-radius:50%;background:rgba(0,0,0,.04);
+.iopt-text{font-size:13px;font-weight:400;color:var(--t1);margin-bottom:2px}
+.iopt-hint{font-size:11px;font-weight:300;color:var(--t3)}
+.iopt-arr{width:22px;height:22px;border-radius:50%;background:rgba(26,25,8,.04);
   display:flex;align-items:center;justify-content:center;
-  color:var(--t3);transition:all .18s;flex-shrink:0}
+  color:var(--t3);transition:all .16s;flex-shrink:0}
 .iopt:hover .iopt-arr,.iopt.selected .iopt-arr{background:var(--or-bg);color:var(--or)}
 .intent-actions{display:flex;flex-direction:column;gap:6px;width:100%;
-  opacity:0;animation:up .32s ease forwards .36s}
+  opacity:0;animation:up .3s ease forwards .36s}
 
 
 /* ══════════════════
    S4 — PRODUCTS
 ══════════════════ */
-.s4-head{width:100%;margin-bottom:24px;opacity:0;animation:up .36s ease forwards .08s}
-.s4-head .h1{font-size:32px;font-weight:700;letter-spacing:-.04em}
-.s4-head .sub{font-size:15px;margin-top:8px}
-.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+.s4-head{width:100%;margin-bottom:28px;opacity:0;animation:up .34s ease forwards .08s}
+.s4-head .h1{font-size:clamp(26px,3vw,38px);font-weight:300;letter-spacing:-.04em}
+.s4-head .sub{font-size:15px;margin-top:10px;font-weight:300;line-height:1.6}
+
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
   width:100%;margin-bottom:20px}
-.prod-card{background:var(--card);border:1px solid var(--bdr);
-  border-top:3px solid transparent;border-radius:var(--r-lg);
-  padding:28px 24px 24px;display:flex;flex-direction:column;align-items:flex-start;
+
+.prod-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r-lg);
+  padding:28px 24px 26px;display:flex;flex-direction:column;align-items:flex-start;
   box-shadow:var(--sh2);opacity:0;
-  animation:pop .4s cubic-bezier(.34,1.56,.64,1) forwards;
+  animation:pop .42s cubic-bezier(.34,1.56,.64,1) forwards;
   transition:box-shadow .22s,transform .2s}
 .prod-card:hover{box-shadow:var(--sh3);transform:translateY(-3px)}
-.prod-card.discover{border-top-color:var(--or)}
-.prod-card.folio{border-top-color:var(--vi)}
-.prod-card.studio{border-top-color:var(--mn)}
 .prod-card:nth-child(1){animation-delay:.14s}
-.prod-card:nth-child(2){animation-delay:.23s}
-.prod-card:nth-child(3){animation-delay:.32s}
-.prod-icon{width:52px;height:52px;border-radius:10px;
-  display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.prod-icon.discover{background:rgba(241,80,37,.1);color:var(--or)}
-.prod-icon.folio{background:rgba(91,77,181,.1);color:var(--vi)}
-.prod-icon.studio{background:rgba(6,229,160,.12);color:var(--mn-t)}
-.prod-name{font-size:22px;font-weight:700;color:var(--t1);letter-spacing:-.035em;margin-bottom:4px}
-.prod-tag{font-size:10px;color:var(--t3);text-transform:uppercase;
-  letter-spacing:.1em;margin-bottom:14px;font-weight:600}
-.prod-body{font-size:14px;color:var(--t2);line-height:1.68;flex:1;margin-bottom:20px}
-.prod-stat{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:14px}
-.prod-stat.discover{color:var(--or)}
-.prod-stat.folio{color:var(--vi)}
-.prod-stat.studio{color:var(--mn-t)}
-.prod-link{font-size:14px;font-weight:600;display:inline-flex;
+.prod-card:nth-child(2){animation-delay:.24s}
+.prod-card:nth-child(3){animation-delay:.34s}
+
+/* mini mockup area */
+.prod-mockup{width:100%;border-radius:var(--r-card);overflow:hidden;
+  border:1px solid var(--bdr);margin-bottom:22px;height:100px;
+  background:rgba(26,25,8,.025);position:relative}
+.mock-bar{height:22px;display:flex;align-items:center;padding:0 10px;gap:5px;
+  border-bottom:1px solid var(--bdr)}
+.mock-dot{width:6px;height:6px;border-radius:50%}
+.mock-content{padding:9px 10px;display:flex;flex-direction:column;gap:5px}
+.mock-row{height:7px;border-radius:2px;background:rgba(26,25,8,.07)}
+.mock-row.w60{width:60%}
+.mock-row.w80{width:80%}
+.mock-row.w45{width:45%}
+.mock-row.accent{background:var(--or);opacity:.35;width:38%}
+.mock-row.accent-mn{background:var(--mn);opacity:.5;width:50%}
+.mock-tabs{display:flex;gap:4px;padding:5px 10px;border-bottom:1px solid var(--bdr)}
+.mock-tab{font-size:8px;padding:2px 7px;border-radius:2px;color:rgba(26,25,8,.38);
+  font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.02em}
+.mock-tab.active{background:var(--or-bg);color:var(--or);border:1px solid rgba(241,80,37,.2)}
+.mock-tab.active-vi{background:rgba(26,25,8,.04);color:rgba(26,25,8,.55);border:1px solid rgba(26,25,8,.12)}
+.mock-tab.active-mn{background:var(--mn-bg);color:var(--mn-t);border:1px solid var(--mn-bdr)}
+.mock-result{display:flex;align-items:center;gap:6px;padding:4px 10px}
+.mock-logo{width:12px;height:12px;border-radius:2px;flex-shrink:0}
+.mock-lines{flex:1;display:flex;flex-direction:column;gap:2px}
+.mock-line{height:5px;border-radius:2px;background:rgba(26,25,8,.09)}
+.mock-pct{font-size:7.5px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:500;color:var(--mn-t);letter-spacing:-.01em}
+.mock-score{font-size:18px;font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:300;color:var(--t1);letter-spacing:-.04em;line-height:1}
+.mock-score-sub{font-size:7px;font-family:'Plus Jakarta Sans',sans-serif;
+  color:var(--t3);margin-top:1px;letter-spacing:.06em;text-transform:uppercase}
+
+.prod-name{font-size:22px;font-weight:300;color:var(--t1);letter-spacing:-.04em;
+  margin-bottom:3px;margin-top:2px}
+.prod-tag{font-size:9.5px;color:var(--t3);text-transform:uppercase;
+  letter-spacing:.1em;margin-bottom:12px;font-weight:500}
+.prod-body{font-size:13.5px;font-weight:300;color:var(--t2);line-height:1.68;
+  flex:1;margin-bottom:18px}
+.prod-stat{font-size:14px;font-weight:500;letter-spacing:-.01em;margin-bottom:14px}
+.prod-stat.disc{color:var(--or)}
+.prod-stat.fol{color:rgba(26,25,8,.5)}
+.prod-stat.stu{color:var(--mn-t)}
+.prod-link{font-size:13px;font-weight:400;display:inline-flex;
   align-items:center;gap:4px;cursor:pointer;background:none;border:none;
-  font-family:inherit;padding:0;transition:opacity .14s,gap .16s}
-.prod-link:hover{opacity:.65;gap:7px}
-.prod-link.discover{color:var(--or)}
-.prod-link.folio{color:var(--vi)}
-.prod-link.studio{color:var(--mn-t)}
-.s4-footer{opacity:0;animation:up .34s ease forwards .46s}
-.trust-line{text-align:center;margin-top:10px;
-  font-size:11px;color:var(--t3);letter-spacing:.01em}
+  font-family:inherit;padding:0;transition:opacity .13s,gap .15s;letter-spacing:.01em}
+.prod-link:hover{opacity:.6;gap:7px}
+.prod-link.disc{color:var(--or)}
+.prod-link.fol{color:rgba(26,25,8,.48)}
+.prod-link.stu{color:var(--mn-t)}
+
+.s4-footer{opacity:0;animation:up .3s ease forwards .48s}
+.trust-line{text-align:center;margin-top:11px;
+  font-size:10.5px;font-weight:300;color:var(--t3);letter-spacing:.02em}
 </style>
 </head>
 <body>
@@ -296,22 +336,20 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
   <div class="sdot" id="d3"></div>
   <div class="sdot" id="d4"></div>
 </div>
-<div class="bg-g1"></div>
-<div class="bg-g2"></div>
 
 
 <!-- ══ S1: IDENTITY ════════════════════════ -->
 <div id="s1" class="screen">
-<div class="sw" style="max-width:370px">
+<div class="sw" style="max-width:380px">
 
   <div class="logo-wrap">
     <div class="logo-mark">
-      <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
         <polygon fill="currentColor" points="4 11.46 1.97 14.92 14 14.92 12 11.46 4 11.46"/>
         <polygon fill="currentColor" points="8 4.54 10 1.08 6 1.08 0 11.46 4 11.46 8 4.54"/>
         <polygon fill="currentColor" points="12 11.46 16 11.46 12 4.54 8 4.54 12 11.46"/>
       </svg>
-      Airframe
+      Airframe<span class="dot">.</span>
     </div>
   </div>
 
@@ -355,7 +393,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
     </div>
 
     <div class="id-src">
-      <svg width="11" height="11" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".4"><rect x="2" y="2" width="14" height="14" rx="2"/><circle cx="6.5" cy="7.5" r="1.5"/><path d="M2 13l4-3.5 3 3 3.5-4 3.5 5"/></svg>
+      <svg width="10" height="10" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity=".38"><path d="M9 2C4.58 2 1 5.58 1 10s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 3v4l3 3"/></svg>
       Pulled from your LinkedIn and email
     </div>
 
@@ -369,11 +407,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 
 <!-- ══ S2: BUILD STACK ══════════════════════ -->
 <div id="s2" class="screen">
-<div class="sw" style="max-width:520px">
+<div class="sw" style="max-width:540px">
 
   <div class="topbar">
     <button class="back" onclick="goBack('s2','s1')">
-      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+      <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
       Back
     </button>
   </div>
@@ -386,7 +424,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 
   <div class="stack-search">
     <div class="search-ico">
-      <svg width="13" height="13" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M12.5 12.5l3 3"/></svg>
+      <svg width="13" height="13" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M12.5 12.5l3 3"/></svg>
     </div>
     <input class="search-inp" id="search-inp" placeholder="Search 17,000+ tools…"
       autocomplete="off" oninput="filterTools(this.value)" />
@@ -407,18 +445,18 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 
 <!-- ══ S3: INTENT ════════════════════════════ -->
 <div id="s3" class="screen">
-<div class="sw" style="max-width:440px">
+<div class="sw" style="max-width:460px">
 
   <div class="topbar">
     <button class="back" onclick="goBack('s3','s2')">
-      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+      <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
       Back
     </button>
   </div>
 
   <div class="intent-head">
     <div class="intent-ctx">
-      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"/><path d="M6 4v2.5l1.5 1"/></svg>
+      <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="6" cy="6" r="4.5"/><path d="M6 4v2.5l1.5 1"/></svg>
       <span id="intent-ctx-text">For a CTO at Stripe</span>
     </div>
     <div class="h1">What's your most pressing<br>AI decision right now?</div>
@@ -430,33 +468,33 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
         <div class="iopt-text">Evaluating our AI development tools</div>
         <div class="iopt-hint">Copilot, Cursor, or alternatives — what's right for us</div>
       </div>
-      <div class="iopt-arr"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg></div>
+      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
     </div>
     <div class="iopt" onclick="selectIntent(this,1)">
       <div class="iopt-body">
         <div class="iopt-text">Building our AI transformation roadmap</div>
         <div class="iopt-hint">Prioritizing what to build, buy, or cut</div>
       </div>
-      <div class="iopt-arr"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg></div>
+      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
     </div>
     <div class="iopt" onclick="selectIntent(this,2)">
       <div class="iopt-body">
         <div class="iopt-text">Understanding what peers are adopting</div>
         <div class="iopt-hint">What companies at our scale are running</div>
       </div>
-      <div class="iopt-arr"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg></div>
+      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
     </div>
     <div class="iopt" onclick="selectIntent(this,3)">
       <div class="iopt-body">
         <div class="iopt-text">Rationalizing our AI tool spend</div>
         <div class="iopt-hint">Finding overlap, cutting waste, optimizing ROI</div>
       </div>
-      <div class="iopt-arr"><svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 11L11 3M11 3H5M11 3v6"/></svg></div>
+      <div class="iopt-arr"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg></div>
     </div>
   </div>
 
   <div class="intent-actions">
-    <button class="btn btn-p" id="intent-btn" onclick="toS4()" disabled style="opacity:.34;cursor:not-allowed">
+    <button class="btn btn-p" id="intent-btn" onclick="toS4()" disabled style="opacity:.3;cursor:not-allowed">
       Continue →
     </button>
     <button class="btn btn-g" onclick="toS4()">Skip for now</button>
@@ -467,11 +505,11 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 
 <!-- ══ S4: PRODUCTS ════════════════════════ -->
 <div id="s4" class="screen">
-<div class="sw" style="max-width:920px">
+<div class="sw" style="max-width:940px">
 
   <div class="topbar">
     <button class="back" onclick="goBack('s4','s3')">
-      <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
+      <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M9 2L4 7l5 5"/></svg>
       Back
     </button>
     <div style="flex:1"></div>
@@ -485,44 +523,140 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
   </div>
 
   <div class="prod-grid">
-    <div class="prod-card discover">
-      <div class="prod-icon discover">
-        <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M12.5 12.5l3 3"/></svg>
+
+    <!-- DISCOVER -->
+    <div class="prod-card">
+      <span class="ptag ptag-or">Discover</span>
+
+      <!-- mini mockup -->
+      <div class="prod-mockup">
+        <div class="mock-bar">
+          <div class="mock-dot" style="background:#E05252"></div>
+          <div class="mock-dot" style="background:#E0A050"></div>
+          <div class="mock-dot" style="background:#50C850"></div>
+          <div style="flex:1;height:10px;background:rgba(26,25,8,.05);border-radius:2px;margin:0 8px"></div>
+        </div>
+        <div class="mock-tabs">
+          <div class="mock-tab active">Discover</div>
+          <div class="mock-tab">Folio</div>
+          <div class="mock-tab">Studio</div>
+        </div>
+        <div class="mock-result">
+          <div class="mock-logo" style="background:rgba(26,25,8,.08)"></div>
+          <div class="mock-lines">
+            <div class="mock-line" style="width:55%"></div>
+            <div class="mock-line" style="width:38%;background:rgba(241,80,37,.2)"></div>
+          </div>
+          <div class="mock-pct">+310%</div>
+        </div>
+        <div class="mock-result">
+          <div class="mock-logo" style="background:rgba(26,25,8,.06)"></div>
+          <div class="mock-lines">
+            <div class="mock-line" style="width:48%"></div>
+            <div class="mock-line" style="width:30%"></div>
+          </div>
+          <div class="mock-pct">+180%</div>
+        </div>
       </div>
+
       <div class="prod-name">Discover</div>
       <div class="prod-tag">Market intel</div>
       <div class="prod-body">What the AI market is adopting right now, filtered to your stack and segment.</div>
-      <div class="prod-stat discover">17,000+ tools</div>
-      <button class="prod-link discover" onclick="alert('Opening Discover…')">
+      <div class="prod-stat disc">17,000+ tools</div>
+      <button class="prod-link disc" onclick="alert('Opening Discover…')">
         Explore <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
     </div>
 
-    <div class="prod-card folio">
-      <div class="prod-icon folio">
-        <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="4" width="14" height="11" rx="1.5"/><path d="M6 4V3a1 1 0 011-1h4a1 1 0 011 1v1M2 8h14"/></svg>
+    <!-- FOLIO -->
+    <div class="prod-card">
+      <span class="ptag ptag-gr">Folio</span>
+
+      <!-- mini mockup -->
+      <div class="prod-mockup">
+        <div class="mock-bar">
+          <div class="mock-dot" style="background:#E05252"></div>
+          <div class="mock-dot" style="background:#E0A050"></div>
+          <div class="mock-dot" style="background:#50C850"></div>
+          <div style="flex:1;height:10px;background:rgba(26,25,8,.05);border-radius:2px;margin:0 8px"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:45% 55%;height:78px">
+          <div style="border-right:1px solid var(--bdr);padding:8px 10px">
+            <div style="font-size:8px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:6px">AI SCORE</div>
+            <div class="mock-score">71<span style="font-size:10px;color:var(--t3)">/100</span></div>
+            <div class="mock-score-sub">68th percentile</div>
+          </div>
+          <div style="padding:8px 10px;display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:7.5px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:3px">TECH STACK</div>
+            <div class="mock-result" style="padding:0;gap:5px">
+              <div class="mock-logo" style="background:rgba(241,80,37,.25)"></div>
+              <div class="mock-line" style="flex:1;width:auto"></div>
+            </div>
+            <div class="mock-result" style="padding:0;gap:5px">
+              <div class="mock-logo" style="background:rgba(26,25,8,.1)"></div>
+              <div class="mock-line" style="flex:1;width:auto"></div>
+            </div>
+            <div class="mock-result" style="padding:0;gap:5px">
+              <div class="mock-logo" style="background:rgba(6,229,160,.35)"></div>
+              <div class="mock-line" style="flex:1;width:auto"></div>
+            </div>
+          </div>
+        </div>
       </div>
+
       <div class="prod-name">Folio</div>
       <div class="prod-tag">Stack mgmt</div>
       <div class="prod-body">Everything your company runs and evaluates, benchmarked against peers.</div>
-      <div class="prod-stat folio">140,000+ stacks</div>
-      <button class="prod-link folio" onclick="alert('Opening Folio…')">
+      <div class="prod-stat fol">140,000+ stacks</div>
+      <button class="prod-link fol" onclick="alert('Opening Folio…')">
         View stack <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
     </div>
 
-    <div class="prod-card studio">
-      <div class="prod-icon studio">
-        <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="2" width="12" height="14" rx="1.5"/><path d="M6 6h6M6 9h6M6 12h4"/></svg>
+    <!-- STUDIO -->
+    <div class="prod-card">
+      <span class="ptag ptag-mn">Studio</span>
+
+      <!-- mini mockup -->
+      <div class="prod-mockup">
+        <div class="mock-bar">
+          <div class="mock-dot" style="background:#E05252"></div>
+          <div class="mock-dot" style="background:#E0A050"></div>
+          <div class="mock-dot" style="background:#50C850"></div>
+          <div style="flex:1;height:10px;background:rgba(26,25,8,.05);border-radius:2px;margin:0 8px"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:44% 56%;height:78px">
+          <div style="border-right:1px solid var(--bdr);padding:8px 10px;display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:7.5px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:4px">INITIATIVES</div>
+            <div style="display:flex;align-items:center;gap:5px">
+              <div style="width:5px;height:5px;border-radius:50%;background:var(--or)"></div>
+              <div class="mock-line" style="flex:1;width:auto"></div>
+              <div style="font-size:7px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--or);font-weight:500">Critical</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px">
+              <div style="width:5px;height:5px;border-radius:50%;background:var(--mn)"></div>
+              <div class="mock-line" style="flex:1;width:auto"></div>
+              <div style="font-size:7px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--mn-t);font-weight:500">Active</div>
+            </div>
+          </div>
+          <div style="padding:8px 10px">
+            <div style="font-size:7.5px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--t3);margin-bottom:5px">AI INTELLIGENCE</div>
+            <div style="font-size:15px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:300;color:var(--mn-t);letter-spacing:-.03em;line-height:1">68%</div>
+            <div class="mock-line" style="width:90%;margin-top:5px"></div>
+            <div class="mock-line" style="width:70%;margin-top:3px"></div>
+          </div>
+        </div>
       </div>
+
       <div class="prod-name">Studio</div>
       <div class="prod-tag">Decision briefs</div>
       <div class="prod-body">AI decisions structured and decided. Context already loaded, every time.</div>
-      <div class="prod-stat studio">12,000+ use cases</div>
-      <button class="prod-link studio" onclick="alert('Opening Studio…')">
+      <div class="prod-stat stu">12,000+ use cases</div>
+      <button class="prod-link stu" onclick="alert('Opening Studio…')">
         Open Studio <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
     </div>
+
   </div>
 
   <div class="s4-footer">
@@ -557,7 +691,7 @@ const TOOLS = [
 
 /* ── nav ─────────────────────────────── */
 function show(id){ document.getElementById(id).classList.add('on'); updateSteps(id); }
-function hide(id,cb){ const el=document.getElementById(id); el.classList.add('out'); setTimeout(()=>{ el.classList.remove('on','out'); if(cb) cb(); }, 280); }
+function hide(id,cb){ const el=document.getElementById(id); el.classList.add('out'); setTimeout(()=>{ el.classList.remove('on','out'); if(cb) cb(); }, 260); }
 function goBack(f,t){ hide(f, ()=>show(t)); }
 function advance(f,t,cb){ hide(f, ()=>{ show(t); if(cb) cb(); }); }
 
@@ -608,9 +742,8 @@ function buildSuggestions(){
     card.dataset.index=i;
     card.dataset.name=t.name.toLowerCase();
     card.dataset.cat=t.cat.toLowerCase();
-    card.style.animationDelay=(i*55)+'ms';
+    card.style.animationDelay=(i*50)+'ms';
 
-    // logo tile
     const ico=document.createElement('div'); ico.className='tool-ico';
     const fb=document.createElement('div'); fb.className='ico-fb';
     fb.style.background=t.color; fb.textContent=t.abbr; ico.appendChild(fb);
@@ -656,16 +789,14 @@ function filterTools(q){
   const query=q.toLowerCase().trim();
   const grid=document.getElementById('tool-grid');
   const cards=grid.querySelectorAll('.tool-card');
-  const lbl=document.getElementById('suggest-lbl');
   let visible=0;
   cards.forEach(card=>{
     const match=!query||card.dataset.name.includes(query)||card.dataset.cat.includes(query);
     card.classList.toggle('hidden',!match);
     if(match) visible++;
   });
-  lbl.textContent=query ? 'Results' : 'Popular picks';
-  const msg=document.getElementById('empty-msg');
-  msg.classList.toggle('show', visible===0 && query.length>0);
+  document.getElementById('suggest-lbl').textContent=query?'Results':'Popular picks';
+  document.getElementById('empty-msg').classList.toggle('show', visible===0 && query.length>0);
 }
 
 /* ── S3 ──────────────────────────────── */
