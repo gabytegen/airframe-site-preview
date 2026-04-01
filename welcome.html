@@ -508,8 +508,8 @@ body::after{
 .dest-card:nth-child(2){animation-delay:.24s}
 .dest-card:nth-child(3){animation-delay:.34s}
 .dest-card.folio:hover{border-color:rgba(12,12,20,.16)}
-.dest-card.memory:hover{border-color:rgba(241,80,37,.2)}
-.dest-card.home:hover{border-color:var(--mn-bdr)}
+.dest-card.discover:hover{border-color:rgba(241,80,37,.2)}
+.dest-card.studio:hover{border-color:var(--mn-bdr)}
 
 .dest-mockup{width:100%;border-radius:var(--r-card);overflow:hidden;
   border:1px solid var(--bdr);margin-bottom:20px;height:96px;
@@ -518,8 +518,8 @@ body::after{
 .dest-tag{font-size:9.5px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;
   margin-bottom:8px;padding:3px 9px;border-radius:2px;display:inline-block}
 .dest-tag.folio{color:rgba(12,12,20,.48);border:1px solid rgba(12,12,20,.15);background:rgba(12,12,20,.03)}
-.dest-tag.memory{color:var(--or);border:1px solid rgba(241,80,37,.25);background:var(--or-bg)}
-.dest-tag.home{color:var(--mn-t);border:1px solid var(--mn-bdr);background:var(--mn-bg)}
+.dest-tag.discover{color:var(--or);border:1px solid rgba(241,80,37,.25);background:var(--or-bg)}
+.dest-tag.studio{color:var(--mn-t);border:1px solid var(--mn-bdr);background:var(--mn-bg)}
 
 .dest-name{font-size:20px;font-weight:300;color:var(--t1);letter-spacing:-.04em;
   margin-bottom:6px}
@@ -530,8 +530,8 @@ body::after{
   font-family:inherit;cursor:pointer;transition:opacity .13s,gap .15s;letter-spacing:.01em}
 .dest-cta:hover{opacity:.6;gap:7px}
 .dest-cta.folio{color:rgba(12,12,20,.55)}
-.dest-cta.memory{color:var(--or)}
-.dest-cta.home{color:var(--mn-t)}
+.dest-cta.discover{color:var(--or)}
+.dest-cta.studio{color:var(--mn-t)}
 
 .dest-footer{opacity:0;animation:up .3s ease forwards .48s;text-align:center}
 .dest-trust{font-size:10.5px;font-weight:300;color:var(--t3);letter-spacing:.02em}
@@ -953,7 +953,7 @@ body::after{
   <div class="dest-head">
     <div class="eyebrow">Your workspace</div>
     <div class="h1">Where do you want to go first?</div>
-    <div class="sub">Your stack is mapped. Start here.</div>
+    <div class="sub">Three products. Start with whichever matters most right now.</div>
   </div>
 
   <div class="dest-grid">
@@ -993,16 +993,16 @@ body::after{
       </div>
 
       <span class="dest-tag folio">Folio</span>
-      <div class="dest-name">See your stack.</div>
-      <div class="dest-body">We mapped what Stripe runs. Compare against 140,000+ companies, add what's missing, track what's under evaluation.</div>
+      <div class="dest-name">Build your stack.</div>
+      <div class="dest-body">Add what your team runs. Track what's under evaluation. Benchmark against 140,000+ company stacks.</div>
       <button class="dest-cta folio">
         Go to Folio <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
     </div>
 
-    <!-- MEMORY -->
-    <div class="dest-card memory" onclick="goToApp('memory')">
-      <!-- mini mockup -->
+    <!-- DISCOVER -->
+    <div class="dest-card discover" onclick="goToApp('discover')">
+      <!-- mini mockup: search results -->
       <div class="dest-mockup">
         <div class="mock-bar">
           <div class="mock-dot" style="background:#E05252"></div>
@@ -1010,30 +1010,35 @@ body::after{
           <div class="mock-dot" style="background:#50C850"></div>
           <div style="flex:1;height:9px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
         </div>
-        <div style="padding:10px 11px;display:flex;flex-direction:column;gap:6px">
-          <div style="font-size:7.5px;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:2px">CONTEXT</div>
-          <div style="display:flex;align-items:center;gap:7px">
-            <div style="width:18px;height:18px;border-radius:3px;background:var(--or-bg);border:1px solid rgba(241,80,37,.2);flex-shrink:0"></div>
-            <div style="display:flex;flex-direction:column;gap:2px;flex:1">
-              <div class="mock-line" style="width:80%;background:rgba(241,80,37,.2)"></div>
-              <div class="mock-line" style="width:55%"></div>
-            </div>
+        <div style="padding:7px 10px;display:flex;flex-direction:column;gap:5px">
+          <div style="display:flex;align-items:center;gap:6px;padding:4px 8px;background:rgba(12,12,20,.03);border:1px solid var(--bdr);border-radius:3px">
+            <svg width="8" height="8" viewBox="0 0 12 12" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round"><circle cx="5" cy="5" r="3.5"/><path d="M8 8l2 2"/></svg>
+            <div class="mock-line" style="flex:1;width:auto;background:rgba(12,12,20,.07)"></div>
           </div>
-          <div style="display:flex;align-items:center;gap:7px">
-            <div style="width:18px;height:18px;border-radius:3px;background:rgba(12,12,20,.04);border:1px solid var(--bdr);flex-shrink:0"></div>
-            <div style="display:flex;flex-direction:column;gap:2px;flex:1">
-              <div class="mock-line" style="width:65%"></div>
-              <div class="mock-line" style="width:40%"></div>
+          <div class="mock-result" style="padding:0;gap:6px">
+            <div class="mock-logo" style="background:rgba(241,80,37,.25)"></div>
+            <div class="mock-lines" style="flex:1">
+              <div class="mock-line" style="width:70%"></div>
+              <div class="mock-line" style="width:45%"></div>
             </div>
+            <div class="mock-pct">+310%</div>
+          </div>
+          <div class="mock-result" style="padding:0;gap:6px">
+            <div class="mock-logo" style="background:rgba(16,163,127,.3)"></div>
+            <div class="mock-lines" style="flex:1">
+              <div class="mock-line" style="width:55%"></div>
+              <div class="mock-line" style="width:38%"></div>
+            </div>
+            <div class="mock-pct">+180%</div>
           </div>
         </div>
       </div>
 
-      <span class="dest-tag memory">Memory</span>
-      <div class="dest-name">Teach Airframe your business.</div>
-      <div class="dest-body">Active initiatives, budget, team priorities. What you add here shapes every answer you get.</div>
-      <button class="dest-cta memory">
-        Open Memory <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
+      <span class="dest-tag discover">Discover</span>
+      <div class="dest-name">What are your peers running?</div>
+      <div class="dest-body">Search 17,000+ AI tools across 140,000+ company stacks. Find what's being adopted at your scale, right now.</div>
+      <button class="dest-cta discover">
+        Go to Discover <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
     </div>
 
@@ -1071,11 +1076,11 @@ body::after{
         </div>
       </div>
 
-      <span class="dest-tag home">Home</span>
-      <div class="dest-name">What are your peers running?</div>
-      <div class="dest-body">Search 17,000+ tools. Ask what companies at your scale are adopting. Find out what's moving, and why.</div>
-      <button class="dest-cta home">
-        Start searching <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
+      <span class="dest-tag studio">Studio</span>
+      <div class="dest-name">Ask about any AI decision.</div>
+      <div class="dest-body">Evaluating a tool? Mapping a roadmap? Start a conversation. Studio knows your stack and your market.</div>
+      <button class="dest-cta studio">
+        Open Studio <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
       </button>
     </div>
 
