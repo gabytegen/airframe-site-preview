@@ -428,8 +428,8 @@ body::after{
     <div class="id-fields">
       <div class="id-field" onclick="editField('company')" id="field-company">
         <div class="ifl">
-          <div class="id-ico co">
-            <svg width="12" height="12" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M5 7V5a4 4 0 018 0v2"/></svg>
+          <div class="id-ico co" id="co-logo" style="overflow:hidden;padding:0;background:var(--or-bg)">
+            <svg id="co-logo-fallback" width="12" height="12" viewBox="0 0 18 18" fill="none" stroke="var(--or)" stroke-width="1.7" stroke-linecap="round" style="position:absolute"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M5 7V5a4 4 0 018 0v2"/></svg>
           </div>
           <div>
             <div class="id-lbl">Company</div>
@@ -779,6 +779,23 @@ function updateSteps(id){
   });
 }
 
+/* ── company logo ────────────────────── */
+function loadCompanyLogo(name){
+  const wrap=document.getElementById('co-logo');
+  if(!wrap) return;
+  const domain=name.toLowerCase().replace(/\s+/g,'')+'.com';
+  // remove any existing img
+  const old=wrap.querySelector('img');
+  if(old) old.remove();
+  const fb=document.getElementById('co-logo-fallback');
+  const img=document.createElement('img');
+  img.style.cssText='width:100%;height:100%;object-fit:contain;padding:3px;opacity:0;transition:opacity .2s;position:relative;z-index:1;background:#fff;border-radius:var(--r-card)';
+  img.onload=()=>{ img.style.opacity='1'; if(fb) fb.style.opacity='0'; wrap.style.background='#fff'; };
+  img.onerror=()=>{ img.remove(); if(fb) fb.style.opacity='1'; wrap.style.background='var(--or-bg)'; };
+  img.src='https://logo.clearbit.com/'+domain;
+  wrap.appendChild(img);
+}
+
 /* ── S1 ──────────────────────────────── */
 function editField(key){
   const valEl=document.getElementById(key+'-val');
@@ -797,6 +814,7 @@ function editField(key){
   }
   inp.addEventListener('blur', save);
   inp.addEventListener('keydown', e=>{ if(e.key==='Enter') inp.blur(); });
+  if(key==='company') inp.addEventListener('blur', ()=>loadCompanyLogo(inp.value||prev));
 }
 
 function confirmIdentity(){
@@ -936,6 +954,7 @@ function selectIntent(el,idx){
 function toS4(){ advance('s3','s4'); }
 
 show('s1');
+loadCompanyLogo(state.company);
 </script>
 </body>
 </html>
