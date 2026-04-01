@@ -535,6 +535,97 @@ body::after{
 
 .dest-footer{opacity:0;animation:up .3s ease forwards .48s;text-align:center}
 .dest-trust{font-size:10.5px;font-weight:300;color:var(--t3);letter-spacing:.02em}
+
+/* coming soon card */
+.dest-card.coming-soon{cursor:default;opacity:.58}
+.dest-card.coming-soon:hover{transform:none;box-shadow:var(--sh2)}
+.cs-badge{display:inline-flex;align-items:center;gap:4px;font-size:9px;font-weight:500;
+  letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:2px;
+  background:rgba(12,12,20,.06);color:var(--t3);border:1px solid var(--bdr);
+  position:absolute;top:8px;right:8px}
+.dest-cta.disabled{color:var(--t3);pointer-events:none;opacity:.5}
+
+
+/* ══════════════════
+   COMPANY SEARCH DROPDOWN
+══════════════════ */
+.co-search-wrap{position:relative}
+.co-dropdown{position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:50;
+  background:var(--card);border:1px solid var(--bdrs);border-radius:var(--r-card);
+  box-shadow:var(--sh3);overflow:hidden;
+  opacity:0;transform:translateY(-4px);pointer-events:none;
+  transition:opacity .16s ease,transform .16s ease}
+.co-dropdown.show{opacity:1;transform:none;pointer-events:all}
+.co-result{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;
+  transition:background .1s}
+.co-result:hover{background:rgba(12,12,20,.04)}
+.co-result-ico{width:22px;height:22px;border-radius:3px;background:rgba(12,12,20,.06);
+  flex-shrink:0;position:relative;overflow:hidden;border:1px solid var(--bdr)}
+.co-result-img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:contain;padding:3px;background:#fff;opacity:0;transition:opacity .18s}
+.co-result-img.loaded{opacity:1}
+.co-result-name{font-size:13px;font-weight:400;color:var(--t1)}
+.co-result-sub{font-size:10.5px;font-weight:300;color:var(--t3);margin-top:1px}
+.co-divider{height:1px;background:var(--bdr);margin:3px 0}
+.co-create{display:flex;align-items:center;gap:10px;padding:9px 12px;cursor:pointer;
+  transition:background .1s}
+.co-create:hover{background:rgba(241,80,37,.04)}
+.co-create-ico{width:22px;height:22px;border-radius:3px;
+  background:var(--or-bg);border:1px solid rgba(241,80,37,.2);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--or)}
+.co-create-label{font-size:13px;font-weight:400;color:var(--or)}
+.co-create-sub{font-size:10.5px;font-weight:300;color:var(--t3);margin-top:1px}
+.co-no-results{padding:12px;text-align:center;font-size:12px;font-weight:300;color:var(--t3)}
+
+
+/* ══════════════════
+   IMPORT MODAL
+══════════════════ */
+.modal-overlay{position:fixed;inset:0;z-index:100;background:rgba(12,12,20,.28);
+  backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .22s ease}
+.modal-overlay.show{opacity:1;pointer-events:all}
+.modal-sheet{position:absolute;bottom:0;left:0;right:0;
+  background:var(--card);border-radius:var(--r-lg) var(--r-lg) 0 0;
+  padding:0 0 32px;box-shadow:0 -8px 40px rgba(12,12,20,.14);
+  transform:translateY(100%);transition:transform .28s cubic-bezier(.34,1.06,.64,1)}
+.modal-overlay.show .modal-sheet{transform:translateY(0)}
+.modal-handle{width:36px;height:4px;border-radius:2px;background:var(--bdr);
+  margin:12px auto 20px}
+.modal-head{padding:0 22px 16px;border-bottom:1px solid var(--bdr);margin-bottom:8px}
+.modal-title{font-size:16px;font-weight:400;letter-spacing:-.03em;color:var(--t1);margin-bottom:3px}
+.modal-sub{font-size:12px;font-weight:300;color:var(--t3);line-height:1.5}
+.modal-close{position:absolute;top:20px;right:20px;width:28px;height:28px;
+  border-radius:50%;background:rgba(12,12,20,.06);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;color:var(--t2);
+  transition:background .14s}
+.modal-close:hover{background:rgba(12,12,20,.1)}
+.modal-options{display:flex;flex-direction:column;gap:6px;padding:0 22px}
+.modal-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;
+  background:rgba(12,12,20,.02);border:1px solid var(--bdr);border-radius:var(--r-card);
+  cursor:pointer;transition:all .15s}
+.modal-opt:hover{border-color:var(--bdrs);background:rgba(12,12,20,.04);transform:translateX(2px)}
+.modal-opt-ico{width:36px;height:36px;border-radius:var(--r-card);flex-shrink:0;
+  display:flex;align-items:center;justify-content:center}
+.modal-opt-ico.csv{background:rgba(6,229,160,.08);color:var(--mn-t)}
+.modal-opt-ico.sso{background:rgba(241,80,37,.06);color:var(--or)}
+.modal-opt-ico.paste{background:rgba(12,12,20,.05);color:var(--t2)}
+.modal-opt-title{font-size:13px;font-weight:400;color:var(--t1);margin-bottom:2px}
+.modal-opt-desc{font-size:11px;font-weight:300;color:var(--t3);line-height:1.4}
+.modal-paste-area{display:none;padding:0 22px;margin-top:8px}
+.modal-paste-area.show{display:block}
+.modal-paste-inp{width:100%;height:90px;padding:10px 12px;resize:none;
+  border:1px solid var(--bdr);border-radius:var(--r-card);font-family:inherit;
+  font-size:12px;font-weight:300;color:var(--t1);background:rgba(12,12,20,.02);
+  outline:none;transition:border-color .15s;line-height:1.6}
+.modal-paste-inp:focus{border-color:rgba(241,80,37,.35);
+  box-shadow:0 0 0 2.5px rgba(241,80,37,.07)}
+.modal-paste-inp::placeholder{color:var(--t3)}
+.modal-paste-btn{display:flex;align-items:center;justify-content:center;gap:6px;
+  width:100%;padding:11px;margin-top:7px;
+  background:var(--btn);color:var(--bg);border:none;border-radius:var(--r-card);
+  font-family:inherit;font-size:13px;font-weight:400;cursor:pointer;
+  transition:background .15s,transform .13s}
+.modal-paste-btn:hover{background:var(--btn-h);transform:translateY(-1px)}
 </style>
 </head>
 <body>
@@ -688,17 +779,20 @@ body::after{
     </div>
 
     <div class="id-fields">
-      <div class="id-field" onclick="editField('company')" id="field-company">
-        <div class="ifl">
-          <div class="id-ico co" id="co-logo" style="overflow:hidden;padding:0;background:var(--or-bg)">
-            <svg id="co-logo-fallback" width="12" height="12" viewBox="0 0 18 18" fill="none" stroke="var(--or)" stroke-width="1.7" stroke-linecap="round" style="position:absolute"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M5 7V5a4 4 0 018 0v2"/></svg>
+      <div class="co-search-wrap">
+        <div class="id-field" onclick="editField('company')" id="field-company">
+          <div class="ifl">
+            <div class="id-ico co" id="co-logo" style="overflow:hidden;padding:0;background:var(--or-bg)">
+              <svg id="co-logo-fallback" width="12" height="12" viewBox="0 0 18 18" fill="none" stroke="var(--or)" stroke-width="1.7" stroke-linecap="round" style="position:absolute"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M5 7V5a4 4 0 018 0v2"/></svg>
+            </div>
+            <div>
+              <div class="id-lbl">Company</div>
+              <div class="id-val" id="company-val">Stripe</div>
+            </div>
           </div>
-          <div>
-            <div class="id-lbl">Company</div>
-            <div class="id-val" id="company-val">Stripe</div>
-          </div>
+          <div class="id-edit">Edit</div>
         </div>
-        <div class="id-edit">Edit</div>
+        <div class="co-dropdown" id="co-dropdown"></div>
       </div>
 
     </div>
@@ -737,7 +831,8 @@ body::after{
 
     <div class="dept-card" onclick="selectDept('Engineering',this)">
       <div class="dept-ico">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 3l-3 6 3 6M12 3l3 6-3 6M10.5 3l-3 12"/></svg>
+        <!-- terminal: < / > -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 6 2 9 4 12"/><polyline points="14 6 16 9 14 12"/><line x1="11" y1="4.5" x2="7" y2="13.5"/></svg>
       </div>
       <div>
         <div class="dept-label">Engineering</div>
@@ -747,7 +842,8 @@ body::after{
 
     <div class="dept-card" onclick="selectDept('IT',this)">
       <div class="dept-ico">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="3" width="14" height="10" rx="1.5"/><path d="M6 16h6M9 13v3"/></svg>
+        <!-- server rack: two stacked rectangles with status dots -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="3" width="14" height="5" rx="1"/><rect x="2" y="10" width="14" height="5" rx="1"/><circle cx="13.5" cy="5.5" r="1" fill="currentColor" stroke="none"/><circle cx="13.5" cy="12.5" r="1" fill="currentColor" stroke="none"/></svg>
       </div>
       <div>
         <div class="dept-label">IT</div>
@@ -757,7 +853,8 @@ body::after{
 
     <div class="dept-card" onclick="selectDept('Product',this)">
       <div class="dept-ico">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="2" width="6" height="6" rx="1"/><rect x="10" y="2" width="6" height="6" rx="1"/><rect x="2" y="10" width="6" height="6" rx="1"/><rect x="10" y="10" width="6" height="6" rx="1"/></svg>
+        <!-- roadmap: three rows of varying-width bars -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="2" y1="5" x2="11" y2="5"/><line x1="2" y1="9" x2="14" y2="9"/><line x1="2" y1="13" x2="8" y2="13"/></svg>
       </div>
       <div>
         <div class="dept-label">Product</div>
@@ -767,7 +864,8 @@ body::after{
 
     <div class="dept-card" onclick="selectDept('Finance',this)">
       <div class="dept-ico">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M9 2v14M5 5h5.5a2.5 2.5 0 010 5H5m0 0h6a2.5 2.5 0 010 5H5"/></svg>
+        <!-- trending up: arrow chart -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="2 13 6.5 8 10 10.5 16 4"/><polyline points="12 4 16 4 16 8"/></svg>
       </div>
       <div>
         <div class="dept-label">Finance</div>
@@ -777,7 +875,8 @@ body::after{
 
     <div class="dept-card" onclick="selectDept('Operations',this)">
       <div class="dept-ico">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="3"/><path d="M9 2v2M9 14v2M2 9h2M14 9h2M4.22 4.22l1.42 1.42M12.36 12.36l1.42 1.42M4.22 13.78l1.42-1.42M12.36 5.64l1.42-1.42"/></svg>
+        <!-- sliders: three lines with offset handles -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><line x1="2" y1="5" x2="16" y2="5"/><line x1="2" y1="9" x2="16" y2="9"/><line x1="2" y1="13" x2="16" y2="13"/><circle cx="6" cy="5" r="2" fill="var(--card)"/><circle cx="11" cy="9" r="2" fill="var(--card)"/><circle cx="7" cy="13" r="2" fill="var(--card)"/></svg>
       </div>
       <div>
         <div class="dept-label">Operations</div>
@@ -787,7 +886,8 @@ body::after{
 
     <div class="dept-card" onclick="selectDept('Other',this)">
       <div class="dept-ico">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="9" cy="9" r="7"/><path d="M9 12v1M9 6a2 2 0 011.6 3.2C10 10 9 10.5 9 11"/></svg>
+        <!-- briefcase: leadership / exec -->
+        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="2" y="7" width="14" height="9" rx="1.5"/><path d="M6 7V5.5a3 3 0 016 0V7"/><line x1="2" y1="11" x2="16" y2="11"/></svg>
       </div>
       <div>
         <div class="dept-label">Other</div>
@@ -821,7 +921,13 @@ body::after{
   <div class="stack-head">
     <div class="eyebrow">Your stack</div>
     <div class="h1">What tools does your team use?</div>
-    <div class="sub">Add what you know. You can update this anytime in Folio.</div>
+    <div class="sub" style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <span>Add what you know. You can update this anytime in Folio.</span>
+      <button onclick="showImportModal()" style="display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:400;color:var(--or);background:var(--or-bg);border:1px solid rgba(241,80,37,.22);border-radius:var(--r-btn);padding:5px 11px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .15s;flex-shrink:0">
+        <svg width="10" height="10" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M7 1v8M4 6l3 3 3-3M1 10v1a2 2 0 002 2h8a2 2 0 002-2v-1"/></svg>
+        Import tools
+      </button>
+    </div>
   </div>
 
   <div class="stack-search">
@@ -1000,8 +1106,8 @@ body::after{
       </button>
     </div>
 
-    <!-- DISCOVER -->
-    <div class="dest-card discover" onclick="goToApp('discover')">
+    <!-- DISCOVER — coming soon -->
+    <div class="dest-card discover coming-soon">
       <!-- mini mockup: search results -->
       <div class="dest-mockup">
         <div class="mock-bar">
@@ -1034,11 +1140,11 @@ body::after{
         </div>
       </div>
 
-      <span class="dest-tag discover">Discover</span>
+      <span class="dest-tag discover" style="position:relative">Discover <span class="cs-badge" style="position:static;margin-left:6px;vertical-align:middle">Coming soon</span></span>
       <div class="dest-name">What are your peers running?</div>
       <div class="dest-body">Search 17,000+ AI tools across 140,000+ company stacks. Find what's being adopted at your scale, right now.</div>
-      <button class="dest-cta discover">
-        Go to Discover <svg width="9" height="9" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.5 9.5l7-7M9.5 2.5H4M9.5 2.5v5.5"/></svg>
+      <button class="dest-cta disabled">
+        Coming soon
       </button>
     </div>
 
@@ -1091,6 +1197,63 @@ body::after{
   </div>
 
 </div></div>
+
+
+<!-- ══ IMPORT MODAL ════════════════════════ -->
+<div class="modal-overlay" id="import-modal" onclick="closeImportModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-handle"></div>
+    <button class="modal-close" onclick="closeImportModal()">
+      <svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 2l8 8M10 2l-8 8"/></svg>
+    </button>
+    <div class="modal-head">
+      <div class="modal-title">Import your stack</div>
+      <div class="modal-sub">Don't have tools top of mind? Import from your existing sources.</div>
+    </div>
+    <div class="modal-options">
+
+      <div class="modal-opt" onclick="showPasteArea()">
+        <div class="modal-opt-ico paste">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="5" y="2" width="10" height="16" rx="1.5"/><line x1="8" y1="6" x2="12" y2="6"/><line x1="8" y1="9" x2="12" y2="9"/><line x1="8" y1="12" x2="10" y2="12"/></svg>
+        </div>
+        <div>
+          <div class="modal-opt-title">Paste a list</div>
+          <div class="modal-opt-desc">Drop in tool names, one per line</div>
+        </div>
+      </div>
+
+      <div class="modal-opt">
+        <div class="modal-opt-ico csv">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M4 2h8l4 4v12a1 1 0 01-1 1H4a1 1 0 01-1-1V3a1 1 0 011-1z"/><path d="M12 2v4h4"/><path d="M7 11h6M7 14h4"/></svg>
+        </div>
+        <div>
+          <div class="modal-opt-title">Upload CSV</div>
+          <div class="modal-opt-desc">Export from your IT inventory or a spreadsheet</div>
+        </div>
+      </div>
+
+      <div class="modal-opt">
+        <div class="modal-opt-ico sso">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="10" cy="10" r="8"/><path d="M10 6v4l3 3"/><path d="M6 10h-.5M14.5 10H14"/></svg>
+        </div>
+        <div>
+          <div class="modal-opt-title">Connect SSO</div>
+          <div class="modal-opt-desc">Pull provisioned apps from Okta or Azure AD</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-paste-area" id="modal-paste-area">
+      <textarea class="modal-paste-inp" placeholder="GitHub Copilot&#10;Datadog&#10;Snowflake&#10;Linear&#10;…"></textarea>
+      <button class="modal-paste-btn" onclick="importFromPaste()">
+        Add to stack
+        <svg width="11" height="11" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </button>
+    </div>
+
+  </div>
+</div>
 
 
 <script>
@@ -1219,7 +1382,13 @@ function editField(key){
   }
   inp.addEventListener('blur', save);
   inp.addEventListener('keydown', e=>{ if(e.key==='Enter') inp.blur(); });
-  if(key==='company') inp.addEventListener('blur', ()=>loadCompanyLogo(inp.value||prev));
+  if(key==='company'){
+    const dd=document.getElementById('co-dropdown');
+    renderCoDropdown(prev);
+    dd.classList.add('show');
+    inp.addEventListener('input', ()=>renderCoDropdown(inp.value));
+    inp.addEventListener('keydown', e=>{ if(e.key==='Escape') closeCoDropdown(); });
+  }
 }
 
 function confirmIdentity(){
@@ -1358,6 +1527,106 @@ function selectIntent(el,idx){
   el.classList.add('selected'); state.intent=idx;
   const btn=document.getElementById('intent-btn');
   btn.disabled=false; btn.style.opacity='1'; btn.style.cursor='pointer';
+}
+
+/* ── company search ──────────────────── */
+const CO_DATA = [
+  {name:'Stripe',      domain:'stripe.com'},
+  {name:'Salesforce',  domain:'salesforce.com'},
+  {name:'Netflix',     domain:'netflix.com'},
+  {name:'Shopify',     domain:'shopify.com'},
+  {name:'Airbnb',      domain:'airbnb.com'},
+  {name:'Notion',      domain:'notion.so'},
+  {name:'Linear',      domain:'linear.app'},
+  {name:'Figma',       domain:'figma.com'},
+  {name:'Vercel',      domain:'vercel.com'},
+  {name:'GitHub',      domain:'github.com'},
+  {name:'Atlassian',   domain:'atlassian.com'},
+  {name:'Datadog',     domain:'datadoghq.com'},
+];
+
+function renderCoDropdown(query){
+  const dd=document.getElementById('co-dropdown');
+  const q=query.toLowerCase().trim();
+  const results=q ? CO_DATA.filter(c=>c.name.toLowerCase().includes(q)) : CO_DATA.slice(0,6);
+  dd.innerHTML='';
+  if(results.length){
+    results.forEach(co=>{
+      const row=document.createElement('div'); row.className='co-result';
+      const ico=document.createElement('div'); ico.className='co-result-ico';
+      const img=document.createElement('img'); img.className='co-result-img';
+      img.onload=()=>img.classList.add('loaded');
+      img.src='https://www.google.com/s2/favicons?domain='+co.domain+'&sz=32';
+      ico.appendChild(img);
+      const txt=document.createElement('div');
+      txt.innerHTML='<div class="co-result-name">'+co.name+'</div>';
+      row.appendChild(ico); row.appendChild(txt);
+      row.onclick=(e)=>{ e.stopPropagation(); pickCompany(co.name); };
+      dd.appendChild(row);
+    });
+    dd.appendChild(Object.assign(document.createElement('div'),{className:'co-divider'}));
+  } else {
+    dd.appendChild(Object.assign(document.createElement('div'),{className:'co-no-results',textContent:'No results found'}));
+  }
+  const createLabel=query||state.company;
+  const createRow=document.createElement('div'); createRow.className='co-create';
+  createRow.innerHTML='<div class="co-create-ico"><svg width="10" height="10" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="6" y1="1" x2="6" y2="11"/><line x1="1" y1="6" x2="11" y2="6"/></svg></div><div><div class="co-create-label">Create "'+createLabel+'"</div><div class="co-create-sub">Add a new organization</div></div>';
+  createRow.onclick=(e)=>{ e.stopPropagation(); pickCompany(createLabel, true); };
+  dd.appendChild(createRow);
+}
+
+function pickCompany(name, isNew){
+  state.company=name;
+  document.getElementById('company-val').textContent=name;
+  closeCoDropdown();
+  loadCompanyLogo(name);
+  const field=document.getElementById('field-company');
+  field.classList.remove('editing');
+  // restore edit button if it was replaced
+  const inp=field.querySelector('.id-inp');
+  if(inp){
+    const span=document.createElement('div');
+    span.className='id-val'; span.id='company-val'; span.textContent=name;
+    inp.replaceWith(span);
+  }
+}
+
+function closeCoDropdown(){
+  const dd=document.getElementById('co-dropdown');
+  dd.classList.remove('show');
+}
+
+document.addEventListener('click', (e)=>{
+  if(!e.target.closest('.co-search-wrap')) closeCoDropdown();
+});
+
+/* ── import modal ────────────────────── */
+function showImportModal(){
+  document.getElementById('import-modal').classList.add('show');
+}
+function closeImportModal(e){
+  if(e && e.target!==document.getElementById('import-modal')) return;
+  document.getElementById('import-modal').classList.remove('show');
+  document.getElementById('modal-paste-area').classList.remove('show');
+}
+function showPasteArea(){
+  document.getElementById('modal-paste-area').classList.add('show');
+}
+function importFromPaste(){
+  const text=document.querySelector('.modal-paste-inp').value;
+  if(!text.trim()) return;
+  const names=text.split('\n').map(s=>s.trim()).filter(Boolean);
+  names.forEach(name=>{
+    // try to match against TOOLS list, otherwise add as unknown
+    const match=TOOLS.findIndex(t=>t.name.toLowerCase()===name.toLowerCase());
+    if(match>=0 && !TOOLS[match].selected){
+      TOOLS[match].selected=true;
+      const card=document.querySelector('[data-index="'+match+'"]');
+      if(card) card.classList.add('selected');
+    }
+  });
+  updateStackCount(); updateStackBuilt();
+  closeImportModal();
 }
 
 /* ── transition → S4 ────────────────── */
