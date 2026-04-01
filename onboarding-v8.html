@@ -245,45 +245,47 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 /* ══════════════════
    S4 — PRODUCTS
 ══════════════════ */
-.s4-head{width:100%;margin-bottom:18px;opacity:0;animation:up .36s ease forwards .08s}
-.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
-  width:100%;margin-bottom:16px}
+.s4-head{width:100%;margin-bottom:24px;opacity:0;animation:up .36s ease forwards .08s}
+.s4-head .h1{font-size:32px;font-weight:700;letter-spacing:-.04em}
+.s4-head .sub{font-size:15px;margin-top:8px}
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  width:100%;margin-bottom:20px}
 .prod-card{background:var(--card);border:1px solid var(--bdr);
-  border-top:2.5px solid transparent;border-radius:var(--r-card);
-  padding:16px 13px 14px;display:flex;flex-direction:column;align-items:flex-start;
-  box-shadow:var(--sh);opacity:0;
+  border-top:3px solid transparent;border-radius:var(--r-lg);
+  padding:28px 24px 24px;display:flex;flex-direction:column;align-items:flex-start;
+  box-shadow:var(--sh2);opacity:0;
   animation:pop .4s cubic-bezier(.34,1.56,.64,1) forwards;
-  transition:box-shadow .2s,transform .18s}
-.prod-card:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+  transition:box-shadow .22s,transform .2s}
+.prod-card:hover{box-shadow:var(--sh3);transform:translateY(-3px)}
 .prod-card.discover{border-top-color:var(--or)}
 .prod-card.folio{border-top-color:var(--vi)}
 .prod-card.studio{border-top-color:var(--mn)}
 .prod-card:nth-child(1){animation-delay:.14s}
 .prod-card:nth-child(2){animation-delay:.23s}
 .prod-card:nth-child(3){animation-delay:.32s}
-.prod-icon{width:30px;height:30px;border-radius:var(--r-card);
-  display:flex;align-items:center;justify-content:center;margin-bottom:11px}
-.prod-icon.discover{background:var(--or-bg);color:var(--or)}
-.prod-icon.folio{background:var(--vi-bg);color:var(--vi)}
-.prod-icon.studio{background:var(--mn-bg);color:var(--mn-t)}
-.prod-name{font-size:13px;font-weight:600;color:var(--t1);letter-spacing:-.02em;margin-bottom:1px}
-.prod-tag{font-size:9.5px;color:var(--t3);text-transform:uppercase;
-  letter-spacing:.07em;margin-bottom:9px;font-weight:500}
-.prod-body{font-size:11.5px;color:var(--t2);line-height:1.58;flex:1;margin-bottom:10px}
-.prod-stat{font-size:10.5px;font-weight:600;letter-spacing:-.01em;margin-bottom:9px}
+.prod-icon{width:52px;height:52px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.prod-icon.discover{background:rgba(241,80,37,.1);color:var(--or)}
+.prod-icon.folio{background:rgba(91,77,181,.1);color:var(--vi)}
+.prod-icon.studio{background:rgba(6,229,160,.12);color:var(--mn-t)}
+.prod-name{font-size:22px;font-weight:700;color:var(--t1);letter-spacing:-.035em;margin-bottom:4px}
+.prod-tag{font-size:10px;color:var(--t3);text-transform:uppercase;
+  letter-spacing:.1em;margin-bottom:14px;font-weight:600}
+.prod-body{font-size:14px;color:var(--t2);line-height:1.68;flex:1;margin-bottom:20px}
+.prod-stat{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:14px}
 .prod-stat.discover{color:var(--or)}
 .prod-stat.folio{color:var(--vi)}
 .prod-stat.studio{color:var(--mn-t)}
-.prod-link{font-size:11.5px;font-weight:600;display:inline-flex;
-  align-items:center;gap:3px;cursor:pointer;background:none;border:none;
+.prod-link{font-size:14px;font-weight:600;display:inline-flex;
+  align-items:center;gap:4px;cursor:pointer;background:none;border:none;
   font-family:inherit;padding:0;transition:opacity .14s,gap .16s}
-.prod-link:hover{opacity:.65;gap:5px}
+.prod-link:hover{opacity:.65;gap:7px}
 .prod-link.discover{color:var(--or)}
 .prod-link.folio{color:var(--vi)}
 .prod-link.studio{color:var(--mn-t)}
 .s4-footer{opacity:0;animation:up .34s ease forwards .46s}
-.trust-line{text-align:center;margin-top:9px;
-  font-size:10.5px;color:var(--t3);letter-spacing:.01em}
+.trust-line{text-align:center;margin-top:10px;
+  font-size:11px;color:var(--t3);letter-spacing:.01em}
 </style>
 </head>
 <body>
@@ -465,7 +467,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 
 <!-- ══ S4: PRODUCTS ════════════════════════ -->
 <div id="s4" class="screen">
-<div class="sw" style="max-width:480px">
+<div class="sw" style="max-width:920px">
 
   <div class="topbar">
     <button class="back" onclick="goBack('s4','s3')">
@@ -485,7 +487,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
   <div class="prod-grid">
     <div class="prod-card discover">
       <div class="prod-icon discover">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M12.5 12.5l3 3"/></svg>
+        <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="8" cy="8" r="5.5"/><path d="M12.5 12.5l3 3"/></svg>
       </div>
       <div class="prod-name">Discover</div>
       <div class="prod-tag">Market intel</div>
@@ -498,7 +500,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 
     <div class="prod-card folio">
       <div class="prod-icon folio">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"><rect x="2" y="4" width="14" height="11" rx="1.5"/><path d="M6 4V3a1 1 0 011-1h4a1 1 0 011 1v1M2 8h14"/></svg>
+        <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="4" width="14" height="11" rx="1.5"/><path d="M6 4V3a1 1 0 011-1h4a1 1 0 011 1v1M2 8h14"/></svg>
       </div>
       <div class="prod-name">Folio</div>
       <div class="prod-tag">Stack mgmt</div>
@@ -511,7 +513,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;-webkit-font-smoothing:antialias
 
     <div class="prod-card studio">
       <div class="prod-icon studio">
-        <svg width="14" height="14" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"><rect x="3" y="2" width="12" height="14" rx="1.5"/><path d="M6 6h6M6 9h6M6 12h4"/></svg>
+        <svg width="22" height="22" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="2" width="12" height="14" rx="1.5"/><path d="M6 6h6M6 9h6M6 12h4"/></svg>
       </div>
       <div class="prod-name">Studio</div>
       <div class="prod-tag">Decision briefs</div>
