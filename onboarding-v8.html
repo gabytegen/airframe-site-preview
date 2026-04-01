@@ -8,19 +8,19 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --bg:#F6F2F0; --card:#FFFFFF;
-  --t1:#1A1908; --t2:#5C5B52; --t3:#9A9889;
-  --bdr:rgba(26,25,8,.09); --bdrs:rgba(26,25,8,.18);
+  --bg:#F8F9FC; --card:#FFFFFF;
+  --t1:#0C0C14; --t2:#3D3D48; --t3:#5C5C68;
+  --bdr:rgba(12,12,20,.09); --bdrs:rgba(12,12,20,.18);
   --or:#F15025;
   --or-bg:rgba(241,80,37,.05); --or-bdr:rgba(241,80,37,.3);
   --mn:#06E5A0; --mn-t:#069D70;
   --mn-bg:rgba(6,229,160,.07); --mn-bdr:rgba(6,229,160,.25);
-  --btn:#1A1908; --btn-h:#2E2D1C;
-  --btn-s:0 1px 4px rgba(26,25,8,.22),0 1px 2px rgba(26,25,8,.1);
-  --btn-sh:0 4px 14px rgba(26,25,8,.26),0 1px 3px rgba(26,25,8,.12);
-  --sh:0 1px 3px rgba(26,25,8,.07),0 1px 2px rgba(26,25,8,.04);
-  --sh2:0 4px 18px rgba(26,25,8,.09),0 1px 4px rgba(26,25,8,.05);
-  --sh3:0 8px 36px rgba(26,25,8,.11),0 2px 7px rgba(26,25,8,.06);
+  --btn:#0C0C14; --btn-h:#1A1A24;
+  --btn-s:0 1px 4px rgba(12,12,20,.22),0 1px 2px rgba(12,12,20,.1);
+  --btn-sh:0 4px 14px rgba(12,12,20,.26),0 1px 3px rgba(12,12,20,.12);
+  --sh:0 1px 3px rgba(12,12,20,.07),0 1px 2px rgba(12,12,20,.04);
+  --sh2:0 4px 18px rgba(12,12,20,.09),0 1px 4px rgba(12,12,20,.05);
+  --sh3:0 8px 36px rgba(12,12,20,.11),0 2px 7px rgba(12,12,20,.06);
   --r-btn:3px; --r-card:4px; --r-lg:6px;
 }
 html,body{height:100%;margin:0}
@@ -33,18 +33,18 @@ body{
 /* ── dot grid bg ─────────────────── */
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background-image:radial-gradient(rgba(26,25,8,.055) 1px, transparent 1px);
+  background-image:radial-gradient(rgba(12,12,20,.055) 1px, transparent 1px);
   background-size:28px 28px;
 }
 body::after{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse at 60% 40%, rgba(241,80,37,.055) 0%, transparent 58%);
+  background:radial-gradient(ellipse at 65% 35%, rgba(7,8,20,.042) 0%, transparent 60%);
 }
 
 /* ── step indicator ──────────────── */
 .steps{position:fixed;top:22px;left:50%;transform:translateX(-50%);
   display:flex;align-items:center;gap:6px;z-index:200;pointer-events:none}
-.sdot{height:4px;width:4px;border-radius:2px;background:rgba(26,25,8,.14);
+.sdot{height:4px;width:4px;border-radius:2px;background:rgba(12,12,20,.14);
   transition:all .45s cubic-bezier(.34,1.56,.64,1)}
 .sdot.active{width:20px;background:var(--or)}
 .sdot.done{background:var(--mn-t);opacity:.7}
@@ -82,7 +82,7 @@ body::after{
 .ptag{display:inline-block;font-size:10px;font-weight:500;letter-spacing:.14em;
   text-transform:uppercase;border-radius:3px;padding:4px 11px;margin-bottom:4px}
 .ptag-or{color:var(--or);border:1px solid rgba(241,80,37,.28)}
-.ptag-gr{color:rgba(26,25,8,.42);border:1px solid rgba(26,25,8,.16)}
+.ptag-gr{color:rgba(12,12,20,.42);border:1px solid rgba(12,12,20,.16)}
 .ptag-mn{color:var(--mn-t);border:1px solid rgba(6,229,160,.22)}
 
 /* eyebrow (matches site .eyebrow) */
@@ -137,7 +137,7 @@ body::after{
 
 .id-fields{display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
 .id-field{display:flex;align-items:center;justify-content:space-between;
-  padding:11px 13px;background:rgba(26,25,8,.022);border:1px solid var(--bdr);
+  padding:11px 13px;background:rgba(12,12,20,.022);border:1px solid var(--bdr);
   border-radius:var(--r-card);transition:all .15s;cursor:pointer}
 .id-field:hover{border-color:var(--bdrs)}
 .id-field.editing{border-color:rgba(241,80,37,.35);
@@ -146,7 +146,7 @@ body::after{
 .id-ico{width:26px;height:26px;border-radius:var(--r-card);
   display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .id-ico.co{background:var(--or-bg);color:var(--or)}
-.id-ico.ro{background:rgba(26,25,8,.05);color:var(--t2)}
+.id-ico.ro{background:rgba(12,12,20,.05);color:var(--t2)}
 .id-lbl{font-size:9.5px;text-transform:uppercase;letter-spacing:.09em;
   color:var(--t3);margin-bottom:1px;font-weight:500}
 .id-val{font-size:13px;font-weight:400;color:var(--t1);line-height:1}
@@ -246,7 +246,7 @@ body::after{
 .iopt-body{flex:1}
 .iopt-text{font-size:13px;font-weight:400;color:var(--t1);margin-bottom:2px}
 .iopt-hint{font-size:11px;font-weight:300;color:var(--t3)}
-.iopt-arr{width:22px;height:22px;border-radius:50%;background:rgba(26,25,8,.04);
+.iopt-arr{width:22px;height:22px;border-radius:50%;background:rgba(12,12,20,.04);
   display:flex;align-items:center;justify-content:center;
   color:var(--t3);transition:all .16s;flex-shrink:0}
 .iopt:hover .iopt-arr,.iopt.selected .iopt-arr{background:var(--or-bg);color:var(--or)}
@@ -277,27 +277,27 @@ body::after{
 /* mini mockup area */
 .prod-mockup{width:100%;border-radius:var(--r-card);overflow:hidden;
   border:1px solid var(--bdr);margin-bottom:22px;height:100px;
-  background:rgba(26,25,8,.025);position:relative}
+  background:rgba(12,12,20,.025);position:relative}
 .mock-bar{height:22px;display:flex;align-items:center;padding:0 10px;gap:5px;
   border-bottom:1px solid var(--bdr)}
 .mock-dot{width:6px;height:6px;border-radius:50%}
 .mock-content{padding:9px 10px;display:flex;flex-direction:column;gap:5px}
-.mock-row{height:7px;border-radius:2px;background:rgba(26,25,8,.07)}
+.mock-row{height:7px;border-radius:2px;background:rgba(12,12,20,.07)}
 .mock-row.w60{width:60%}
 .mock-row.w80{width:80%}
 .mock-row.w45{width:45%}
 .mock-row.accent{background:var(--or);opacity:.35;width:38%}
 .mock-row.accent-mn{background:var(--mn);opacity:.5;width:50%}
 .mock-tabs{display:flex;gap:4px;padding:5px 10px;border-bottom:1px solid var(--bdr)}
-.mock-tab{font-size:8px;padding:2px 7px;border-radius:2px;color:rgba(26,25,8,.38);
+.mock-tab{font-size:8px;padding:2px 7px;border-radius:2px;color:rgba(12,12,20,.38);
   font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;letter-spacing:.02em}
 .mock-tab.active{background:var(--or-bg);color:var(--or);border:1px solid rgba(241,80,37,.2)}
-.mock-tab.active-vi{background:rgba(26,25,8,.04);color:rgba(26,25,8,.55);border:1px solid rgba(26,25,8,.12)}
+.mock-tab.active-vi{background:rgba(12,12,20,.04);color:rgba(12,12,20,.55);border:1px solid rgba(12,12,20,.12)}
 .mock-tab.active-mn{background:var(--mn-bg);color:var(--mn-t);border:1px solid var(--mn-bdr)}
 .mock-result{display:flex;align-items:center;gap:6px;padding:4px 10px}
 .mock-logo{width:12px;height:12px;border-radius:2px;flex-shrink:0}
 .mock-lines{flex:1;display:flex;flex-direction:column;gap:2px}
-.mock-line{height:5px;border-radius:2px;background:rgba(26,25,8,.09)}
+.mock-line{height:5px;border-radius:2px;background:rgba(12,12,20,.09)}
 .mock-pct{font-size:7.5px;font-family:'Plus Jakarta Sans',sans-serif;
   font-weight:500;color:var(--mn-t);letter-spacing:-.01em}
 .mock-score{font-size:18px;font-family:'Plus Jakarta Sans',sans-serif;
@@ -313,14 +313,14 @@ body::after{
   flex:1;margin-bottom:18px}
 .prod-stat{font-size:14px;font-weight:500;letter-spacing:-.01em;margin-bottom:14px}
 .prod-stat.disc{color:var(--or)}
-.prod-stat.fol{color:rgba(26,25,8,.5)}
+.prod-stat.fol{color:rgba(12,12,20,.5)}
 .prod-stat.stu{color:var(--mn-t)}
 .prod-link{font-size:13px;font-weight:400;display:inline-flex;
   align-items:center;gap:4px;cursor:pointer;background:none;border:none;
   font-family:inherit;padding:0;transition:opacity .13s,gap .15s;letter-spacing:.01em}
 .prod-link:hover{opacity:.6;gap:7px}
 .prod-link.disc{color:var(--or)}
-.prod-link.fol{color:rgba(26,25,8,.48)}
+.prod-link.fol{color:rgba(12,12,20,.48)}
 .prod-link.stu{color:var(--mn-t)}
 
 .s4-footer{opacity:0;animation:up .3s ease forwards .48s}
@@ -331,7 +331,7 @@ body::after{
    S1 intel preview
 ══════════════════ */
 .intel-wrap{margin-bottom:16px;opacity:0;animation:up .4s ease forwards .9s}
-.intel-card{background:rgba(26,25,8,.02);border:1px solid var(--bdr);
+.intel-card{background:rgba(12,12,20,.02);border:1px solid var(--bdr);
   border-radius:var(--r-card);padding:13px 15px;position:relative;overflow:hidden}
 .intel-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1.5px;
   background:linear-gradient(90deg,rgba(6,229,160,.6) 0%,transparent 65%)}
@@ -381,7 +381,7 @@ body::after{
   padding:2px 7px;border-radius:2px;flex-shrink:0;align-self:flex-start}
 .iopt-product.disc{color:var(--or);border:1px solid rgba(241,80,37,.25);background:var(--or-bg)}
 .iopt-product.stu{color:var(--mn-t);border:1px solid var(--mn-bdr);background:var(--mn-bg)}
-.iopt-product.fol{color:rgba(26,25,8,.45);border:1px solid rgba(26,25,8,.15);background:rgba(26,25,8,.025)}
+.iopt-product.fol{color:rgba(12,12,20,.45);border:1px solid rgba(12,12,20,.15);background:rgba(12,12,20,.025)}
 .iopt-preview{font-size:11.5px;font-weight:300;color:var(--mn-t);margin-top:9px;
   padding-top:9px;border-top:1px solid var(--mn-bdr);line-height:1.5;
   max-height:0;overflow:hidden;opacity:0;
@@ -608,7 +608,7 @@ body::after{
           <div class="mock-dot" style="background:#E05252"></div>
           <div class="mock-dot" style="background:#E0A050"></div>
           <div class="mock-dot" style="background:#50C850"></div>
-          <div style="flex:1;height:10px;background:rgba(26,25,8,.05);border-radius:2px;margin:0 8px"></div>
+          <div style="flex:1;height:10px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
         </div>
         <div class="mock-tabs">
           <div class="mock-tab active">Discover</div>
@@ -616,7 +616,7 @@ body::after{
           <div class="mock-tab">Studio</div>
         </div>
         <div class="mock-result">
-          <div class="mock-logo" style="background:rgba(26,25,8,.08)"></div>
+          <div class="mock-logo" style="background:rgba(12,12,20,.08)"></div>
           <div class="mock-lines">
             <div class="mock-line" style="width:55%"></div>
             <div class="mock-line" style="width:38%;background:rgba(241,80,37,.2)"></div>
@@ -624,7 +624,7 @@ body::after{
           <div class="mock-pct">+310%</div>
         </div>
         <div class="mock-result">
-          <div class="mock-logo" style="background:rgba(26,25,8,.06)"></div>
+          <div class="mock-logo" style="background:rgba(12,12,20,.06)"></div>
           <div class="mock-lines">
             <div class="mock-line" style="width:48%"></div>
             <div class="mock-line" style="width:30%"></div>
@@ -652,7 +652,7 @@ body::after{
           <div class="mock-dot" style="background:#E05252"></div>
           <div class="mock-dot" style="background:#E0A050"></div>
           <div class="mock-dot" style="background:#50C850"></div>
-          <div style="flex:1;height:10px;background:rgba(26,25,8,.05);border-radius:2px;margin:0 8px"></div>
+          <div style="flex:1;height:10px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
         </div>
         <div style="display:grid;grid-template-columns:45% 55%;height:78px">
           <div style="border-right:1px solid var(--bdr);padding:8px 10px">
@@ -667,7 +667,7 @@ body::after{
               <div class="mock-line" style="flex:1;width:auto"></div>
             </div>
             <div class="mock-result" style="padding:0;gap:5px">
-              <div class="mock-logo" style="background:rgba(26,25,8,.1)"></div>
+              <div class="mock-logo" style="background:rgba(12,12,20,.1)"></div>
               <div class="mock-line" style="flex:1;width:auto"></div>
             </div>
             <div class="mock-result" style="padding:0;gap:5px">
@@ -697,7 +697,7 @@ body::after{
           <div class="mock-dot" style="background:#E05252"></div>
           <div class="mock-dot" style="background:#E0A050"></div>
           <div class="mock-dot" style="background:#50C850"></div>
-          <div style="flex:1;height:10px;background:rgba(26,25,8,.05);border-radius:2px;margin:0 8px"></div>
+          <div style="flex:1;height:10px;background:rgba(12,12,20,.05);border-radius:2px;margin:0 8px"></div>
         </div>
         <div style="display:grid;grid-template-columns:44% 56%;height:78px">
           <div style="border-right:1px solid var(--bdr);padding:8px 10px;display:flex;flex-direction:column;gap:3px">
