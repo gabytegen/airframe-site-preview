@@ -1375,20 +1375,38 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── ROADMAP ──────────────────────────────────────────── */
 #roadmap { background: var(--light); }
-.roadmap-inner { max-width: 1100px; margin: 0 auto; padding: 60px 80px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-.roadmap-right .feature-list { margin-top: 24px; }
+.roadmap-inner { max-width: 1100px; margin: 0 auto; padding: 60px 80px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.roadmap-left .feature-list { margin-top: 24px; }
+.roadmap-mockup-wrap { width: 100%; }
+.roadmap-mockup-card { background: #0e0f18; border-radius: 8px; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,.15); }
+.roadmap-mock-head { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,.07); display: flex; align-items: center; justify-content: space-between; }
+.roadmap-mock-title { font-size: 10px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.35); }
+.roadmap-mock-badge { font-size: 9px; padding: 2px 8px; background: rgba(6,229,160,.12); color: var(--mint-text); border-radius: 2px; border: 1px solid rgba(6,229,160,.2); }
+.roadmap-mock-item { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,.05); }
+.roadmap-mock-item:last-child { border-bottom: none; }
+.roadmap-mock-rank { font-size: 9px; color: rgba(255,255,255,.25); margin-bottom: 5px; }
+.roadmap-mock-name { font-size: 12px; font-weight: 400; color: rgba(255,255,255,.82); margin-bottom: 8px; }
+.roadmap-mock-bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.roadmap-mock-bar { flex: 1; height: 2px; background: rgba(255,255,255,.07); border-radius: 1px; overflow: hidden; }
+.roadmap-mock-fill { height: 100%; border-radius: 1px; background: var(--orange); }
+.roadmap-mock-pct { font-size: 9px; color: rgba(255,255,255,.35); width: 26px; text-align: right; flex-shrink: 0; }
+.roadmap-mock-meta { font-size: 9px; color: rgba(255,255,255,.3); display: flex; align-items: center; gap: 6px; }
+.roadmap-mock-tag { font-size: 8px; padding: 1px 6px; border-radius: 2px; font-weight: 500; }
+.roadmap-tag-low { background: rgba(6,229,160,.1); color: var(--mint-text); }
+.roadmap-tag-med { background: rgba(229,160,32,.1); color: #C49A2A; }
+.roadmap-mock-foot { padding: 10px 16px; border-top: 1px solid rgba(255,255,255,.05); font-size: 9px; color: rgba(255,255,255,.2); }
 
 /* ── ADVISORY ─────────────────────────────────────────── */
 #advisory { background: var(--light); border-top: 1px solid rgba(26,25,8,.07); }
 .advisory-inner { max-width: 1100px; margin: 0 auto; padding: 80px 80px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .advisory-link { display: inline-block; margin-top: 28px; font-size: 14px; font-weight: 400; color: var(--orange); text-decoration: none; letter-spacing: .01em; }
 .advisory-link:hover { opacity: .75; }
-.advisory-card { background: #fff; border: 1px solid rgba(26,25,8,.09); border-radius: 6px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+.advisory-card { background: #fff; border: 1px solid rgba(26,25,8,.09); border-radius: 6px; padding: 28px; display: flex; flex-direction: column; gap: 20px; }
 .advisory-card-line { display: flex; align-items: center; gap: 12px; }
-.advisory-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(26,25,8,.08); flex-shrink: 0; }
+.advisory-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(26,25,8,.08); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: rgba(26,25,8,.45); letter-spacing: .02em; }
 .advisory-name { font-size: 13px; font-weight: 500; color: rgba(26,25,8,.8); }
-.advisory-role { font-size: 11px; color: rgba(26,25,8,.45); margin-top: 1px; }
-.advisory-quote { font-size: 13px; font-weight: 300; line-height: 1.65; color: rgba(26,25,8,.6); font-style: italic; }
+.advisory-role { font-size: 11px; color: rgba(26,25,8,.45); margin-top: 2px; }
+.advisory-quote { font-size: 14px; font-weight: 300; line-height: 1.7; color: rgba(26,25,8,.65); font-style: italic; }
 
 /* ── FLYWHEEL + SCALE (combined) ──────────────────────── */
 #flywheel { background: var(--light); }
@@ -2395,14 +2413,57 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="roadmap-left">
       <div class="eyebrow" data-reveal>AI Roadmap</div>
       <h2 class="editorial lt" data-reveal data-delay="1">Your tailored AI roadmap.</h2>
-    </div>
-    <div class="roadmap-right" data-reveal data-delay="2">
-      <p class="body-copy lt">Start with the workflows that have proven impact for companies like yours. Skip the experiments that didn't pan out. Learn from what others got wrong before you invest in it.</p>
-      <ul class="feature-list roadmap-right">
+      <p class="body-copy lt" data-reveal data-delay="2">Start with the workflows that have proven impact for companies like yours. Skip the experiments that didn't pan out. Learn from what others got wrong before you invest in it.</p>
+      <ul class="feature-list">
         <li class="feature-item lt" data-reveal data-delay="3"><span class="fdot"></span>Peer-validated workflows ranked by impact</li>
         <li class="feature-item lt" data-reveal data-delay="4"><span class="fdot"></span>Built from 114,000+ real implementations</li>
         <li class="feature-item lt" data-reveal data-delay="5"><span class="fdot"></span>Learn from their mistakes before you make your own</li>
       </ul>
+    </div>
+    <div class="roadmap-mockup-wrap" data-reveal data-delay="2">
+      <div class="roadmap-mockup-card">
+        <div class="roadmap-mock-head">
+          <span class="roadmap-mock-title">AI Roadmap &middot; Your stack</span>
+          <span class="roadmap-mock-badge">114K+ implementations</span>
+        </div>
+        <div class="roadmap-mock-item">
+          <div class="roadmap-mock-rank">#1 &middot; Highest impact for your segment</div>
+          <div class="roadmap-mock-name">Automate contract review &amp; analysis</div>
+          <div class="roadmap-mock-bar-row">
+            <div class="roadmap-mock-bar"><div class="roadmap-mock-fill" style="width:84%"></div></div>
+            <span class="roadmap-mock-pct">84%</span>
+          </div>
+          <div class="roadmap-mock-meta">1,200+ companies &nbsp;&middot;&nbsp; <span class="roadmap-mock-tag roadmap-tag-low">Low risk</span></div>
+        </div>
+        <div class="roadmap-mock-item">
+          <div class="roadmap-mock-rank">#2</div>
+          <div class="roadmap-mock-name">AI-assisted demand forecasting</div>
+          <div class="roadmap-mock-bar-row">
+            <div class="roadmap-mock-bar"><div class="roadmap-mock-fill" style="width:71%"></div></div>
+            <span class="roadmap-mock-pct">71%</span>
+          </div>
+          <div class="roadmap-mock-meta">890+ companies &nbsp;&middot;&nbsp; <span class="roadmap-mock-tag roadmap-tag-med">Medium risk</span></div>
+        </div>
+        <div class="roadmap-mock-item">
+          <div class="roadmap-mock-rank">#3</div>
+          <div class="roadmap-mock-name">Vendor spend intelligence</div>
+          <div class="roadmap-mock-bar-row">
+            <div class="roadmap-mock-bar"><div class="roadmap-mock-fill" style="width:63%"></div></div>
+            <span class="roadmap-mock-pct">63%</span>
+          </div>
+          <div class="roadmap-mock-meta">650+ companies &nbsp;&middot;&nbsp; <span class="roadmap-mock-tag roadmap-tag-low">Low risk</span></div>
+        </div>
+        <div class="roadmap-mock-item">
+          <div class="roadmap-mock-rank">#4</div>
+          <div class="roadmap-mock-name">Customer support automation</div>
+          <div class="roadmap-mock-bar-row">
+            <div class="roadmap-mock-bar"><div class="roadmap-mock-fill" style="width:58%"></div></div>
+            <span class="roadmap-mock-pct">58%</span>
+          </div>
+          <div class="roadmap-mock-meta">1,400+ companies &nbsp;&middot;&nbsp; <span class="roadmap-mock-tag roadmap-tag-low">Low risk</span></div>
+        </div>
+        <div class="roadmap-mock-foot">Based on 114,000+ real implementations &nbsp;&middot;&nbsp; Updated daily</div>
+      </div>
     </div>
   </div>
 </section>
@@ -2419,13 +2480,13 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="advisory-right" data-reveal data-delay="2">
       <div class="advisory-card">
         <div class="advisory-card-line">
-          <div class="advisory-avatar"></div>
+          <div class="advisory-avatar">MT</div>
           <div>
-            <div class="advisory-name">Former Fortune 500 CIO</div>
-            <div class="advisory-role">20+ years in enterprise technology</div>
+            <div class="advisory-name">Michael Torres</div>
+            <div class="advisory-role">Former CIO &middot; Global Technology Company</div>
           </div>
         </div>
-        <p class="advisory-quote">"The hardest part isn't finding the tools. It's knowing which ones your peers actually kept after six months — and why they cut the rest."</p>
+        <p class="advisory-quote">"The hardest part isn't finding the tools. It's knowing which ones your peers actually kept after six months — and why they cut the rest. That's the conversation you need to have before you spend a dollar."</p>
       </div>
     </div>
   </div>
