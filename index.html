@@ -678,6 +678,7 @@ body {
 h2.editorial { font-size: clamp(36px, 4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -.03em; margin-bottom: 16px; }
 h2.editorial.dk { color: var(--text-light); }
 h2.editorial.lt { color: var(--text-dark); }
+#problem h2.editorial { font-size: clamp(26px, 3vw, 42px); }
 
 .body-copy { font-size: 16px; font-weight: 300; line-height: 1.7; margin-bottom: 36px; }
 .body-copy.dk { color: var(--text-ldim); }
@@ -1375,20 +1376,24 @@ h2.editorial.lt { color: var(--text-dark); }
 
 /* ── ROADMAP ──────────────────────────────────────────── */
 #roadmap { background: var(--light); }
-.roadmap-inner { max-width: 1200px; margin: 0 auto; padding: 80px 80px 100px; }
-.roadmap-header { max-width: 560px; margin-bottom: 56px; }
+.roadmap-inner { max-width: 1100px; margin: 0 auto; padding: 80px 80px 100px; }
+.roadmap-header { max-width: 560px; margin-bottom: 52px; }
 .roadmap-header .body-copy { margin-top: 16px; margin-bottom: 0; }
-.roadmap-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-.roadmap-card { background: #fff; border: 1px solid rgba(26,25,8,.09); border-radius: 6px; padding: 24px; display: flex; flex-direction: column; gap: 0; }
-.roadmap-card-rank { font-size: 10px; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; color: rgba(26,25,8,.3); margin-bottom: 14px; }
-.roadmap-card-rank span { color: var(--orange); }
-.roadmap-card-name { font-size: 14px; font-weight: 400; color: rgba(26,25,8,.85); line-height: 1.4; flex: 1; padding-bottom: 24px; }
-.roadmap-card-bar { height: 2px; background: rgba(26,25,8,.08); border-radius: 1px; overflow: hidden; margin-bottom: 12px; }
-.roadmap-card-fill { height: 100%; border-radius: 1px; background: var(--orange); }
-.roadmap-card-meta { display: flex; align-items: flex-end; justify-content: space-between; }
-.roadmap-card-pct { font-size: 28px; font-weight: 300; color: rgba(26,25,8,.8); letter-spacing: -.04em; line-height: 1; }
-.roadmap-card-sub { font-size: 10px; color: rgba(26,25,8,.38); margin-top: 3px; }
-.roadmap-card-tag { font-size: 9px; padding: 2px 7px; border-radius: 2px; font-weight: 500; }
+/* Ranked table */
+.roadmap-table { width: 100%; }
+.roadmap-thead { display: grid; grid-template-columns: 32px 1fr 180px 88px; gap: 32px; padding-bottom: 12px; border-bottom: 1px solid rgba(26,25,8,.12); }
+.roadmap-col { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: rgba(26,25,8,.28); }
+.roadmap-row { display: grid; grid-template-columns: 32px 1fr 180px 88px; gap: 32px; padding: 20px 0; border-bottom: 1px solid rgba(26,25,8,.06); align-items: center; transition: background .15s; }
+.roadmap-row:hover { background: rgba(26,25,8,.018); margin: 0 -20px; padding: 20px 20px; border-radius: 4px; border-bottom-color: transparent; }
+.roadmap-row-num { font-size: 12px; font-weight: 400; color: rgba(26,25,8,.22); font-variant-numeric: tabular-nums; }
+.roadmap-row:first-child .roadmap-row-num { color: var(--orange); font-weight: 500; }
+.roadmap-row-name { font-size: 15px; font-weight: 400; color: rgba(26,25,8,.85); line-height: 1.4; }
+.roadmap-row:first-child .roadmap-row-name { font-weight: 500; }
+.roadmap-row-adoption { display: flex; align-items: center; gap: 10px; }
+.roadmap-row-bar { flex: 1; height: 2px; background: rgba(26,25,8,.08); border-radius: 1px; overflow: hidden; }
+.roadmap-row-fill { height: 100%; background: var(--orange); border-radius: 1px; }
+.roadmap-row-pct { font-size: 13px; font-weight: 400; color: rgba(26,25,8,.55); white-space: nowrap; letter-spacing: -.01em; }
+.roadmap-row-tag { font-size: 10px; padding: 3px 9px; border-radius: 2px; font-weight: 500; display: inline-block; }
 .roadmap-tag-low { background: rgba(6,229,160,.1); color: #069D70; }
 .roadmap-tag-med { background: rgba(229,160,32,.1); color: #9E6B0A; }
 
@@ -1703,8 +1708,13 @@ h2.editorial.lt { color: var(--text-dark); }
   .folio-right { position: static; order: -1; }
 
 
-  .roadmap-inner { grid-template-columns: 1fr; padding: 60px 32px 80px; gap: 40px; }
-  .advisory-inner { grid-template-columns: 1fr; padding: 60px 32px 80px; gap: 40px; }
+  .roadmap-inner { padding: 60px 24px 80px; }
+  .roadmap-thead { display: none; }
+  .roadmap-row { grid-template-columns: 24px 1fr; grid-template-rows: auto auto; gap: 4px 16px; padding: 16px 0; }
+  .roadmap-row:hover { margin: 0; padding: 16px 0; }
+  .roadmap-row-adoption { grid-column: 2; }
+  .roadmap-row-tag { grid-column: 2; }
+  .advisory-inner { padding: 60px 32px 80px; }
   .fly-inner { padding: 80px 32px; }
   .fly-top { grid-template-columns: 1fr; gap: 40px; }
   .fly-outcome-big { font-size: clamp(32px, 6vw, 44px); }
@@ -2410,46 +2420,52 @@ h2.editorial.lt { color: var(--text-dark); }
 <section id="roadmap">
   <div class="roadmap-inner">
     <div class="roadmap-header">
-      <div class="eyebrow" data-reveal>AI Roadmap</div>
-      <h2 class="editorial lt" data-reveal data-delay="1">Your tailored AI roadmap.</h2>
-      <p class="body-copy lt" data-reveal data-delay="2">Start with what's already working for companies like yours. Ranked by adoption, filtered to your segment, built from 114,000+ real implementations.</p>
+      <div class="eyebrow" data-reveal>From Folio</div>
+      <h2 class="editorial lt" data-reveal data-delay="1">Where to focus first.</h2>
+      <p class="body-copy lt" data-reveal data-delay="2">Ranked by peer adoption across 140,000+ company stacks in your segment. Not a consultant's opinion — pattern data from real deployments.</p>
     </div>
-    <div class="roadmap-cards">
-      <div class="roadmap-card" data-reveal>
-        <div class="roadmap-card-rank">#<span>1</span> &middot; Highest impact</div>
-        <div class="roadmap-card-name">Automate contract review &amp; analysis</div>
-        <div class="roadmap-card-bar"><div class="roadmap-card-fill" style="width:84%"></div></div>
-        <div class="roadmap-card-meta">
-          <div><div class="roadmap-card-pct">84%</div><div class="roadmap-card-sub">peer adoption</div></div>
-          <span class="roadmap-card-tag roadmap-tag-low">Low risk</span>
-        </div>
+    <div class="roadmap-table" data-reveal data-delay="3">
+      <div class="roadmap-thead">
+        <span class="roadmap-col">#</span>
+        <span class="roadmap-col">Recommended use case</span>
+        <span class="roadmap-col">Peer adoption</span>
+        <span class="roadmap-col">Risk level</span>
       </div>
-      <div class="roadmap-card" data-reveal data-delay="1">
-        <div class="roadmap-card-rank">#<span>2</span></div>
-        <div class="roadmap-card-name">AI-assisted demand forecasting</div>
-        <div class="roadmap-card-bar"><div class="roadmap-card-fill" style="width:71%"></div></div>
-        <div class="roadmap-card-meta">
-          <div><div class="roadmap-card-pct">71%</div><div class="roadmap-card-sub">peer adoption</div></div>
-          <span class="roadmap-card-tag roadmap-tag-med">Medium risk</span>
+      <div class="roadmap-row">
+        <span class="roadmap-row-num">01</span>
+        <span class="roadmap-row-name">Automate contract review &amp; analysis</span>
+        <div class="roadmap-row-adoption">
+          <div class="roadmap-row-bar"><div class="roadmap-row-fill" style="width:84%"></div></div>
+          <span class="roadmap-row-pct">84%</span>
         </div>
+        <span class="roadmap-row-tag roadmap-tag-low">Low risk</span>
       </div>
-      <div class="roadmap-card" data-reveal data-delay="2">
-        <div class="roadmap-card-rank">#<span>3</span></div>
-        <div class="roadmap-card-name">Vendor spend intelligence</div>
-        <div class="roadmap-card-bar"><div class="roadmap-card-fill" style="width:63%"></div></div>
-        <div class="roadmap-card-meta">
-          <div><div class="roadmap-card-pct">63%</div><div class="roadmap-card-sub">peer adoption</div></div>
-          <span class="roadmap-card-tag roadmap-tag-low">Low risk</span>
+      <div class="roadmap-row">
+        <span class="roadmap-row-num">02</span>
+        <span class="roadmap-row-name">AI-assisted demand forecasting</span>
+        <div class="roadmap-row-adoption">
+          <div class="roadmap-row-bar"><div class="roadmap-row-fill" style="width:71%"></div></div>
+          <span class="roadmap-row-pct">71%</span>
         </div>
+        <span class="roadmap-row-tag roadmap-tag-med">Medium risk</span>
       </div>
-      <div class="roadmap-card" data-reveal data-delay="3">
-        <div class="roadmap-card-rank">#<span>4</span></div>
-        <div class="roadmap-card-name">Customer support automation</div>
-        <div class="roadmap-card-bar"><div class="roadmap-card-fill" style="width:58%"></div></div>
-        <div class="roadmap-card-meta">
-          <div><div class="roadmap-card-pct">58%</div><div class="roadmap-card-sub">peer adoption</div></div>
-          <span class="roadmap-card-tag roadmap-tag-low">Low risk</span>
+      <div class="roadmap-row">
+        <span class="roadmap-row-num">03</span>
+        <span class="roadmap-row-name">Vendor spend intelligence</span>
+        <div class="roadmap-row-adoption">
+          <div class="roadmap-row-bar"><div class="roadmap-row-fill" style="width:63%"></div></div>
+          <span class="roadmap-row-pct">63%</span>
         </div>
+        <span class="roadmap-row-tag roadmap-tag-low">Low risk</span>
+      </div>
+      <div class="roadmap-row">
+        <span class="roadmap-row-num">04</span>
+        <span class="roadmap-row-name">Customer support automation</span>
+        <div class="roadmap-row-adoption">
+          <div class="roadmap-row-bar"><div class="roadmap-row-fill" style="width:58%"></div></div>
+          <span class="roadmap-row-pct">58%</span>
+        </div>
+        <span class="roadmap-row-tag roadmap-tag-low">Low risk</span>
       </div>
     </div>
   </div>
