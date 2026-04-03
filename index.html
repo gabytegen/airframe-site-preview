@@ -1373,6 +1373,23 @@ h2.editorial.lt { color: var(--text-dark); }
 .emodal-explore-btn:hover { opacity: .88; }
 
 
+/* ── ROADMAP ──────────────────────────────────────────── */
+#roadmap { background: var(--light); }
+.roadmap-inner { max-width: 1100px; margin: 0 auto; padding: 60px 80px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+.roadmap-right .feature-list { margin-top: 24px; }
+
+/* ── ADVISORY ─────────────────────────────────────────── */
+#advisory { background: var(--light); border-top: 1px solid rgba(26,25,8,.07); }
+.advisory-inner { max-width: 1100px; margin: 0 auto; padding: 80px 80px 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.advisory-link { display: inline-block; margin-top: 28px; font-size: 14px; font-weight: 400; color: var(--orange); text-decoration: none; letter-spacing: .01em; }
+.advisory-link:hover { opacity: .75; }
+.advisory-card { background: #fff; border: 1px solid rgba(26,25,8,.09); border-radius: 6px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
+.advisory-card-line { display: flex; align-items: center; gap: 12px; }
+.advisory-avatar { width: 36px; height: 36px; border-radius: 50%; background: rgba(26,25,8,.08); flex-shrink: 0; }
+.advisory-name { font-size: 13px; font-weight: 500; color: rgba(26,25,8,.8); }
+.advisory-role { font-size: 11px; color: rgba(26,25,8,.45); margin-top: 1px; }
+.advisory-quote { font-size: 13px; font-weight: 300; line-height: 1.65; color: rgba(26,25,8,.6); font-style: italic; }
+
 /* ── FLYWHEEL + SCALE (combined) ──────────────────────── */
 #flywheel { background: var(--light); }
 .fly-inner { max-width: 1100px; margin: 0 auto; padding: 60px 80px 120px; }
@@ -1669,6 +1686,8 @@ h2.editorial.lt { color: var(--text-dark); }
   .folio-right { position: static; order: -1; }
 
 
+  .roadmap-inner { grid-template-columns: 1fr; padding: 60px 32px 80px; gap: 40px; }
+  .advisory-inner { grid-template-columns: 1fr; padding: 60px 32px 80px; gap: 40px; }
   .fly-inner { padding: 80px 32px; }
   .fly-top { grid-template-columns: 1fr; gap: 40px; }
   .fly-outcome-big { font-size: clamp(32px, 6vw, 44px); }
@@ -2303,7 +2322,7 @@ h2.editorial.lt { color: var(--text-dark); }
   <div class="disc-inner">
     <div class="disc-left">
       <span class="product-tag ptag-orange" data-reveal>Discover</span>
-      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">See what the market is actually running.</h2>
+      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">See what your peers are actually running.</h2>
       <p class="section-body lt" data-reveal data-delay="2">You can read what a vendor claims about adoption. Or you can see what real company stacks actually contain: what your peers are running, what they've replaced, and what's pulling ahead in your segment, filtered to companies that look like yours.</p>
       <ul class="feature-list">
         <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>Peer adoption signals across every software category</li>
@@ -2370,6 +2389,48 @@ h2.editorial.lt { color: var(--text-dark); }
 </section>
 
 <!-- FLYWHEEL -->
+<!-- ROADMAP -->
+<section id="roadmap">
+  <div class="roadmap-inner">
+    <div class="roadmap-left">
+      <div class="eyebrow" data-reveal>AI Roadmap</div>
+      <h2 class="editorial lt" data-reveal data-delay="1">Your tailored AI roadmap.</h2>
+    </div>
+    <div class="roadmap-right" data-reveal data-delay="2">
+      <p class="body-copy lt">Start with the workflows that have proven impact for companies like yours. Skip the experiments that didn't pan out. Learn from what others got wrong before you invest in it.</p>
+      <ul class="feature-list roadmap-right">
+        <li class="feature-item lt" data-reveal data-delay="3"><span class="fdot"></span>Peer-validated workflows ranked by impact</li>
+        <li class="feature-item lt" data-reveal data-delay="4"><span class="fdot"></span>Built from 114,000+ real implementations</li>
+        <li class="feature-item lt" data-reveal data-delay="5"><span class="fdot"></span>Learn from their mistakes before you make your own</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ADVISORY -->
+<section id="advisory">
+  <div class="advisory-inner">
+    <div class="advisory-left">
+      <div class="eyebrow" data-reveal>Expert advisory</div>
+      <h2 class="editorial lt" data-reveal data-delay="1">Talk to a CIO who's already been through it.</h2>
+      <p class="body-copy lt" data-reveal data-delay="2">Airframe connects you with experienced technology leaders who've navigated the same decisions. Direct perspective on your stack, your industry, and where others in your position have gotten it wrong.</p>
+      <a href="https://airframe.ai/expert-network" class="advisory-link" data-reveal data-delay="3">Request a session &rarr;</a>
+    </div>
+    <div class="advisory-right" data-reveal data-delay="2">
+      <div class="advisory-card">
+        <div class="advisory-card-line">
+          <div class="advisory-avatar"></div>
+          <div>
+            <div class="advisory-name">Former Fortune 500 CIO</div>
+            <div class="advisory-role">20+ years in enterprise technology</div>
+          </div>
+        </div>
+        <p class="advisory-quote">"The hardest part isn't finding the tools. It's knowing which ones your peers actually kept after six months — and why they cut the rest."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section id="flywheel">
   <div class="fly-inner">
     <div class="fly-top">
