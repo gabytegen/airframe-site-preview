@@ -291,6 +291,9 @@
   --folio-dark:  #7AAAC8;
   --folio-light: #3A6080;
   --neutral-cta: #1A1908;
+  --discover-txt: #007A8F;
+  --folio-txt:    #2D5A7A;
+  --studio-txt:   #5E7000;
   --mint:        #06E5A0;
   --mint-text:   #069D70;
   --text-dark:   #1A1908;
@@ -683,17 +686,17 @@ body {
 #platform .eyebrow { color: rgba(255,255,255,0.6); }
 #platform .eyebrow::before { background: rgba(255,255,255,0.6); }
 /* Discover section eyebrow override */
-#discover .eyebrow { color: #40D0E8; }
-#discover .eyebrow::before { background: #40D0E8; }
+#discover .eyebrow { color: #007A8F; }
+#discover .eyebrow::before { background: #007A8F; }
 /* Folio section eyebrow override */
-#folio .eyebrow { color: #7AAAC8; }
-#folio .eyebrow::before { background: #7AAAC8; }
+#folio .eyebrow { color: #2D5A7A; }
+#folio .eyebrow::before { background: #2D5A7A; }
 /* Studio section eyebrow override */
-#studio .eyebrow { color: #9AB000; }
-#studio .eyebrow::before { background: #9AB000; }
+#studio .eyebrow { color: #5E7000; }
+#studio .eyebrow::before { background: #5E7000; }
 /* Roadmap eyebrow override — keep consistent with Folio */
-#roadmap .eyebrow { color: #3A6080; }
-#roadmap .eyebrow::before { background: #3A6080; }
+#roadmap .eyebrow { color: #2D5A7A; }
+#roadmap .eyebrow::before { background: #2D5A7A; }
 
 h2.editorial { font-size: clamp(36px, 4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -.03em; margin-bottom: 16px; }
 h2.editorial.dk { color: var(--text-light); }
@@ -938,9 +941,9 @@ h2.editorial.lt { color: var(--text-dark); }
 .ptag-grey { color: rgba(26,25,8,.45); border: 1px solid rgba(26,25,8,.18); }
 .ptag-lt { color: var(--mint-text); border: 1px solid rgba(6,157,112,.3); }
 /* Per-product tags */
-.ptag-discover { color: #40D0E8; border: 1px solid rgba(64,208,232,.3); background: rgba(64,208,232,.08); }
-.ptag-folio    { color: #7AAAC8; border: 1px solid rgba(122,170,200,.25); background: rgba(122,170,200,.08); }
-.ptag-studio   { color: #9AB000; border: 1px solid rgba(200,240,0,.3); background: rgba(200,240,0,.08); }
+.ptag-discover { color: #007A8F; border: 1px solid rgba(0,122,143,.35); background: rgba(64,208,232,.16); font-size: 12px; font-weight: 500; padding: 6px 16px; }
+.ptag-folio    { color: #2D5A7A; border: 1px solid rgba(45,90,122,.3); background: rgba(58,96,128,.12); font-size: 12px; font-weight: 500; padding: 6px 16px; }
+.ptag-studio   { color: #5E7000; border: 1px solid rgba(94,112,0,.32); background: rgba(200,240,0,.18); font-size: 12px; font-weight: 500; padding: 6px 16px; }
 
 .section-h2 { color: var(--text-light); margin-bottom: 16px; }
 .section-h2.lt { color: var(--text-dark); }
@@ -953,9 +956,11 @@ h2.editorial.lt { color: var(--text-dark); }
 .fcheck { color: var(--mint-text); font-size: 12px; margin-top: 2px; flex-shrink: 0; }
 .fdot { width: 5px; height: 5px; border-radius: 50%; background: rgba(26,25,8,.3); margin-top: 7px; flex-shrink: 0; }
 /* Per-product feature list colors */
-#discover .fcheck { color: #40D0E8; }
-#folio .fdot { background: #7AAAC8; }
-#studio .fdot { background: #9AB000; }
+#discover .fcheck { color: #007A8F; font-size: 14px; font-weight: 500; }
+#folio .fcheck    { color: #2D5A7A; font-size: 14px; font-weight: 500; }
+#studio .fcheck   { color: #5E7000; font-size: 14px; font-weight: 500; }
+#folio .fdot { background: #2D5A7A; width: 6px; height: 6px; }
+#studio .fdot { background: #5E7000; width: 6px; height: 6px; }
 
 /* Discover mockup internals: sidebar + results */
 .disc-mockup-body { display: grid; grid-template-columns: 36% 64%; min-height: 280px; }
@@ -2181,6 +2186,31 @@ h2.editorial.lt { color: var(--text-dark); }
 }
 .term-tip:hover .term-def { opacity: 1; }
 
+/* ── PRODUCT SECTION COLOR IDENTITY ──────────────────── */
+#discover { border-top: 4px solid #40D0E8; background: #f3fcfe; }
+#folio    { border-top: 4px solid #3A6080; background: #f3f7fb; }
+#studio   { border-top: 4px solid #C8F000; background: #f9fce8; }
+
+/* Platform section metric numbers — product-colored */
+.metric-discover { color: #40D0E8 !important; }
+.metric-folio    { color: #7AAAC8 !important; }
+.metric-studio   { color: #C8F000 !important; }
+
+/* Section CTA links */
+.section-cta {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 14px; font-weight: 400; text-decoration: none;
+  margin-top: 32px; letter-spacing: .01em;
+  transition: opacity .2s;
+}
+.section-cta:hover { opacity: .7; }
+#discover .section-cta { color: #007A8F; }
+#folio .section-cta    { color: #2D5A7A; }
+#studio .section-cta   { color: #5E7000; }
+
+/* Studio closer border — use bright chartreuse for decorative bar */
+.studio-closer { border-left-color: #C8F000; }
+
 </style>
 </head>
 <body>
@@ -2351,15 +2381,15 @@ h2.editorial.lt { color: var(--text-dark); }
     </div>
     <div class="metric-band" data-reveal data-delay="2">
       <div class="metric-row">
-        <span class="metric-num" data-count="17000" data-suffix="+">0</span>
+        <span class="metric-num metric-discover" data-count="17000" data-suffix="+">0</span>
         <span class="metric-label">tools indexed</span>
       </div>
       <div class="metric-row">
-        <span class="metric-num" data-count="114000" data-suffix="+">0</span>
+        <span class="metric-num metric-studio" data-count="114000" data-suffix="+">0</span>
         <span class="metric-label">case studies</span>
       </div>
       <div class="metric-row">
-        <span class="metric-num" data-count="140000" data-suffix="+">0</span>
+        <span class="metric-num metric-folio" data-count="140000" data-suffix="+">0</span>
         <span class="metric-label">company stacks mapped</span>
       </div>
     </div>
@@ -2376,15 +2406,16 @@ h2.editorial.lt { color: var(--text-dark); }
 <section id="discover">
   <div class="disc-inner">
     <div class="disc-left">
-      <div class="eyebrow" style="color:#40D0E8" data-reveal>Discover</div>
+      <div class="eyebrow" data-reveal>Discover</div>
       <span class="product-tag ptag-discover" data-reveal>Market intelligence</span>
-      <h2 class="editorial section-h2 lt" data-reveal data-delay="1"><span style="color:#40D0E8">See what</span> your peers are actually running.</h2>
+      <h2 class="editorial section-h2 lt" data-reveal data-delay="1"><span style="color:#007A8F">See what</span> your peers are actually running.</h2>
       <p class="section-body lt" data-reveal data-delay="2">You can read what a vendor claims about adoption. Or you can see what real company stacks actually contain: what your peers are running, what they've replaced, and what's pulling ahead in your segment, filtered to companies that look like yours.</p>
       <ul class="feature-list">
         <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>Peer adoption signals across every software category</li>
         <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>Data you won't find in a vendor deck, analyst report, or review site</li>
         <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Compare any tool against what you already run</li>
       </ul>
+      <a href="https://airframe.ai/discover" class="section-cta" data-reveal data-delay="6">Explore Discover →</a>
     </div>
     <div class="mockup-wrap mockup-wrap-disc">
       <div class="demo-frame-wrap">
@@ -2406,16 +2437,17 @@ h2.editorial.lt { color: var(--text-dark); }
       </div>
 
     <div class="folio-right">
-      <div class="eyebrow" style="color:#7AAAC8" data-reveal>Folio</div>
+      <div class="eyebrow" data-reveal>Folio</div>
       <span class="product-tag ptag-folio" data-reveal>Stack grader</span>
-      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">How <span style="color:#7AAAC8">AI-ready</span> is your software stack?</h2>
+      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">How <span style="color:#2D5A7A">AI-ready</span> is your software stack?</h2>
       <p class="section-body lt" data-reveal data-delay="2">Upload your tools and Airframe grades each one against what AI has made possible — what's working, what's redundant, what's holding you back. The output is a grade and a roadmap for any budget conversation.</p>
       <ul class="feature-list">
-        <li class="feature-item lt" data-reveal data-delay="3"><span class="fdot"></span>AI readiness grade across your full stack</li>
-        <li class="feature-item lt" data-reveal data-delay="4"><span class="fdot"></span>Identifies redundant tools and overlapping spend</li>
-        <li class="feature-item lt" data-reveal data-delay="5"><span class="fdot"></span>Flags renewals, pricing model changes, and ownership gaps</li>
-        <li class="feature-item lt" data-reveal data-delay="6"><span class="fdot"></span>Recommends what to keep, cut, or replace</li>
+        <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>AI readiness grade across your full stack</li>
+        <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>Identifies redundant tools and overlapping spend</li>
+        <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Flags renewals, pricing model changes, and ownership gaps</li>
+        <li class="feature-item lt" data-reveal data-delay="6"><span class="fcheck">&#10003;</span>Recommends what to keep, cut, or replace</li>
       </ul>
+      <a href="https://airframe.ai/folio" class="section-cta" data-reveal data-delay="7">Explore Folio →</a>
     </div>
   </div>
 </section>
@@ -2426,17 +2458,18 @@ h2.editorial.lt { color: var(--text-dark); }
 <section id="studio">
   <div class="studio-inner">
     <div class="studio-left">
-      <div class="eyebrow" style="color:#9AB000" data-reveal>Studio</div>
+      <div class="eyebrow" data-reveal>Studio</div>
       <span class="product-tag ptag-studio" data-reveal>Decision structuring</span>
-      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Every software decision <span style="color:#9AB000">your team makes,</span> remembered.</h2>
+      <h2 class="editorial section-h2 lt" data-reveal data-delay="1">Every software decision <span style="color:#5E7000">your team makes,</span> remembered.</h2>
       <p class="section-body lt" data-reveal data-delay="2">Someone bought it, that person left, and now it's just a line item nobody wants to touch.</p>
       <ul class="feature-list">
-        <li class="feature-item lt" data-reveal data-delay="3"><span class="fdot"></span>Structured brief builder for any software evaluation</li>
-        <li class="feature-item lt" data-reveal data-delay="4"><span class="fdot"></span>Tool-by-tool analysis and clear recommendation</li>
-        <li class="feature-item lt" data-reveal data-delay="5"><span class="fdot"></span>Every decision stored automatically in Folio</li>
-        <li class="feature-item lt" data-reveal data-delay="6"><span class="fdot"></span>Full decision history available to your whole team</li>
+        <li class="feature-item lt" data-reveal data-delay="3"><span class="fcheck">&#10003;</span>Structured brief builder for any software evaluation</li>
+        <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>Tool-by-tool analysis and clear recommendation</li>
+        <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Every decision stored automatically in Folio</li>
+        <li class="feature-item lt" data-reveal data-delay="6"><span class="fcheck">&#10003;</span>Full decision history available to your whole team</li>
       </ul>
-      <p class="studio-closer" data-reveal data-delay="7">Over time, Airframe becomes the institutional memory your team has never had for software.</p>
+      <a href="https://airframe.ai/studio" class="section-cta" data-reveal data-delay="7">Explore Studio →</a>
+      <p class="studio-closer" data-reveal data-delay="8">Over time, Airframe becomes the institutional memory your team has never had for software.</p>
     </div>
     <div class="studio-mockup-wrap mockup-wrap-studio">
       <div class="demo-frame-wrap">
@@ -2451,7 +2484,8 @@ h2.editorial.lt { color: var(--text-dark); }
 <section id="roadmap">
   <div class="roadmap-inner">
     <div class="roadmap-header">
-      <div class="eyebrow" data-reveal>From Folio</div>
+      <span class="product-tag ptag-folio" style="margin-bottom:16px" data-reveal>Folio</span>
+      <div class="eyebrow" data-reveal>Roadmap intelligence</div>
       <h2 class="editorial lt" data-reveal data-delay="1">Where to focus first.</h2>
       <p class="body-copy lt" data-reveal data-delay="2">Ranked by peer adoption across 140,000+ company stacks in your segment. Not a consultant's opinion — pattern data from real deployments.</p>
     </div>
