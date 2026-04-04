@@ -1460,9 +1460,9 @@ h2.editorial.lt { color: var(--text-dark); }
   padding: 1px 9px 2px; border-radius: 100px;
   font-size: .88em; font-weight: 600; position: relative; top: -1px;
 }
-.fly-chip-f { background: rgba(122,170,200,.08); color: #3A6080; border: 1px solid rgba(122,170,200,.25); }
-.fly-chip-m { background: rgba(64,208,232,.08); color: #40D0E8; border: 1px solid rgba(64,208,232,.25); }
-.fly-chip-o { background: rgba(200,240,0,.08); color: #9AB000; border: 1px solid rgba(200,240,0,.2); }
+.fly-chip-f { background: rgba(58,96,128,.10); color: #2D5A7A; border: 1px solid rgba(45,90,122,.25); }
+.fly-chip-m { background: rgba(64,208,232,.12); color: #007A8F; border: 1px solid rgba(0,122,143,.25); }
+.fly-chip-o { background: rgba(200,240,0,.12); color: #5E7000; border: 1px solid rgba(94,112,0,.22); }
 .fly-chip-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
 .fly-outcome-big { font-size: clamp(40px, 4.5vw, 60px); font-weight: 200; color: var(--text-dark); letter-spacing: -.05em; line-height: 1.1; margin-bottom: 16px; }
 .fly-outcome-big em { font-style: normal; color: var(--text-dark); }
@@ -2139,11 +2139,29 @@ h2.editorial.lt { color: var(--text-dark); }
 }
 
 
+/* Platform pillars — product-mapped (dark bg, bright colors) */
+.pillar-discover { color: #40D0E8; border-color: rgba(64,208,232,.25); background: rgba(64,208,232,.06); }
+.pillar-folio    { color: #7AAAC8; border-color: rgba(122,170,200,.25); background: rgba(122,170,200,.06); }
+.pillar-studio   { color: #C8F000; border-color: rgba(200,240,0,.22); background: rgba(200,240,0,.05); }
+
+/* Nav active link colors — product-tinted when over each section */
+#nav.light .nav-links a.nav-active[data-section="discover"] { color: #007A8F; }
+#nav.light .nav-links a.nav-active[data-section="folio"]    { color: #2D5A7A; }
+#nav.light .nav-links a.nav-active[data-section="studio"]   { color: #5E7000; }
+
+/* Footer product links — bright product colors on dark bg */
+.footer-nav a[href="#discover"] { color: #40D0E8; }
+.footer-nav a[href="#folio"]    { color: #7AAAC8; }
+.footer-nav a[href="#studio"]   { color: #9AB000; }
+.footer-nav a[href="#discover"]:hover { color: #60D8F0; opacity: 1; }
+.footer-nav a[href="#folio"]:hover    { color: #9ABAC8; opacity: 1; }
+.footer-nav a[href="#studio"]:hover   { color: #B8D800; opacity: 1; }
+
 /* Studio closing line */
 .studio-closer {
   font-size: 16px; font-weight: 400; line-height: 1.5;
   color: var(--text-dark);
-  border-left: 2px solid #9AB000;
+  border-left: 3px solid #C8F000;
   padding-left: 16px;
   margin-top: 56px;
 }
@@ -2373,9 +2391,9 @@ h2.editorial.lt { color: var(--text-dark); }
       <p class="body-copy dk" data-reveal data-delay="2">Not a consultant with a retainer. Not an analyst report funded by the vendors you're evaluating. Airframe continuously indexes the market and tells you what's actually working.</p>
       <p class="body-copy dk" data-reveal data-delay="3">Then it keeps watching — alerting you when a pricing model shifts, a renewal is approaching, a vendor gets acquired, or a better alternative emerges.</p>
       <div class="plat-pillars" data-reveal data-delay="3">
-        <span class="pillar">AI readiness grading</span>
-        <span class="pillar">Stack benchmarking</span>
-        <span class="pillar">Proactive stack alerts</span>
+        <span class="pillar pillar-folio">AI readiness grading</span>
+        <span class="pillar pillar-discover">Stack benchmarking</span>
+        <span class="pillar pillar-studio">Proactive stack alerts</span>
         <span class="pillar muted">No conflicts of interest</span>
       </div>
     </div>
@@ -2562,7 +2580,7 @@ h2.editorial.lt { color: var(--text-dark); }
         <h2 class="editorial lt" data-reveal data-delay="1">The market moves while you're in meetings. <strong>Airframe</strong> keeps up.</h2>
       </div>
       <div class="fly-right" data-reveal data-delay="2">
-        <p class="fly-sentence">Your categories now have 50 to 200 vendors, and they rewrite themselves every quarter. No team reads fast enough. No analyst does either. Airframe runs continuously, so your team doesn't have to. <span class="fly-chip fly-chip-f"><span class="fly-chip-dot" style="background:#7AAAC8"></span>Folio</span> holds your context. <span class="fly-chip fly-chip-m"><span class="fly-chip-dot" style="background:#40D0E8"></span>Discover</span> filters the market to it. <span class="fly-chip fly-chip-o"><span class="fly-chip-dot" style="background:#9AB000"></span>Studio</span> turns every signal into a decision.</p>
+        <p class="fly-sentence">Your categories now have 50 to 200 vendors, and they rewrite themselves every quarter. No team reads fast enough. No analyst does either. Airframe runs continuously, so your team doesn't have to. <span class="fly-chip fly-chip-f"><span class="fly-chip-dot" style="background:#3A6080"></span>Folio</span> holds your context. <span class="fly-chip fly-chip-m"><span class="fly-chip-dot" style="background:#40D0E8"></span>Discover</span> filters the market to it. <span class="fly-chip fly-chip-o"><span class="fly-chip-dot" style="background:#C8F000"></span>Studio</span> turns every signal into a decision.</p>
       </div>
     </div>
   </div>
