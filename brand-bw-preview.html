@@ -694,10 +694,6 @@ body {
 /* Studio section eyebrow override */
 #studio .eyebrow { color: #5E7000; }
 #studio .eyebrow::before { background: #5E7000; }
-/* Roadmap eyebrow override — keep consistent with Folio */
-#roadmap .eyebrow { color: #2D5A7A; }
-#roadmap .eyebrow::before { background: #2D5A7A; }
-
 h2.editorial { font-size: clamp(36px, 4vw, 58px); font-weight: 300; line-height: 1.1; letter-spacing: -.03em; margin-bottom: 16px; }
 h2.editorial.dk { color: var(--text-light); }
 h2.editorial.lt { color: var(--text-dark); }
@@ -1407,29 +1403,6 @@ h2.editorial.lt { color: var(--text-dark); }
 .emodal-explore-btn:hover { opacity: .88; }
 
 
-/* ── ROADMAP ──────────────────────────────────────────── */
-#roadmap { background: var(--light); }
-.roadmap-inner { max-width: 1100px; margin: 0 auto; padding: 80px 80px 100px; }
-.roadmap-header { max-width: 560px; margin-bottom: 52px; }
-.roadmap-header .body-copy { margin-top: 16px; margin-bottom: 0; }
-/* Ranked table */
-.roadmap-table { width: 100%; }
-.roadmap-thead { display: grid; grid-template-columns: 32px 1fr 180px 88px; gap: 32px; padding-bottom: 12px; border-bottom: 1px solid rgba(26,25,8,.12); }
-.roadmap-col { font-size: 10px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: rgba(26,25,8,.28); }
-.roadmap-row { display: grid; grid-template-columns: 32px 1fr 180px 88px; gap: 32px; padding: 20px 0; border-bottom: 1px solid rgba(26,25,8,.06); align-items: center; transition: background .15s; }
-.roadmap-row:hover { background: rgba(26,25,8,.018); margin: 0 -20px; padding: 20px 20px; border-radius: 4px; border-bottom-color: transparent; }
-.roadmap-row-num { font-size: 12px; font-weight: 400; color: rgba(26,25,8,.22); font-variant-numeric: tabular-nums; }
-.roadmap-row:first-child .roadmap-row-num { color: #3A6080; font-weight: 500; }
-.roadmap-row-name { font-size: 15px; font-weight: 400; color: rgba(26,25,8,.85); line-height: 1.4; }
-.roadmap-row:first-child .roadmap-row-name { font-weight: 500; }
-.roadmap-row-adoption { display: flex; align-items: center; gap: 10px; }
-.roadmap-row-bar { flex: 1; height: 2px; background: rgba(26,25,8,.08); border-radius: 1px; overflow: hidden; }
-.roadmap-row-fill { height: 100%; background: #3A6080; border-radius: 1px; }
-.roadmap-row-pct { font-size: 13px; font-weight: 400; color: rgba(26,25,8,.55); white-space: nowrap; letter-spacing: -.01em; }
-.roadmap-row-tag { font-size: 10px; padding: 3px 9px; border-radius: 2px; font-weight: 500; display: inline-block; }
-.roadmap-tag-low { background: rgba(6,229,160,.1); color: #069D70; }
-.roadmap-tag-med { background: rgba(229,160,32,.1); color: #9E6B0A; }
-
 /* ── ADVISORY ─────────────────────────────────────────── */
 #advisory { background: var(--dark); }
 .advisory-inner { max-width: 760px; margin: 0 auto; padding: 100px 80px; text-align: center; }
@@ -1741,12 +1714,6 @@ h2.editorial.lt { color: var(--text-dark); }
   .folio-right { position: static; order: -1; }
 
 
-  .roadmap-inner { padding: 60px 24px 80px; }
-  .roadmap-thead { display: none; }
-  .roadmap-row { grid-template-columns: 24px 1fr; grid-template-rows: auto auto; gap: 4px 16px; padding: 16px 0; }
-  .roadmap-row:hover { margin: 0; padding: 16px 0; }
-  .roadmap-row-adoption { grid-column: 2; }
-  .roadmap-row-tag { grid-column: 2; }
   .advisory-inner { padding: 60px 32px 80px; }
   .fly-inner { padding: 80px 32px; }
   .fly-top { grid-template-columns: 1fr; gap: 40px; }
@@ -2464,6 +2431,7 @@ h2.editorial.lt { color: var(--text-dark); }
         <li class="feature-item lt" data-reveal data-delay="4"><span class="fcheck">&#10003;</span>Identifies redundant tools and overlapping spend</li>
         <li class="feature-item lt" data-reveal data-delay="5"><span class="fcheck">&#10003;</span>Flags renewals, pricing model changes, and ownership gaps</li>
         <li class="feature-item lt" data-reveal data-delay="6"><span class="fcheck">&#10003;</span>Recommends what to keep, cut, or replace</li>
+        <li class="feature-item lt" data-reveal data-delay="7"><span class="fcheck">&#10003;</span>Benchmarked against 140,000+ peer stacks in your segment</li>
       </ul>
       <a href="https://airframe.ai/folio" class="section-cta" data-reveal data-delay="7">Explore Folio →</a>
     </div>
@@ -2492,63 +2460,6 @@ h2.editorial.lt { color: var(--text-dark); }
     <div class="studio-mockup-wrap mockup-wrap-studio">
       <div class="demo-frame-wrap">
         <iframe src="airframe-demo-studio.html" scrolling="no" frameborder="0" loading="lazy"></iframe>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FLYWHEEL -->
-<!-- ROADMAP -->
-<section id="roadmap">
-  <div class="roadmap-inner">
-    <div class="roadmap-header">
-      <span class="product-tag ptag-folio" style="margin-bottom:16px" data-reveal>Folio</span>
-      <div class="eyebrow" data-reveal>Roadmap intelligence</div>
-      <h2 class="editorial lt" data-reveal data-delay="1">Where to focus first.</h2>
-      <p class="body-copy lt" data-reveal data-delay="2">Ranked by peer adoption across 140,000+ company stacks in your segment. Not a consultant's opinion — pattern data from real deployments.</p>
-    </div>
-    <div class="roadmap-table" data-reveal data-delay="3">
-      <div class="roadmap-thead">
-        <span class="roadmap-col">#</span>
-        <span class="roadmap-col">Recommended use case</span>
-        <span class="roadmap-col">Peer adoption</span>
-        <span class="roadmap-col">Risk level</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-row-num">01</span>
-        <span class="roadmap-row-name">Automate contract review &amp; analysis</span>
-        <div class="roadmap-row-adoption">
-          <div class="roadmap-row-bar"><div class="roadmap-row-fill" style="width:84%"></div></div>
-          <span class="roadmap-row-pct">84%</span>
-        </div>
-        <span class="roadmap-row-tag roadmap-tag-low">Low risk</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-row-num">02</span>
-        <span class="roadmap-row-name">AI-assisted demand forecasting</span>
-        <div class="roadmap-row-adoption">
-          <div class="roadmap-row-bar"><div class="roadmap-row-fill" style="width:71%"></div></div>
-          <span class="roadmap-row-pct">71%</span>
-        </div>
-        <span class="roadmap-row-tag roadmap-tag-med">Medium risk</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-row-num">03</span>
-        <span class="roadmap-row-name">Vendor spend intelligence</span>
-        <div class="roadmap-row-adoption">
-          <div class="roadmap-row-bar"><div class="roadmap-row-fill" style="width:63%"></div></div>
-          <span class="roadmap-row-pct">63%</span>
-        </div>
-        <span class="roadmap-row-tag roadmap-tag-low">Low risk</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-row-num">04</span>
-        <span class="roadmap-row-name">Customer support automation</span>
-        <div class="roadmap-row-adoption">
-          <div class="roadmap-row-bar"><div class="roadmap-row-fill" style="width:58%"></div></div>
-          <span class="roadmap-row-pct">58%</span>
-        </div>
-        <span class="roadmap-row-tag roadmap-tag-low">Low risk</span>
       </div>
     </div>
   </div>
